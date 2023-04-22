@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "954661881407",
+    "project_id": "inkfinder-cbfd4",
+    "storage_bucket": "inkfinder-cbfd4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:954661881407:android:b78562a49f2266cdb9da8a",
+        "android_client_info": {
+          "package_name": "com.example.newinked"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "954661881407-dq8taj0n6nenst7qj4vbjfasifjss632.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC4Aw4O-3XUiV5iqgVydUaZdHSrHeb94Po"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "954661881407-dq8taj0n6nenst7qj4vbjfasifjss632.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:954661881407:android:58a778a6c19f8ad1b9da8a",
+        "android_client_info": {
+          "package_name": "com.example.nuevoink"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "954661881407-dq8taj0n6nenst7qj4vbjfasifjss632.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC4Aw4O-3XUiV5iqgVydUaZdHSrHeb94Po"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "954661881407-dq8taj0n6nenst7qj4vbjfasifjss632.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -23,7 +23,7 @@
             android:layout_height="55dp"
             android:layout_marginBottom="164dp"
             android:backgroundTint="@color/black"
-            android:fontFamily="@font/aclonica"
+            android:fontFamily='@font/aclonica'
             android:text="@string/iniciar_sesion"
             android:textColor="#FFFFFF"
             android:textSize="18sp"

@@ -24,8 +24,8 @@
         android:backgroundTint="@color/black"
         android:fontFamily="@font/aclonica"
         android:text="@string/usuario"
-        android:textColor="@android:color/white"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textColor="@android:color/white" />
 
     <Button
         android:id="@+id/btnTatuador2"

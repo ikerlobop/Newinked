@@ -1,3 +1,32 @@
 <resources>
     <string name="app_name">Newinked</string>
+    <string name="registro">REGISTRO</string>
+    <string name="usuario">USUARIO</string>
+    <string name="tatuador">TATUADOR</string>
+    <string name="iniciar_sesion">Iniciar sesión</string>
+    <string name="registrate">Regístrate</string>
+    <string name="registro_de_usuarios">Registro de usuarios</string>
+    <string name="edad">Edad</string>
+    <string name="ubicaci_n">Ubicación</string>
+    <string name="correo_electr_nico">Correo electrónico</string>
+    <string name="contrase_a">Contraseña</string>
+    <string name="contrasena">Password</string>
+    <string name="confirmar_contrasena">Confirmar contraseña</string>
+    <string name="tomar_foto">Tomar foto</string>
+    <string name="seleccionar_foto">Seleccionar foto de Galería</string>
+    <string name="registrarse">Registrarse</string>
+    <string name="nombre_completo">Nombre completo</string>
+    <string name="registro_de_usuarioss">Registro de usuarios</string>
+    <string name="nombre__completo">Nombre Completo</string>
+    <string name="fecha_de_nacimiento">Fecha de nacimiento</string>
+    <string name="ubicacion">Ubicación</string>
+    <string name="correo_electronico">Correo electrónico</string>
+    <string name="password">Contraseña</string>
+    <string name="confirmar_password">Confirmar contraseña</string>
+    <string name="registrarme">Registrarme</string>
+    <string name="subir_imagen">SUBIR IMAGEN</string>
+    <string name="iniciar_sesi_n">INICIAR SESIÓN</string>
+    <string name="registrar">REGISTRATE</string>
+
+
 </resources>

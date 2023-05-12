@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Shape for the button -->
+    <item android:bottom="6dp">
+        <shape android:shape="rectangle">
+            <corners
+                android:bottomLeftRadius="50dp"
+                android:bottomRightRadius="50dp"
+                android:topLeftRadius="0dp"
+                android:topRightRadius="0dp" />
+            <gradient
+                android:startColor="#623EB8"
+                android:endColor="#0D0A19"
+                android:angle="270" />
+        </shape>
+    </item>
+
+    <!-- Shadow for the button -->
+    <item
+        android:left="0dp"
+        android:right="0dp"
+        android:top="0dp"
+        android:bottom="6dp">
+        <shape android:shape="rectangle">
+            <solid android:color="#0D000000" />
+            <corners
+                android:bottomLeftRadius="50dp"
+                android:bottomRightRadius="50dp"
+                android:topLeftRadius="0dp"
+                android:topRightRadius="0dp" />
+            <padding
+                android:left="2dp"
+                android:right="2dp"
+                android:top="2dp"
+                android:bottom="2dp" />
+        </shape>
+    </item>
+</layer-list>

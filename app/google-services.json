@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "954661881407",
+    "firebase_url": "https://inkfinder-cbfd4-default-rtdb.europe-west1.firebasedatabase.app",
     "project_id": "inkfinder-cbfd4",
     "storage_bucket": "inkfinder-cbfd4.appspot.com"
   },
@@ -14,7 +15,7 @@
       },
       "oauth_client": [
         {
-          "client_id": "954661881407-dq8taj0n6nenst7qj4vbjfasifjss632.apps.googleusercontent.com",
+          "client_id": "954661881407-7mseaior7jb37alsa27mqrp29f9ut6in.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
@@ -27,36 +28,7 @@
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "954661881407-dq8taj0n6nenst7qj4vbjfasifjss632.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:954661881407:android:58a778a6c19f8ad1b9da8a",
-        "android_client_info": {
-          "package_name": "com.example.nuevoink"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "954661881407-dq8taj0n6nenst7qj4vbjfasifjss632.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyC4Aw4O-3XUiV5iqgVydUaZdHSrHeb94Po"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "954661881407-dq8taj0n6nenst7qj4vbjfasifjss632.apps.googleusercontent.com",
+              "client_id": "954661881407-7mseaior7jb37alsa27mqrp29f9ut6in.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

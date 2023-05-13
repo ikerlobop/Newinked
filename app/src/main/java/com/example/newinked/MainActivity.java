@@ -11,6 +11,9 @@ import android.view.View;
 import android.widget.Button;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -24,8 +27,12 @@ public class MainActivity extends AppCompatActivity {
 
         registerButton = findViewById(id.registerButton);
         registerButton.setOnClickListener(new View.OnClickListener() {
+
+
+
             @Override
             public void onClick(View v) {
+
                 Intent intent = new Intent(MainActivity.this, RegistroActivity.class);
                 startActivity(intent);
             }

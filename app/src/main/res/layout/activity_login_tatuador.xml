@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    android:orientation="vertical"
+    android:padding="24dp"
+    tools:context=".LoginTatuador">
+
+    <ImageView
+        android:id="@+id/imageViewTatuador"
+        android:layout_width="128dp"
+        android:layout_height="128dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="48dp"
+        android:background="@mipmap/ic_launcher_round"
+        android:contentDescription="@string/todos" />
+
+    <EditText
+        android:id="@+id/emailEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:fontFamily="@font/aclonica"
+        android:hint="@string/usuario_correo"
+        android:inputType="textEmailAddress"
+        android:maxLines="1"
+        android:padding="16dp"
+        android:autofillHints="" />
+
+    <EditText
+        android:id="@+id/contrasenaEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/aclonica"
+        android:hint="@string/contrasena"
+        android:inputType="textPassword"
+        android:maxLines="1"
+        android:padding="16dp"
+        android:autofillHints="" />
+
+    <Button
+        android:id="@+id/loginButtonTatuador"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:backgroundTint="@color/black"
+        android:fontFamily="@font/aclonica"
+        android:text="@string/iniciar_sesion"
+        android:textColor="@android:color/white"
+        android:textSize="16sp" />
+
+</LinearLayout>

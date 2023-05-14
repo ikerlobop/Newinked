@@ -32,8 +32,8 @@ public class RegistroActivity extends AppCompatActivity {
         btnTatuador.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Acciones a realizar cuando se presiona el botón "TATUADOR"
-                // por ejemplo, abrir una nueva actividad de registro para tatuadores
+                Intent intent = new Intent(RegistroActivity.this, FormularioTatuadorRegistro.class);
+                startActivity(intent);
             }
         });
     }

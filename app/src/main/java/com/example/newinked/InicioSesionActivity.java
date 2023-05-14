@@ -1,5 +1,6 @@
 package com.example.newinked;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -23,16 +24,16 @@ public class InicioSesionActivity extends AppCompatActivity {
         btnUsuario2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Acciones a realizar cuando se presiona el botón "USUARIO"
-                // por ejemplo, abrir una nueva actividad de registro para usuarios
+                Intent intent = new Intent(InicioSesionActivity.this, LoginUsuario.class);
+                startActivity(intent);
             }
         });
 
         btnTatuador2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Acciones a realizar cuando se presiona el botón "TATUADOR"
-                // por ejemplo, abrir una nueva actividad de registro para tatuadores
+                Intent intent = new Intent(InicioSesionActivity.this, LoginTatuador.class);
+                startActivity(intent);
             }
         });
     }

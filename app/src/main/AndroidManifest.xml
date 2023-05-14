@@ -15,20 +15,19 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Newinked"
         tools:targetApi="31">
-
+        <activity
+            android:name=".LoginUsuario"
+            android:exported="false" />
         <!-- Establece la actividad SplashActivity como el punto de entrada -->
         <activity
             android:name=".SplashActivity"
             android:exported="true">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
-        </activity>
-
-        <!-- Agrega la actividad MainActivity como una actividad adicional para la app -->
+        </activity> <!-- Agrega la actividad MainActivity como una actividad adicional para la app -->
         <activity
             android:name=".MainActivity"
             android:exported="true" />
@@ -40,6 +39,15 @@
             android:exported="true" />
         <activity
             android:name=".FormularioUsuarioRegistro"
+            android:exported="true" />
+        <activity
+            android:name=".FormularioTatuadorRegistro"
+            android:exported="true" />
+        <activity
+            android:name=".LoginTatuador"
+            android:exported="true" />
+        <activity
+            android:name=".Buscador"
             android:exported="true" />
 
         <meta-data

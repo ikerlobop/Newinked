@@ -27,6 +27,17 @@
     <string name="subir_imagen">SUBIR IMAGEN</string>
     <string name="iniciar_sesi_n">INICIAR SESIÓN</string>
     <string name="registrar">REGISTRATE</string>
+    <string name="registro_de_tatuadores">Registro de Tatuadores</string>
+    <string name="usuarioo">Usuario</string>
+    <string name="passwordd">Contraseña</string>
+    <string name="iniciar_sesionn">Iniciar Sesión</string>
+    <string name="buscador">BUSCADOR</string>
+    <string name="usuario2">Usuario</string>
+    <string name="pass">Contraseña</string>
+    <string name="inicios">Iniciar Sesión</string>
+    <string name="todo">TODO</string>
+    <string name="todos">TODO</string>
+    <string name="usuario_correo">Usuario</string>
 
 
 </resources>

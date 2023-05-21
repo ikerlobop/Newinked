@@ -65,11 +65,27 @@ public class LoginTatuador extends AppCompatActivity {
                                                 @Override
                                                 public void onComplete(@NonNull Task<DataSnapshot> task) {
                                                     if (task.isSuccessful()) {
-                                                        // Si las credenciales son correctas, iniciar la actividad de Buscador
+                                                        // Guardamos la ID del usuario generada en la base de datos
+                                                        String id = mAuth.getCurrentUser().getUid();
+
+                                                        // Obtén la ID generada por Firebase
+                                                        DatabaseReference tatuadorRef = mdatabase.child("tatuadores").child(id);
+                                                        String firebaseId = tatuadorRef.getKey();
+
+                                                        // Utilizar la nueva ID generada en lugar de la obtenida del intent
+                                                        firebaseId = Objects.requireNonNull(firebaseId);
+
+
+                                                        // Si las credenciales son correctas, iniciar la actividad de PerfilTatuador
                                                         Intent intent = new Intent(LoginTatuador.this, PerfilTatuador.class);
+                                                        // Pasar la ID generada por Firebase a la actividad de PerfilTatuador
+                                                        intent.putExtra("id", firebaseId);
+
                                                         startActivity(intent);
                                                         finish();
-                                                    } else {
+
+
+                                                } else {
                                                         // Si las credenciales no coinciden, mostrar un mensaje de error
                                                         Toast.makeText(LoginTatuador.this, "Error al iniciar sesión", Toast.LENGTH_SHORT).show();
                                                     }
@@ -79,6 +95,8 @@ public class LoginTatuador extends AppCompatActivity {
                                     // Si la autenticación con Firebase Auth falla, mostrar un mensaje de error
                                     Toast.makeText(LoginTatuador.this, "Error al autenticar usuario", Toast.LENGTH_SHORT).show();
                                 }
+
+
                             }
                         });
             }

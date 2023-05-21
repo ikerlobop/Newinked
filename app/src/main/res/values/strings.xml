@@ -38,6 +38,12 @@
     <string name="todo">TODO</string>
     <string name="todos">TODO</string>
     <string name="usuario_correo">Usuario</string>
+    <string name="profile_image">Imagen de Perfil</string>
+    <string name="edit_profile">Editar Perfil</string>
+    <string name="user_name_label">Nombre de Usuario</string>
+    <string name="gallery_label">Galería</string>
+    <string name="user_bio_label">Biografía</string>
+    <string name="add_photo">Añadir Foto</string>
 
 
 </resources>

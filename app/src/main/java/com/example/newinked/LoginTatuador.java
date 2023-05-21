@@ -66,7 +66,7 @@ public class LoginTatuador extends AppCompatActivity {
                                                 public void onComplete(@NonNull Task<DataSnapshot> task) {
                                                     if (task.isSuccessful()) {
                                                         // Si las credenciales son correctas, iniciar la actividad de Buscador
-                                                        Intent intent = new Intent(LoginTatuador.this, Buscador.class);
+                                                        Intent intent = new Intent(LoginTatuador.this, PerfilTatuador.class);
                                                         startActivity(intent);
                                                         finish();
                                                     } else {

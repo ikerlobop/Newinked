@@ -47,7 +47,7 @@ public class FormularioTatuadorRegistro extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.formulario_tatuador_registro);
-        
+
         TatuadorNombre = findViewById(R.id.nombreCompletoEditText);
         TatuadorEmail = findViewById(R.id.correoElectronicoEditText);
         botonRegistro = findViewById(R.id.registrarButtonTatuador);

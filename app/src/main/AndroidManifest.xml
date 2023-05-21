@@ -52,6 +52,9 @@
         <activity
             android:name=".Buscador"
             android:exported="true" />
+        <activity
+            android:name=".PerfilTatuador"
+            android:exported="true" />
 
         <meta-data
             android:name="preloaded_fonts"

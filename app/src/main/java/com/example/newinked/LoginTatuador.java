@@ -15,56 +15,75 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.Objects;
 
 public class LoginTatuador extends AppCompatActivity {
 
-    EditText emailEditText, contrasenaEditText;
+    EditText usuarioEditText, contrasenaEditText;
     Button loginButton;
 
-    // FirebaseAuth instance declaration
+    // Declarar una instancia de FirebaseAuth del ámbito de la actividad
     FirebaseAuth mAuth;
+    private DatabaseReference mdatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login_tatuador);
+        setContentView(R.layout.activity_login_usuario);
 
-        // Initialize our FirebaseAuth instance
+        // Obtener una instancia de la base de datos de Firebase
+        mdatabase = FirebaseDatabase.getInstance().getReference();
+
+        // Inicializar la instancia de FirebaseAuth
         mAuth = FirebaseAuth.getInstance();
 
-        // Find our views by their IDs
-        emailEditText = findViewById(R.id.emailEditText);
+        // Referencias a las vistas
+        usuarioEditText = findViewById(R.id.usuarioEditText);
         contrasenaEditText = findViewById(R.id.contrasenaEditText);
-        loginButton = findViewById(R.id.loginButtonTatuador);
+        loginButton = findViewById(R.id.loginButton);
 
-        // Listener for the login button
+        // Listener del botón de inicio de sesión
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String email = emailEditText.getText().toString();
-                String contrasena = contrasenaEditText.getText().toString();
+                final String email = usuarioEditText.getText().toString();
+                final String contrasena = contrasenaEditText.getText().toString();
 
-                if (TextUtils.isEmpty(email) || TextUtils.isEmpty(contrasena)) {
-                    Toast.makeText(LoginTatuador.this, "Por favor, llene todos los campos", Toast.LENGTH_SHORT).show();
-                } else {
-                    // Authenticate our user with Firebase Auth
-                    mAuth.signInWithEmailAndPassword(email, contrasena)
-                            .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                                @Override
-                                public void onComplete(@NonNull Task<AuthResult> task) {
-                                    if (task.isSuccessful()) {
-                                        // If login is successful, redirect our user to the main activity
-                                        Intent intent = new Intent(LoginTatuador.this, Buscador.class);
-                                        startActivity(intent);
-                                        finish(); // Close the current activity to prevent the user from going back to the login screen
-                                    } else {
-                                        // If login fails, show an error message
-                                        Toast.makeText(LoginTatuador.this, "Inicio de sesión fallido, verifique su correo electrónico y contraseña e intente de nuevo", Toast.LENGTH_SHORT).show();
-                                    }
+                // Autenticar al usuario con Firebase Auth
+                mAuth.signInWithEmailAndPassword(email, contrasena)
+                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if (task.isSuccessful()) {
+                                    // Verificar si el correo y la contraseña coinciden en la base de datos
+                                    mdatabase.child("tatuadores").child(mAuth.getCurrentUser().getUid()).get()
+                                            .addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<DataSnapshot> task) {
+                                                    if (task.isSuccessful()) {
+                                                        // Si las credenciales son correctas, iniciar la actividad de Buscador
+                                                        Intent intent = new Intent(LoginTatuador.this, Buscador.class);
+                                                        startActivity(intent);
+                                                        finish();
+                                                    } else {
+                                                        // Si las credenciales no coinciden, mostrar un mensaje de error
+                                                        Toast.makeText(LoginTatuador.this, "Error al iniciar sesión", Toast.LENGTH_SHORT).show();
+                                                    }
+                                                }
+                                            });
+                                } else {
+                                    // Si la autenticación con Firebase Auth falla, mostrar un mensaje de error
+                                    Toast.makeText(LoginTatuador.this, "Error al autenticar usuario", Toast.LENGTH_SHORT).show();
                                 }
-                            });
-                }
+                            }
+                        });
             }
         });
     }
 }
+
+

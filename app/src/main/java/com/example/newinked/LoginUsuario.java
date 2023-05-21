@@ -18,6 +18,9 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthInvalidUserException;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Objects;
 
@@ -28,11 +31,15 @@ public class LoginUsuario extends AppCompatActivity {
 
     // Declarar una instancia de FirebaseAuth del ámbito de la actividad
     FirebaseAuth mAuth;
+    private DatabaseReference mdatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_usuario);
+
+        // Obtener una instancia de la base de datos de Firebase
+        mdatabase = FirebaseDatabase.getInstance().getReference();
 
         // Inicializar la instancia de FirebaseAuth
         mAuth = FirebaseAuth.getInstance();
@@ -46,44 +53,47 @@ public class LoginUsuario extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String email = contrasenaEditText.getText().toString();
-                String contrasena = contrasenaEditText.getText().toString();
+                final String email = usuarioEditText.getText().toString();
+                final String contrasena = contrasenaEditText.getText().toString();
 
-                if (TextUtils.isEmpty(email) || TextUtils.isEmpty(contrasena)) {
-                    Toast.makeText(LoginUsuario.this, "Por favor, llene todos los campos", Toast.LENGTH_SHORT).show();
-                } else {
-                    if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-                        usuarioEditText.setError("El correo electrónico ingresado no es válido");
-                        usuarioEditText.requestFocus();
-                        return;
-                    } else {
-                        // Autenticar al usuario con Firebase Auth
-                        mAuth.signInWithEmailAndPassword(email, contrasena)
-                                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<AuthResult> task) {
-                                        if (task.isSuccessful()) {
-                                            // Si el inicio de sesión es exitoso, redirigir al usuario a la pantalla principal
-                                            Intent intent = new Intent(LoginUsuario.this, Buscador.class);
-                                            startActivity(intent);
-                                            finish(); // Cerrar la actividad actual para evitar que el usuario vuelva a la pantalla de inicio de sesión
-                                        } else {
-                                            try {
-                                                throw Objects.requireNonNull(task.getException());
-                                            } catch (FirebaseAuthInvalidUserException invalidEmail) {
-                                                Toast.makeText(LoginUsuario.this, "La cuenta de correo electrónico no existe", Toast.LENGTH_SHORT).show();
-                                            } catch (
-                                                    FirebaseAuthInvalidCredentialsException invalidPassword) {
-                                                Toast.makeText(LoginUsuario.this, "La contraseña es incorrecta", Toast.LENGTH_SHORT).show();
-                                            } catch (Exception e) {
-                                                Toast.makeText(LoginUsuario.this, "No se pudo iniciar sesión, intente de nuevo", Toast.LENGTH_SHORT).show();
-                                            }
-                                        }
-                                    }
-                                });
-                    }
-                }
+                // Autenticar al usuario con Firebase Auth
+                mAuth.signInWithEmailAndPassword(email, contrasena)
+                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if (task.isSuccessful()) {
+                                    // Verificar si el usuario existe en la base de datos
+                                    mdatabase.child("usuarios").child(mAuth.getCurrentUser().getUid()).get()
+                                            .addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<DataSnapshot> task) {
+                                                    if (task.isSuccessful()) {
+                                                        // Si el usuario existe, iniciar la actividad de Buscador
+                                                        Intent intent = new Intent(LoginUsuario.this, Buscador.class);
+                                                        startActivity(intent);
+                                                        finish();
+                                                    } else {
+                                                        // Si el usuario no existe, mostrar un mensaje de error
+                                                        Toast.makeText(LoginUsuario.this, "Usuario o contraseña incorrectos", Toast.LENGTH_SHORT).show();
+                                                    }
+                                                }
+                                            });
+                                } else {
+                                    // Si la autenticación con Firebase Auth falla, mostrar un mensaje de error
+                                    Toast.makeText(LoginUsuario.this, "Error al autenticar usuario", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
             }
         });
     }
 }
+
+
+
+
+
+
+
+
+

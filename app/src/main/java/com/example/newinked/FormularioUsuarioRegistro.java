@@ -11,6 +11,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -86,6 +87,9 @@ public class FormularioUsuarioRegistro extends AppCompatActivity {
 
                                 // Guardar el objeto Usuario en la base de datos
                                 mdatabase.child("usuarios").push().setValue(usuario);
+
+                                // Escribimos en firebase auth el usuario
+                                FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, contrasena);
 
                                 // Mostrar un mensaje de éxito al usuario
                                 Toast.makeText(FormularioUsuarioRegistro.this, "Usuario registrado correctamente", Toast.LENGTH_SHORT).show();

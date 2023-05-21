@@ -14,7 +14,7 @@
 
         <ImageView
             android:id="@+id/user_profile_image"
-            android:layout_width="100dp"
+            android:layout_width="96dp"
             android:layout_height="100dp"
             android:contentDescription="@string/profile_image" />
 
@@ -24,17 +24,23 @@
             android:layout_height="wrap_content"
             android:text="@string/edit_profile" />
 
-        <TextView
+        <EditText
             android:id="@+id/user_name_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/user_name_label" />
 
-        <TextView
+        <EditText
             android:id="@+id/user_bio_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/user_bio_label" />
+
+        <TextView
+            android:id="@+id/bio_nuevo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TextView" />
 
     </LinearLayout>
 

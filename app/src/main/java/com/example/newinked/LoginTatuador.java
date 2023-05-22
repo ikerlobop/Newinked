@@ -23,7 +23,7 @@ import java.util.Objects;
 
 public class LoginTatuador extends AppCompatActivity {
 
-    EditText usuarioEditText, contrasenaEditText;
+    EditText tatuadorEditText, contrasenaEditText;
     Button loginButton;
 
     // Declarar una instancia de FirebaseAuth del ámbito de la actividad
@@ -33,7 +33,7 @@ public class LoginTatuador extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login_usuario);
+        setContentView(R.layout.activity_login_tatuador);
 
         // Obtener una instancia de la base de datos de Firebase
         mdatabase = FirebaseDatabase.getInstance().getReference();
@@ -42,15 +42,15 @@ public class LoginTatuador extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
         // Referencias a las vistas
-        usuarioEditText = findViewById(R.id.usuarioEditText);
+        tatuadorEditText = findViewById(R.id.emailEditText);
         contrasenaEditText = findViewById(R.id.contrasenaEditText);
-        loginButton = findViewById(R.id.loginButton);
+        loginButton = findViewById(R.id.loginButtonTatuador);
 
         // Listener del botón de inicio de sesión
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final String email = usuarioEditText.getText().toString();
+                final String email = tatuadorEditText.getText().toString();
                 final String contrasena = contrasenaEditText.getText().toString();
 
                 // Autenticar al usuario con Firebase Auth

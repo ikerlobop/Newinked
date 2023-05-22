@@ -44,6 +44,8 @@
     <string name="gallery_label">Galería</string>
     <string name="user_bio_label">Biografía</string>
     <string name="add_photo">Añadir Foto</string>
+    <string name="registrar_cuenta">Registrar cuenta</string>
+    <string name="email">Email\n\n</string>
 
 
 </resources>

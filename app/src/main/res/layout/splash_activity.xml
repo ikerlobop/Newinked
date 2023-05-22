@@ -4,29 +4,31 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
+    android:background="@color/common_google_signin_btn_text_light_pressed"
     android:gravity="center"
     android:orientation="vertical">
 
-    <!-- Agregar la animación Lottie de WELCOME-->
+    <!-- Agregar la animación Lottie de phrases-->
+
+    <!-- Agregar la animación Lottie de LOADING-->
+
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/animation_view2"
-        android:layout_width="247dp"
-        android:layout_height="56dp"
+        android:layout_width="383dp"
+        android:layout_height="106dp"
         android:layout_gravity="center"
         android:adjustViewBounds="true"
         android:scaleType="centerCrop"
-        app:lottie_rawRes="@raw/welcome2"
+        app:lottie_rawRes="@raw/phrases"
         tools:visibility="visible" />
 
-    <!-- Agregar la animación Lottie de LOADING-->
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/animation_view"
         android:layout_width="247dp"
         android:layout_height="204dp"
         android:layout_gravity="center"
         android:adjustViewBounds="true"
-        app:lottie_rawRes="@raw/tattoo"
+        app:lottie_rawRes="@raw/load"
         tools:visibility="visible" />
 
 

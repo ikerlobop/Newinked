@@ -1,5 +1,7 @@
 package com.example.newinked;
 
+import static com.example.newinked.R.id.animation_view2;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -14,7 +16,7 @@ import com.airbnb.lottie.LottieDrawable;
 
 public class SplashActivity extends AppCompatActivity {
 
-    private static final long SPLASH_SCREEN_DELAY = 3000;
+    private static final long SPLASH_SCREEN_DELAY = 5000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,33 +27,14 @@ public class SplashActivity extends AppCompatActivity {
 
         // Establecer la animación de carga WELCOME
         LottieAnimationView animationView2 = findViewById(R.id.animation_view2);
-        animationView2.setAnimation(R.raw.welcome2);
+        animationView2.setAnimation(R.raw.phrases);
         animationView2.playAnimation();
-        animationView2.setRepeatMode(LottieDrawable.REVERSE);
-        animationView2.addAnimatorListener(new Animator.AnimatorListener() {
-            @Override
-            public void onAnimationStart(Animator animator) {
-            }
-
-            @Override
-            public void onAnimationEnd(Animator animator) {
-                animationView2.setProgress(1f);
-                animationView2.cancelAnimation();
-            }
-
-            @Override
-            public void onAnimationCancel(Animator animator) {
-            }
-
-            @Override
-            public void onAnimationRepeat(Animator animator) {
-            }
-        });
+        animationView2.setRepeatCount(ValueAnimator.INFINITE);
 
 
         // Establecer la animación de carga en la pantalla de bienvenida
         LottieAnimationView animationView = findViewById(R.id.animation_view);
-        animationView.setAnimation(R.raw.tattoo);
+        animationView.setAnimation(R.raw.load);
         animationView.setRepeatCount(ValueAnimator.INFINITE); // repite indefinidamente el loading
         animationView.playAnimation();
 

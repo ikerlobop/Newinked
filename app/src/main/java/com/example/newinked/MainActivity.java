@@ -4,21 +4,18 @@ import static com.example.newinked.R.*;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-
-import com.airbnb.lottie.LottieAnimationView;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+import android.widget.TextView;
 
 
 public class MainActivity extends AppCompatActivity {
 
     Button loginButton;
     Button registerButton;
+    TextView aboutTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,8 +25,6 @@ public class MainActivity extends AppCompatActivity {
         registerButton = findViewById(id.registerButton);
         registerButton.setOnClickListener(new View.OnClickListener() {
 
-
-
             @Override
             public void onClick(View v) {
 
@@ -38,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        loginButton = findViewById(id.loginButton);
+        loginButton = findViewById(id.loginButtonUsuario);
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -47,16 +42,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // Establecer la animación de carga WELCOME
-        LottieAnimationView animationViewLogin = findViewById(R.id.lottie1);
-        animationViewLogin.setAnimation(raw.registrate);
-        animationViewLogin.playAnimation();
-        animationViewLogin.setRepeatCount(ValueAnimator.INFINITE);
+        aboutTextView = findViewById(id.tvAbout);
+        aboutTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, AboutActivity.class);
+                startActivity(intent);
+            }
+        });
 
-        // Establecer la animación de carga en la pantalla de bienvenida
-        LottieAnimationView animationViewLogin2 = findViewById(R.id.lottie2);
-        animationViewLogin2.setAnimation(raw.login);
-        animationViewLogin2.playAnimation();
-        animationViewLogin2.setRepeatCount(ValueAnimator.INFINITE);
+
     }
 }

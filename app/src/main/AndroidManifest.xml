@@ -6,7 +6,10 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+    <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
+    <uses-permission android:name="android.permission.READ_MEDIA_AUDIO" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -19,9 +22,11 @@
         android:theme="@style/Theme.Newinked"
         tools:targetApi="31">
         <activity
-            android:name=".LoginUsuario"
+            android:name=".AboutActivity"
             android:exported="false" />
-        <!-- Establece la actividad SplashActivity como el punto de entrada -->
+        <activity
+            android:name=".LoginUsuario"
+            android:exported="false" /> <!-- Establece la actividad SplashActivity como el punto de entrada -->
         <activity
             android:name=".SplashActivity"
             android:exported="true">
@@ -59,6 +64,7 @@
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+
     </application>
 
 </manifest>

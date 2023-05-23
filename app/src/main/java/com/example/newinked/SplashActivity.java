@@ -1,7 +1,5 @@
 package com.example.newinked;
 
-import static com.example.newinked.R.id.animation_view2;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -11,8 +9,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.airbnb.lottie.LottieAnimationView;
 import android.animation.ValueAnimator;
-import android.animation.Animator;
-import com.airbnb.lottie.LottieDrawable;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -33,7 +29,7 @@ public class SplashActivity extends AppCompatActivity {
 
 
         // Establecer la animación de carga en la pantalla de bienvenida
-        LottieAnimationView animationView = findViewById(R.id.animation_view);
+        LottieAnimationView animationView = findViewById(R.id.flecha);
         animationView.setAnimation(R.raw.load);
         animationView.setRepeatCount(ValueAnimator.INFINITE); // repite indefinidamente el loading
         animationView.playAnimation();

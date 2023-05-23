@@ -12,7 +12,7 @@
         android:id="@+id/imageViewTatuador"
         android:layout_width="211dp"
         android:layout_height="208dp"
-        android:background="@drawable/flor5"
+        android:background="@drawable/flor3"
         android:contentDescription="@string/todos"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -44,7 +44,7 @@
 
         <EditText
             android:id="@+id/emailEditText"
-            android:layout_width="279dp"
+            android:layout_width="280dp"
             android:layout_height="wrap_content"
             android:autofillHints=""
             android:background="@drawable/edittext_background"
@@ -86,7 +86,7 @@
 
         <EditText
             android:id="@+id/contrasenaEditText"
-            android:layout_width="282dp"
+            android:layout_width="280dp"
             android:layout_height="wrap_content"
             android:autofillHints=""
             android:background="@drawable/edittext_background"
@@ -103,8 +103,8 @@
 
     <Button
         android:id="@+id/loginButtonTatuador"
-        android:layout_width="293dp"
-        android:layout_height="67dp"
+        android:layout_width="290dp"
+        android:layout_height="70dp"
         android:backgroundTint="#FF1B9C"
         android:fontFamily="@font/roboto_medium"
         android:text="@string/iniciar_sesion"
@@ -121,7 +121,7 @@
         android:id="@+id/registroTextView"
         android:layout_width="110dp"
         android:layout_height="43dp"
-        android:layout_marginBottom="128dp"
+        android:layout_marginTop="32dp"
         android:fontFamily="@font/roboto"
         android:text="@string/registrar_cuenta"
         android:textColor="#FFFFFF"

@@ -26,82 +26,52 @@ public class LoginTatuador extends AppCompatActivity {
     EditText tatuadorEditText, contrasenaEditText;
     Button loginButton;
 
-    // Declarar una instancia de FirebaseAuth del ámbito de la actividad
     FirebaseAuth mAuth;
-    private DatabaseReference mdatabase;
+    DatabaseReference mDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_tatuador);
 
-        // Obtener una instancia de la base de datos de Firebase
-        mdatabase = FirebaseDatabase.getInstance().getReference();
-
-        // Inicializar la instancia de FirebaseAuth
         mAuth = FirebaseAuth.getInstance();
+        mDatabase = FirebaseDatabase.getInstance().getReference();
 
-        // Referencias a las vistas
         tatuadorEditText = findViewById(R.id.emailEditText);
         contrasenaEditText = findViewById(R.id.contrasenaEditText);
         loginButton = findViewById(R.id.loginButtonTatuador);
 
-        // Listener del botón de inicio de sesión
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final String email = tatuadorEditText.getText().toString();
-                final String contrasena = contrasenaEditText.getText().toString();
+                String email = tatuadorEditText.getText().toString();
+                String contrasena = contrasenaEditText.getText().toString();
 
-                // Autenticar al usuario con Firebase Auth
+                if (TextUtils.isEmpty(email) || TextUtils.isEmpty(contrasena)) {
+                    Toast.makeText(LoginTatuador.this, "Por favor, complete todos los campos", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 mAuth.signInWithEmailAndPassword(email, contrasena)
                         .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
-                                    // Verificar si el correo y la contraseña coinciden en la base de datos
-                                    mdatabase.child("tatuadores").child(mAuth.getCurrentUser().getUid()).get()
-                                            .addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-                                                @Override
-                                                public void onComplete(@NonNull Task<DataSnapshot> task) {
-                                                    if (task.isSuccessful()) {
-                                                        // Guardamos la ID del usuario generada en la base de datos
-                                                        String id = mAuth.getCurrentUser().getUid();
+                                    String uid = mAuth.getCurrentUser().getUid();
 
-                                                        // Obtén la ID generada por Firebase
-                                                        DatabaseReference tatuadorRef = mdatabase.child("tatuadores").child(id);
-                                                        String firebaseId = tatuadorRef.getKey();
+                                    DatabaseReference tatuadorRef = mDatabase.child("tatuadores").child(uid);
+                                    String firebaseId = tatuadorRef.getKey();
 
-                                                        // Utilizar la nueva ID generada en lugar de la obtenida del intent
-                                                        firebaseId = Objects.requireNonNull(firebaseId);
-
-
-                                                        // Si las credenciales son correctas, iniciar la actividad de PerfilTatuador
-                                                        Intent intent = new Intent(LoginTatuador.this, PerfilTatuador.class);
-                                                        // Pasar la ID generada por Firebase a la actividad de PerfilTatuador
-                                                        intent.putExtra("id", firebaseId);
-
-                                                        startActivity(intent);
-                                                        finish();
-
-
-                                                } else {
-                                                        // Si las credenciales no coinciden, mostrar un mensaje de error
-                                                        Toast.makeText(LoginTatuador.this, "Error al iniciar sesión", Toast.LENGTH_SHORT).show();
-                                                    }
-                                                }
-                                            });
+                                    Intent intent = new Intent(LoginTatuador.this, PerfilTatuador.class);
+                                    intent.putExtra("id", firebaseId);
+                                    startActivity(intent);
+                                    finish();
                                 } else {
-                                    // Si la autenticación con Firebase Auth falla, mostrar un mensaje de error
-                                    Toast.makeText(LoginTatuador.this, "Error al autenticar usuario", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(LoginTatuador.this, "Error al iniciar sesión", Toast.LENGTH_SHORT).show();
                                 }
-
-
                             }
                         });
             }
         });
     }
 }
-
-

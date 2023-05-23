@@ -3,6 +3,8 @@ package com.example.newinked;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -19,22 +21,20 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 public class PerfilTatuador extends AppCompatActivity {
 
+    private static final int REQUEST_SELECT_IMAGE = 1;
     private ImageView profileImageView;
-    private Button editProfileButton;
     private EditText userNameLabel;
     private EditText userBioLabel;
     private TextView galleryLabel;
     private GridView galleryGridView;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,14 +43,12 @@ public class PerfilTatuador extends AppCompatActivity {
 
         // Inicializar vistas
         profileImageView = findViewById(R.id.user_profile_image);
-        editProfileButton = findViewById(R.id.edit_profile_button);
         userNameLabel = findViewById(R.id.user_name_label);
         userBioLabel = findViewById(R.id.user_bio_label);
         galleryLabel = findViewById(R.id.gallery_label);
         galleryGridView = findViewById(R.id.gallery_gridview);
         Button addPhotoButton = findViewById(R.id.add_photo_button);
         Spinner tattooStyleSpinner = findViewById(R.id.tattoo_style_spinner);
-
 
         // Configurar adaptador para Spinner de estilos de tatuaje
         ArrayAdapter<CharSequence> spinnerAdapter = ArrayAdapter.createFromResource(this, R.array.tattoo_styles, android.R.layout.simple_spinner_item);
@@ -61,7 +59,9 @@ public class PerfilTatuador extends AppCompatActivity {
         addPhotoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Aquí puedes agregar el código para añadir una foto a la galería
+                // Crear un intent para seleccionar imágenes de la galería
+                Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(intent, REQUEST_SELECT_IMAGE);
             }
         });
 
@@ -75,46 +75,78 @@ public class PerfilTatuador extends AppCompatActivity {
 
         String firebaseId = currentUser.getUid(); // Obtén la ID del usuario autenticado
 
-// Aquí puedes agregar el código para recuperar y mostrar la información de perfil de tatuadores
+        // Aquí puedes agregar el código para recuperar y mostrar la información de perfil de tatuadores
+    }
 
-// Si pulsamos el botón "Editar perfil"
-        editProfileButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String nombre = userNameLabel.getText().toString();
-                String biografia = userBioLabel.getText().toString();
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
-                if (TextUtils.isEmpty(nombre) || TextUtils.isEmpty(biografia)) {
-                    Toast.makeText(PerfilTatuador.this, "Por favor, ingresa nombre y biografía", Toast.LENGTH_SHORT).show();
-                    return;
-                }
+        if (requestCode == REQUEST_SELECT_IMAGE && resultCode == RESULT_OK && data != null) {
+            Uri selectedImageUri = data.getData();
+            // Aquí puedes guardar la imagen en la base de datos
+            guardarImagenEnBaseDeDatos(selectedImageUri);
+        }
+    }
 
-                // Actualizar solo el nombre y la biografía del tatuador
-                DatabaseReference tatuadorRef = FirebaseDatabase.getInstance().getReference("tatuadores").child(firebaseId);
-                tatuadorRef.child("nombre").setValue(nombre);
-                tatuadorRef.child("biografia").setValue(biografia)
-                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+    private void guardarImagenEnBaseDeDatos(Uri imageUri) {
+        // Obtén la referencia del usuario actual
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (currentUser == null) {
+            // El usuario no está autenticado, muestra un mensaje de error o inicia sesión.
+            Toast.makeText(PerfilTatuador.this, "Usuario no autenticado", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        String firebaseId = currentUser.getUid(); // Obtén la ID del usuario autenticado
+
+        // Crea una referencia al almacenamiento de Firebase
+        StorageReference storageRef = FirebaseStorage.getInstance().getReference("tatuadores");
+
+        // Crea una referencia única para la imagen
+        String imageFileName = "image_" + System.currentTimeMillis() + ".jpg";
+        StorageReference imageRef = storageRef.child("images/" + firebaseId + "/" + imageFileName);
+
+        // Sube la imagen al almacenamiento de Firebase
+        UploadTask uploadTask = imageRef.putFile(imageUri);
+        uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        // La imagen se ha subido correctamente
+                        // Obtiene la URL de descarga de la imagen
+                        imageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                             @Override
-                            public void onSuccess(Void aVoid) {
-                                // Datos actualizados correctamente
-                                Toast.makeText(PerfilTatuador.this, "Perfil actualizado exitosamente", Toast.LENGTH_SHORT).show();
-
-                                // Realizar las actualizaciones necesarias en la interfaz de usuario si es necesario
-
-                                // Mostrar la biografía en el TextView "bio_nuevo"
-                                TextView bio_nuevo = findViewById(R.id.bio_nuevo);
-                                bio_nuevo.setText(biografia);
-                            }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                // Error al actualizar los datos
-                                Toast.makeText(PerfilTatuador.this, "Error al actualizar el perfil: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                            public void onSuccess(Uri downloadUri) {
+                                // Guarda la URL de la imagen en la base de datos
+                                DatabaseReference tatuadorRef = FirebaseDatabase.getInstance().getReference("tatuadores").child(firebaseId);
+                                tatuadorRef.child("imagen").setValue(downloadUri.toString())
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+                                                // URL de la imagen guardada en la base de datos
+                                                Toast.makeText(PerfilTatuador.this, "Imagen guardada exitosamente", Toast.LENGTH_SHORT).show();
+                                            }
+                                        })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                // Error al guardar la URL de la imagen en la base de datos
+                                                Toast.makeText(PerfilTatuador.this, "Error al guardar la imagen: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                            }
+                                        });
                             }
                         });
-
-            }
-        });
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        // Error al subir la imagen
+                        Toast.makeText(PerfilTatuador.this, "Error al subir la imagen: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
+
 }
+
+

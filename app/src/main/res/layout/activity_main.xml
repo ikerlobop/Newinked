@@ -16,7 +16,7 @@
         tools:ignore="UselessParent">
 
         <TextView
-            android:id="@+id/aboutTextView"
+            android:id="@+id/tvAbout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/about_textview_background"
@@ -32,6 +32,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/loginButtonUsuario"
             app:layout_constraintVertical_bias="0.87" />
+
 
         <Button
             android:id="@+id/loginButtonUsuario"

@@ -15,7 +15,6 @@ public class MainActivity extends AppCompatActivity {
 
     Button loginButton;
     Button registerButton;
-
     TextView aboutTextView;
 
     @Override
@@ -43,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        TextView aboutTextView = findViewById(R.id.aboutTextView);
+        aboutTextView = findViewById(id.tvAbout);
         aboutTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

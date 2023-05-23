@@ -51,6 +51,12 @@
     <string name="acerca_de">Acerca de ...</string>
     <string name="acercade">ACERCA DE ...</string>
     <string name="textview">ACERCA DE ...</string>
+    <string name="inkfinder">¡InkFinder es una aplicación revolucionaria que simplifica la búsqueda de tatuadores en todo el país. Encuentra artistas especializados en diferentes estilos de tatuaje y establece comunicación directa con ellos. Explora sus trabajos y sumérgete en el mundo del arte corporal. Una plataforma intuitiva que te conecta con tatuadores profesionales. Descubre tu próximo tatuaje y conecta con los mejores artistas en InkFinder.</string>
+    <string name="atras">ATRÁS</string>
+    <string name="inkfinderr">INKFINDER</string>
+    <string name="acercadee">Acerca de...</string>
+    <string name="iniciar">INICIAR SESIÓN</string>
+    <string name="todoss">TODO</string>
 
 
 </resources>

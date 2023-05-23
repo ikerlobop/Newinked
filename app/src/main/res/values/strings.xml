@@ -46,6 +46,11 @@
     <string name="add_photo">Añadir Foto</string>
     <string name="registrar_cuenta">Registrar cuenta</string>
     <string name="email">Email\n\n</string>
+    <string name="todoo">TODO</string>
+    <string name="flor1">Flor1</string>
+    <string name="acerca_de">Acerca de ...</string>
+    <string name="acercade">ACERCA DE ...</string>
+    <string name="textview">ACERCA DE ...</string>
 
 
 </resources>

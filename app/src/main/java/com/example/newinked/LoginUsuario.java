@@ -2,8 +2,6 @@ package com.example.newinked;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
-import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,18 +14,14 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
-import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.util.Objects;
-
 public class LoginUsuario extends AppCompatActivity {
 
     EditText usuarioEditText, contrasenaEditText;
-    Button loginButton;
+    Button loginButtonUsuario;
 
     // Declarar una instancia de FirebaseAuth del ámbito de la actividad
     FirebaseAuth mAuth;
@@ -47,10 +41,10 @@ public class LoginUsuario extends AppCompatActivity {
         // Referencias a las vistas
         usuarioEditText = findViewById(R.id.usuarioEditText);
         contrasenaEditText = findViewById(R.id.contrasenaEditText);
-        loginButton = findViewById(R.id.loginButton);
+        loginButtonUsuario = findViewById(R.id.loginButtonUsuario);
 
         // Listener del botón de inicio de sesión
-        loginButton.setOnClickListener(new View.OnClickListener() {
+        loginButtonUsuario.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 final String email = usuarioEditText.getText().toString();

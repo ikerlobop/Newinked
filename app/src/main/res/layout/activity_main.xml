@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
+    android:background="@color/common_google_signin_btn_text_light_pressed"
     android:padding="16dp"
     tools:context=".MainActivity">
 
@@ -16,33 +15,52 @@
         android:orientation="vertical"
         tools:ignore="UselessParent">
 
+        <TextView
+            android:id="@+id/aboutTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/about_textview_background"
+            android:fontFamily="@font/roboto_medium"
+            android:padding="8dp"
+            android:text="@string/acercade"
+            android:textColor="#FF1B9C"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.935"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/loginButtonUsuario"
+            app:layout_constraintVertical_bias="0.87" />
 
         <Button
-            android:id="@+id/loginButton"
-            android:layout_width="264dp"
-            android:layout_height="55dp"
+            android:id="@+id/loginButtonUsuario"
+            android:layout_width="260dp"
+            android:layout_height="60dp"
             android:layout_marginBottom="164dp"
-            android:backgroundTint="@color/black"
-            android:fontFamily='@font/aclonica'
+            android:background="@drawable/edittext_background"
+            android:backgroundTint="#FF1B9C"
+            android:fontFamily='@font/roboto_medium'
             android:text="@string/iniciar_sesion"
             android:textColor="#FFFFFF"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.556"
+            app:layout_constraintHorizontal_bias="0.495"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.947"
+            app:layout_constraintVertical_bias="1.0"
             tools:layout_conversion_absoluteHeight="48dp"
             tools:layout_conversion_absoluteWidth="379dp" />
 
         <Button
             android:id="@+id/registerButton"
             style="@style/Widget.AppCompat.Button"
-            android:layout_width="261dp"
-            android:layout_height="55dp"
-            android:backgroundTint="@color/black"
-            android:fontFamily="@font/aclonica"
+            android:layout_width="260dp"
+            android:layout_height="60dp"
+            android:background="@drawable/edittext_background"
+            android:backgroundTint="#FF1B9C"
+            android:fontFamily="@font/roboto_medium"
             android:text="@string/registrar"
             android:textColor="#FFFFFF"
             android:textSize="18sp"
@@ -53,39 +71,34 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.33"
             tools:layout_conversion_absoluteHeight="48dp"
-            tools:layout_conversion_absoluteWidth="379dp" />
+            tools:layout_conversion_absoluteWidth="379dp"
+            tools:text="REGISTRAR CUENTA" />
 
-        <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/lottie1"
-            android:layout_width="216dp"
-            android:layout_height="204dp"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:layout_gravity="center"
-            android:adjustViewBounds="true"
-            android:scaleType="centerCrop"
-            app:layout_constraintBottom_toBottomOf="parent"
+        <ImageView
+            android:id="@+id/ivFlor1"
+            android:layout_width="150dp"
+            android:layout_height="140dp"
+            android:contentDescription="@string/flor1"
+            app:layout_constraintBottom_toTopOf="@+id/registerButton"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.496"
+            app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.129"
-            app:lottie_rawRes="@raw/registrate"
-            tools:visibility="visible" />
+            app:layout_constraintVertical_bias="1.0"
+            app:srcCompat="@drawable/principal3" />
 
-        <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/lottie2"
-            android:layout_width="250dp"
-            android:layout_height="178dp"
-            android:layout_gravity="center"
-            android:adjustViewBounds="true"
-            app:layout_constraintBottom_toBottomOf="parent"
+        <ImageView
+            android:id="@+id/ivFlor2"
+            android:layout_width="150dp"
+            android:layout_height="140dp"
+            android:contentDescription="@string/todoo"
+            app:layout_constraintBottom_toTopOf="@+id/loginButtonUsuario"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.623"
-            app:lottie_rawRes="@raw/login"
-            tools:visibility="visible" />
+            app:layout_constraintTop_toBottomOf="@+id/registerButton"
+            app:layout_constraintVertical_bias="1.0"
+            app:srcCompat="@drawable/logocirculo" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

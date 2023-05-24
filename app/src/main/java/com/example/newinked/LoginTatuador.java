@@ -16,8 +16,10 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.Objects;
 
@@ -28,6 +30,7 @@ public class LoginTatuador extends AppCompatActivity {
 
     FirebaseAuth mAuth;
     DatabaseReference mDatabase;
+    DataSnapshot snapshot;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,13 +60,28 @@ public class LoginTatuador extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
+                                    DatabaseReference tatuadorRef = mDatabase.child("tatuadores").orderByChild("email").equalTo(email).getRef();
+                                    tatuadorRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                            if (snapshot.exists()) {
+                                                String tatuadorId = snapshot.getChildren().iterator().next().getKey();
+                                                // Aquí tienes el ID del tatuador
+                                                // Pasa el ID a la actividad PerfilTatuador
+                                                Intent intent = new Intent(LoginTatuador.this, PerfilTatuador.class);
+                                                intent.putExtra("tatuadorId", tatuadorId);
+                                                startActivity(intent);
+                                                finish();
+                                            } else {
+                                                Toast.makeText(LoginTatuador.this, "No se encontró ningún tatuador con este correo electrónico", Toast.LENGTH_SHORT).show();
+                                            }
+                                        }
 
-                                    String tatuadorId = "-NWCA1lQJPdVy_FzTwfe"; // Obtén el ID del tatuador de alguna manera
-                                    Intent intent = new Intent(LoginTatuador.this, PerfilTatuador.class);
-                                    intent.putExtra("tatuadorId", tatuadorId);
-
-                                    startActivity(intent);
-                                    finish();
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError error) {
+                                            // Maneja el error
+                                        }
+                                    });
                                 } else {
                                     Toast.makeText(LoginTatuador.this, "Error al iniciar sesión", Toast.LENGTH_SHORT).show();
                                 }

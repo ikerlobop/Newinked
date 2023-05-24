@@ -41,6 +41,8 @@ public class PerfilTatuador extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_perfil_tatuador);
 
+        String tatuadorId = getIntent().getStringExtra("tatuadorId");
+
         // Inicializar vistas
         profileImageView = findViewById(R.id.user_profile_image);
         userNameLabel = findViewById(R.id.user_name_label);
@@ -59,8 +61,6 @@ public class PerfilTatuador extends AppCompatActivity {
         addPhotoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Obtén el ID del tatuador
-                String tatuadorId = getIntent().getStringExtra("tatuadorId"); // Obtén el ID del tatuador de alguna manera
 
                 // Crear un intent para seleccionar imágenes de la galería
                 Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);

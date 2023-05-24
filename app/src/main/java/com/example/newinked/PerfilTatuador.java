@@ -115,10 +115,12 @@ public class PerfilTatuador extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Crear un intent para seleccionar múltiples imágenes de la galería
-                Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                // Crear un intent para seleccionar múltiples imágenes de la galería
+                Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
                 intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                 intent.setType("image/*");
-                startActivityForResult(Intent.createChooser(intent, "Seleccionar imágenes"), REQUEST_SELECT_IMAGE);
+                startActivityForResult(intent, REQUEST_SELECT_IMAGE);
             }
         });
 

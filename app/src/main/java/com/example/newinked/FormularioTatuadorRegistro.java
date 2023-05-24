@@ -17,30 +17,17 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-//firestore
-import com.google.firebase.firestore.FirebaseFirestore;
-
-
 
 public class FormularioTatuadorRegistro extends AppCompatActivity {
 
-
     private EditText TatuadorNombre;
-
     private EditText TatuadorEmail;
-
     private EditText TatuadorContrasena;
-
     private EditText ConfirmaTatuadorContrasena;
-
-    private static final int AUTOCOMPLETE_REQUEST_CODE = 1;
     private EditText TatuadorUbicacion;
-
-
-    Button botonRegistro;
-
+    private Button botonRegistro;
     private DatabaseReference mdatabase;
-
+    private String idTatuador;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -58,26 +45,24 @@ public class FormularioTatuadorRegistro extends AppCompatActivity {
         // Obtener una instancia de la base de datos de Firebase
         mdatabase = FirebaseDatabase.getInstance().getReference();
 
-        // Agregar un listener al botón de registro para guardar el objeto Usuario en la base de datos al pulsar
+        // Agregar un listener al botón de registro para guardar el objeto Tatuador en la base de datos al pulsar
         botonRegistro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Obtener los valores ingresados por el usuario
-        String nombre = TatuadorNombre.getText().toString();
-        String email = TatuadorEmail.getText().toString();
-        String contrasena = TatuadorContrasena.getText().toString();
-        String confirmaContrasena = ConfirmaTatuadorContrasena.getText().toString();
-        String ubicacion = TatuadorUbicacion.getText().toString();
-
-
+                String nombre = TatuadorNombre.getText().toString();
+                String email = TatuadorEmail.getText().toString();
+                String contrasena = TatuadorContrasena.getText().toString();
+                String confirmaContrasena = ConfirmaTatuadorContrasena.getText().toString();
+                String ubicacion = TatuadorUbicacion.getText().toString();
 
                 // Validar que los campos no estén vacíos
                 if (nombre.isEmpty() || email.isEmpty() || contrasena.isEmpty() || confirmaContrasena.isEmpty() || ubicacion.isEmpty()) {
                     Toast.makeText(FormularioTatuadorRegistro.this, "Por favor, llene todos los campos", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                //que coincidan las contraseñas
-                else if  (!contrasena.equals(confirmaContrasena)) {
+                // Que coincidan las contraseñas
+                else if (!contrasena.equals(confirmaContrasena)) {
                     Toast.makeText(FormularioTatuadorRegistro.this, "Las contraseñas no coinciden", Toast.LENGTH_SHORT).show();
                     return;
                 } else {
@@ -90,29 +75,32 @@ public class FormularioTatuadorRegistro extends AppCompatActivity {
                                 Toast.makeText(FormularioTatuadorRegistro.this, "Ya existe un usuario con este correo electrónico", Toast.LENGTH_SHORT).show();
                                 return;
                             } else {
-                                // Crear un objeto Usuario con los valores ingresados
-                                Usuario usuario = new Usuario(nombre, email, contrasena, ubicacion);
+                                // Crear un objeto Tatuador con los valores ingresados
+                                Tatuador tatuador = new Tatuador(nombre, email, contrasena, ubicacion);
 
-                                // Guardar el objeto Usuario en la base de datos
-                                mdatabase.child("tatuadores").push().setValue(usuario);
+                                // Obtener una referencia para el nuevo tatuador en la base de datos
+                                DatabaseReference tatuadorRef = mdatabase.child("tatuadores").push();
+                                idTatuador = tatuadorRef.getKey();
+                                tatuador.setIdtatuador(idTatuador);
 
-                                // Escribimos en firebase auth el usuario
+                                // Guardar el objeto Tatuador en la base de datos
+                                tatuadorRef.setValue(tatuador);
+
+                                // Escribir en Firebase Auth el usuario
                                 FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, contrasena);
 
                                 // Mostrar un mensaje de éxito al usuario
                                 Toast.makeText(FormularioTatuadorRegistro.this, "Usuario registrado correctamente", Toast.LENGTH_SHORT).show();
 
                                 // Limpiar los EditTexts
-                                   TatuadorNombre.setText("");
-                                      TatuadorEmail.setText("");
-                                        TatuadorContrasena.setText("");
-                                            ConfirmaTatuadorContrasena.setText("");
-                                                TatuadorUbicacion.setText("");
-
-
+                                TatuadorNombre.setText("");
+                                TatuadorEmail.setText("");
+                                TatuadorContrasena.setText("");
+                                ConfirmaTatuadorContrasena.setText("");
+                                TatuadorUbicacion.setText("");
 
                                 // Llevar al usuario a la actividad LoginTatuador después de un registro exitoso
-                                Intent intent = new Intent(FormularioTatuadorRegistro.this, LoginUsuario.class);
+                                Intent intent = new Intent(FormularioTatuadorRegistro.this, LoginTatuador.class);
                                 startActivity(intent);
                                 finish(); // Cerrar la actividad actual para evitar que el usuario vuelva al formulario de registro
                             }
@@ -128,3 +116,4 @@ public class FormularioTatuadorRegistro extends AppCompatActivity {
         });
     }
 }
+

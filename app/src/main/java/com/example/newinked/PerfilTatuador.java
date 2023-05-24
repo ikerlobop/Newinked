@@ -60,7 +60,7 @@ public class PerfilTatuador extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Obtén el ID del tatuador
-                String tatuadorId = "-NWCA1lQJPdVy_FzTwfe"; // Obtén el ID del tatuador de alguna manera
+                String tatuadorId = getIntent().getStringExtra("tatuadorId"); // Obtén el ID del tatuador de alguna manera
 
                 // Crear un intent para seleccionar imágenes de la galería
                 Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
@@ -88,7 +88,9 @@ public class PerfilTatuador extends AppCompatActivity {
         if (requestCode == REQUEST_SELECT_IMAGE && resultCode == RESULT_OK && data != null) {
             Uri selectedImageUri = data.getData();
             // Obtén el ID del tatuador
-            String tatuadorId = "-NWCA1lQJPdVy_FzTwfe"; // Obtén el ID del tatuador de alguna manera
+            //obtenemos id del tatuador de la variable tipo pasada por el intent
+              String tatuadorId = getIntent().getStringExtra("tatuadorId");
+
             // Aquí puedes guardar la imagen en la base de datos
             guardarImagenEnBaseDeDatos(selectedImageUri, tatuadorId);
         }

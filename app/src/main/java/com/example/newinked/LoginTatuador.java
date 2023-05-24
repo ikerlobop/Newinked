@@ -57,13 +57,11 @@ public class LoginTatuador extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
-                                    String uid = mAuth.getCurrentUser().getUid();
 
-                                    DatabaseReference tatuadorRef = mDatabase.child("tatuadores").child(uid);
-                                    String firebaseId = tatuadorRef.getKey();
-
+                                    String tatuadorId = "-NWCA1lQJPdVy_FzTwfe"; // Obtén el ID del tatuador de alguna manera
                                     Intent intent = new Intent(LoginTatuador.this, PerfilTatuador.class);
-                                    intent.putExtra("id", firebaseId);
+                                    intent.putExtra("tatuadorId", tatuadorId);
+
                                     startActivity(intent);
                                     finish();
                                 } else {

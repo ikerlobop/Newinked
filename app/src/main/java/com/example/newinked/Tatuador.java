@@ -1,4 +1,5 @@
 package com.example.newinked;
+import java.util.List;
 
 public class Tatuador {
 
@@ -9,18 +10,7 @@ public class Tatuador {
     private String biografia;
     private String idtatuador;
 
-    private String imagenes;
-
-    public Tatuador() {
-        // Constructor vacío requerido para Firebase
-    }
-
-    public Tatuador(String nombre, String email, String contrasena, String ubicacion) {
-        this.nombre = nombre;
-        this.email = email;
-        this.contrasena = contrasena;
-        this.ubicacion = ubicacion;
-    }
+    private List<String> imagenes;
 
     public Tatuador(String nombre, String email, String contrasena, String ubicacion, String biografia) {
         this.nombre = nombre;
@@ -28,6 +18,9 @@ public class Tatuador {
         this.contrasena = contrasena;
         this.ubicacion = ubicacion;
         this.biografia = biografia;
+    }
+
+    public Tatuador(String nombre, String email, String contrasena, String ubicacion) {
     }
 
     public String getNombre() {
@@ -78,17 +71,28 @@ public class Tatuador {
         this.idtatuador = idtatuador;
     }
 
-    public String getImagenes() {
+    public List<String> getImagenes() {
         return imagenes;
     }
 
-    public void setImagenes(String imagenes) {
+    public void setImagenes(List<String> imagenes) {
         this.imagenes = imagenes;
     }
 
-
-
+    @Override
+    public String toString() {
+        return "Tatuador{" +
+                "nombre='" + nombre + '\'' +
+                ", email='" + email + '\'' +
+                ", contrasena='" + contrasena + '\'' +
+                ", ubicacion='" + ubicacion + '\'' +
+                ", biografia='" + biografia + '\'' +
+                ", idtatuador='" + idtatuador + '\'' +
+                ", imagenes=" + imagenes +
+                '}';
+    }
 }
+
 
 
 

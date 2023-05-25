@@ -19,8 +19,11 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class LoginTatuador extends AppCompatActivity {
@@ -60,20 +63,26 @@ public class LoginTatuador extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
-                                    DatabaseReference tatuadorRef = mDatabase.child("tatuadores").orderByChild("email").equalTo(email).getRef();
-                                    tatuadorRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                                    DatabaseReference tatuadorRef = mDatabase.child("tatuadores");
+                                    Query query = tatuadorRef.orderByChild("email").equalTo(email);
+                                    query.addListenerForSingleValueEvent(new ValueEventListener() {
                                         @Override
                                         public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                            if (snapshot.exists()) {
-                                                String tatuadorId = snapshot.getChildren().iterator().next().getKey();
-                                                // Aquí tienes el ID del tatuador
-                                                // Pasa el ID a la actividad PerfilTatuador
+                                            List<String> tatuadorIds = new ArrayList<>();
+                                            for (DataSnapshot tatuadorSnapshot : snapshot.getChildren()) {
+                                                String tatuadorId = tatuadorSnapshot.getKey();
+                                                tatuadorIds.add(tatuadorId);
+                                            }
+
+                                            if (!tatuadorIds.isEmpty()) {
+                                                // Aquí tienes los IDs de los tatuadores
+                                                // Puedes manejar los IDs como necesites
                                                 Intent intent = new Intent(LoginTatuador.this, PerfilTatuador.class);
-                                                intent.putExtra("tatuadorId", tatuadorId);
+                                                intent.putStringArrayListExtra("tatuadorIds", (ArrayList<String>) tatuadorIds);
                                                 startActivity(intent);
                                                 finish();
                                             } else {
-                                                Toast.makeText(LoginTatuador.this, "No se encontró ningún tatuador con este correo electrónico", Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(LoginTatuador.this, "No se encontraron tatuadores con este correo electrónico", Toast.LENGTH_SHORT).show();
                                             }
                                         }
 
@@ -87,6 +96,7 @@ public class LoginTatuador extends AppCompatActivity {
                                 }
                             }
                         });
+
             }
         });
     }

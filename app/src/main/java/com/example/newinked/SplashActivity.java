@@ -29,7 +29,7 @@ public class SplashActivity extends AppCompatActivity {
 
 
         // Establecer la animación de carga en la pantalla de bienvenida
-        LottieAnimationView animationView = findViewById(R.id.flecha);
+        LottieAnimationView animationView = findViewById(R.id.personlogin2);
         animationView.setAnimation(R.raw.load);
         animationView.setRepeatCount(ValueAnimator.INFINITE); // repite indefinidamente el loading
         animationView.playAnimation();

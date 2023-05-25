@@ -4,17 +4,25 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import com.airbnb.lottie.LottieAnimationView;
+import com.airbnb.lottie.LottieDrawable;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 public class InicioSesionActivity extends AppCompatActivity {
 
     Button btnUsuario2, btnTatuador2;
+    LottieAnimationView lottieAnimationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.iniciosesion_activity);
+
+        lottieAnimationView = findViewById(R.id.personlogin2);
+        lottieAnimationView.setAnimation(R.raw.personlogin);
+        lottieAnimationView.playAnimation();
+        lottieAnimationView.setRepeatCount(LottieDrawable.INFINITE);
 
         // Buscamos nuestras vistas usando sus IDs
         btnUsuario2 = findViewById(R.id.btnUsuario2);

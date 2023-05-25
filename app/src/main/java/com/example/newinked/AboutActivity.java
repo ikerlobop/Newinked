@@ -24,7 +24,7 @@ public class AboutActivity extends AppCompatActivity {
         animation_view5.setSpeed(0.2f); // Establecer velocidad lenta (0.5f = mitad de la velocidad normal)
         animation_view5.playAnimation();
 
-        LottieAnimationView avFlecha = findViewById(R.id.flecha);
+        LottieAnimationView avFlecha = findViewById(R.id.personlogin2);
 
         // Establecer la animación de carga en la pantalla de bienvenida
         avFlecha.setAnimation(R.raw.directional);

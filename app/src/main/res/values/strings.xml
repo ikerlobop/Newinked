@@ -57,6 +57,8 @@
     <string name="acercadee">Acerca de...</string>
     <string name="iniciar">INICIAR SESIÓN</string>
     <string name="todoss">TODO</string>
+    <string name="todosss">TODO</string>
+    <string name="forgetpassword">¿Olvidaste tu contraseña?</string>
 
 
 </resources>

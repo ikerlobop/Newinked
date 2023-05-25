@@ -15,8 +15,14 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class LoginUsuario extends AppCompatActivity {
 
@@ -25,18 +31,19 @@ public class LoginUsuario extends AppCompatActivity {
 
     // Declarar una instancia de FirebaseAuth del ámbito de la actividad
     FirebaseAuth mAuth;
-    private DatabaseReference mdatabase;
+    DatabaseReference mdatabase;
+
+    DataSnapshot snapshot;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_usuario);
 
-        // Obtener una instancia de la base de datos de Firebase
-        mdatabase = FirebaseDatabase.getInstance().getReference();
 
         // Inicializar la instancia de FirebaseAuth
         mAuth = FirebaseAuth.getInstance();
+        mdatabase = FirebaseDatabase.getInstance().getReference();
 
         // Referencias a las vistas
         usuarioEditText = findViewById(R.id.usuarioEditText);
@@ -47,8 +54,14 @@ public class LoginUsuario extends AppCompatActivity {
         loginButtonUsuario.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final String email = usuarioEditText.getText().toString();
-                final String contrasena = contrasenaEditText.getText().toString();
+                 String email = usuarioEditText.getText().toString();
+                 String contrasena = contrasenaEditText.getText().toString();
+
+                // Verificar que los campos no estén vacíos
+                if (email.isEmpty() || contrasena.isEmpty()) {
+                    Toast.makeText(LoginUsuario.this, "Por favor, ingrese su usuario y contraseña", Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
                 // Autenticar al usuario con Firebase Auth
                 mAuth.signInWithEmailAndPassword(email, contrasena)
@@ -56,28 +69,40 @@ public class LoginUsuario extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
-                                    // Verificar si el usuario existe en la base de datos
-                                    mdatabase.child("usuarios").child(mAuth.getCurrentUser().getUid()).get()
-                                            .addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-                                                @Override
-                                                public void onComplete(@NonNull Task<DataSnapshot> task) {
-                                                    if (task.isSuccessful()) {
-                                                        // Si el usuario existe, iniciar la actividad de Buscador
-                                                        Intent intent = new Intent(LoginUsuario.this, Buscador.class);
-                                                        startActivity(intent);
-                                                        finish();
-                                                    } else {
-                                                        // Si el usuario no existe, mostrar un mensaje de error
-                                                        Toast.makeText(LoginUsuario.this, "Usuario o contraseña incorrectos", Toast.LENGTH_SHORT).show();
-                                                    }
-                                                }
-                                            });
+                                    DatabaseReference tatuadorRef = mdatabase.child("usuarios");
+                                    Query query = tatuadorRef.orderByChild("email").equalTo(email);
+                                    query.addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                            List<String> tatuadorIds = new ArrayList<>();
+                                            for (DataSnapshot tatuadorSnapshot : snapshot.getChildren()) {
+                                                String tatuadorId = tatuadorSnapshot.getKey();
+                                                tatuadorIds.add(tatuadorId);
+                                            }
+
+                                            if (!tatuadorIds.isEmpty()) {
+                                                // Aquí tienes los IDs de los tatuadores
+                                                // Puedes manejar los IDs como necesites
+                                                Intent intent = new Intent(LoginUsuario.this, Buscador.class);
+                                                intent.putStringArrayListExtra("tatuadorIds", (ArrayList<String>) tatuadorIds);
+                                                startActivity(intent);
+                                                finish();
+                                            } else {
+                                                Toast.makeText(LoginUsuario.this, "No se encontraron tatuadores con este correo electrónico", Toast.LENGTH_SHORT).show();
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError error) {
+                                            // Maneja el error
+                                        }
+                                    });
                                 } else {
-                                    // Si la autenticación con Firebase Auth falla, mostrar un mensaje de error
-                                    Toast.makeText(LoginUsuario.this, "Error al autenticar usuario", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(LoginUsuario.this, "Error al iniciar sesión", Toast.LENGTH_SHORT).show();
                                 }
                             }
                         });
+
             }
         });
     }

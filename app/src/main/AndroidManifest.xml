@@ -22,6 +22,9 @@
         android:theme="@style/Theme.Newinked"
         tools:targetApi="30">
         <activity
+            android:name=".RecuperarContrasenaActivity"
+            android:exported="false" />
+        <activity
             android:name=".AboutActivity"
             android:exported="false" />
         <activity
@@ -61,10 +64,10 @@
             android:name=".PerfilTatuador"
             android:exported="true" />
 
-
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+
         <service
             android:name="com.google.firebase.components.ComponentDiscoveryService"
             android:directBootAware="true"

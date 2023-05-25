@@ -88,7 +88,7 @@ public class LoginUsuario extends AppCompatActivity {
                                                 startActivity(intent);
                                                 finish();
                                             } else {
-                                                Toast.makeText(LoginUsuario.this, "No se encontraron tatuadores con este correo electrónico", Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(LoginUsuario.this, "No se encontraron usuarios con este correo electrónico", Toast.LENGTH_SHORT).show();
                                             }
                                         }
 

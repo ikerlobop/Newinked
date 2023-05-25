@@ -59,6 +59,9 @@
     <string name="todoss">TODO</string>
     <string name="todosss">TODO</string>
     <string name="forgetpassword">¿Olvidaste tu contraseña?</string>
+    <string name="enviar_solicitud">Enviar solicitud</string>
+    <string name="correo">Correo electrónico</string>
+    <string name="recuperar">Recuperar contraseña</string>
 
 
 </resources>

@@ -105,20 +105,20 @@
         android:id="@+id/loginButtonTatuador"
         android:layout_width="290dp"
         android:layout_height="70dp"
-        android:backgroundTint="#FF1B9C"
+        android:background="@drawable/button_background4"
         android:fontFamily="@font/roboto_medium"
         android:text="@string/iniciar_sesion"
         android:textColor="@color/button_default_color"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.567"
+        app:layout_constraintHorizontal_bias="0.553"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.774" />
+        app:layout_constraintVertical_bias="0.776" />
 
     <TextView
-        android:id="@+id/registroTextView"
+        android:id="@+id/tvRegistro"
         android:layout_width="175dp"
         android:layout_height="59dp"
         android:fontFamily="@font/roboto"

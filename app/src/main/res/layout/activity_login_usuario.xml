@@ -103,22 +103,22 @@
 
     <Button
         android:id="@+id/loginButtonUsuario"
-        android:layout_width="290dp"
-        android:layout_height="70dp"
-        android:backgroundTint="#FF1B9C"
+        android:layout_width="287dp"
+        android:layout_height="72dp"
+        android:background="@drawable/button_background4"
         android:fontFamily="@font/roboto_medium"
         android:text="@string/iniciar_sesion"
         android:textColor="@color/button_default_color"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.355"
+        app:layout_constraintHorizontal_bias="0.354"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.724" />
+        app:layout_constraintVertical_bias="0.731" />
 
     <TextView
-        android:id="@+id/registroTextView"
+        android:id="@+id/tvRegistro"
         android:layout_width="199dp"
         android:layout_height="51dp"
         android:fontFamily="@font/roboto"

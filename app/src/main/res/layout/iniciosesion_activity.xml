@@ -40,7 +40,7 @@
         android:text="@string/iniciar"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-        android:textColor="@android:color/white"
+        android:textColor="#FF1B9C"
         android:textSize="48sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

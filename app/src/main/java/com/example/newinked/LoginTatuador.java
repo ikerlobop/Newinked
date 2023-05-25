@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -24,7 +25,6 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class LoginTatuador extends AppCompatActivity {
 
@@ -96,7 +96,14 @@ public class LoginTatuador extends AppCompatActivity {
                                 }
                             }
                         });
-
+                TextView forgotPasswordTextView = findViewById(R.id.tvRegistro);
+                forgotPasswordTextView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent recuperarContrasenaIntent = new Intent(LoginTatuador.this, RecuperarContrasenaActivity.class);
+                        startActivity(recuperarContrasenaIntent);
+                    }
+                });
             }
         });
     }

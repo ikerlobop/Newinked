@@ -10,14 +10,16 @@ public class Tatuador {
     private String biografia;
     private String idtatuador;
 
+    private String mensaje;
     private List<String> imagenes;
 
-    public Tatuador(String nombre, String email, String contrasena, String ubicacion, String biografia) {
+    public Tatuador(String nombre, String email, String contrasena, String ubicacion, String biografia, String mensaje) {
         this.nombre = nombre;
         this.email = email;
         this.contrasena = contrasena;
         this.ubicacion = ubicacion;
         this.biografia = biografia;
+        this.mensaje = mensaje;
     }
 
     public Tatuador(String nombre, String email, String contrasena, String ubicacion) {
@@ -61,6 +63,14 @@ public class Tatuador {
 
     public void setBiografia(String biografia) {
         this.biografia = biografia;
+    }
+
+    public String getMensaje() {
+        return mensaje;
+    }
+
+    public void setMensaje(String mensaje) {
+        this.mensaje = mensaje;
     }
 
     public String getIdtatuador() {

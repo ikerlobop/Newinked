@@ -11,6 +11,8 @@ public class Usuario {
     public Usuario() {
     }
 
+
+
     public Usuario(String nombre, String email, String contrasena, String ubicacion) {
         this.nombre = nombre;
         this.email = email;
@@ -35,4 +37,6 @@ public class Usuario {
     public String getUbicacion() {
         return ubicacion;
     }
+
+
 }

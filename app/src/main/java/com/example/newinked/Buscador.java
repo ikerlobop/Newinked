@@ -1,5 +1,6 @@
 package com.example.newinked;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -18,6 +19,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -26,22 +28,80 @@ public class Buscador extends AppCompatActivity {
     private TextView titleTextView;
     private Spinner categorySpinner;
     private GridView photoGridView;
+    private ImageAdapter imageAdapter;
 
-    private List<String> allPhotoUrls; // Lista de todas las URLs de las fotos
-    private List<String> filteredPhotoUrls; // Lista de URLs de fotos filtradas por categoría
-
-    private DatabaseReference photosRef; // Referencia a la ubicación de las fotos en la base de datos
+    private int[] linealImages = {R.drawable.lineal1, R.drawable.lineal2};
+    private int[] floralImages = {R.drawable.floral1, R.drawable.floral2};
+    private int[] orientalImages = {R.drawable.oriental1, R.drawable.oriental2, R.drawable.oriental3};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.buscador_activity);
 
-        // Obtener referencias a los elementos de la interfaz
         titleTextView = findViewById(R.id.titleTextView);
         categorySpinner = findViewById(R.id.categorySpinner);
         photoGridView = findViewById(R.id.photoGridView);
 
+        // Obtener los estilos desde el archivo arrays.xml
+        String[] estilosArray = getResources().getStringArray(R.array.estilos_array);
+
+        // Crear un ArrayAdapter para el Spinner
+        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, estilosArray);
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        categorySpinner.setAdapter(spinnerAdapter);
+
+        // Establecer el evento de selección del Spinner
+        categorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                // Obtener el estilo seleccionado
+                String estiloSeleccionado = estilosArray[position];
+
+                // Obtener el arreglo de imágenes según el estilo seleccionado
+                int[] imagesToShow = getImagesForStyle(estiloSeleccionado);
+
+                // Crear el adapter y establecerlo en el GridView
+                imageAdapter = new ImageAdapter(Buscador.this, imagesToShow);
+                photoGridView.setAdapter(imageAdapter);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // No se requiere implementación adicional
+            }
+        });
+
+        // Establecer el evento de clic en el GridView
+        photoGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                // Abre la actividad PerfilTatuadorDesdeCliente al hacer clic en una foto
+                Intent intent = new Intent(Buscador.this, PerfilTatuadorDesdeCliente.class);
+                startActivity(intent);
+            }
+        });
+    }
+
+    private int[] getImagesForStyle(String estilo) {
+        switch (estilo) {
+            case "Lineal":
+                return linealImages;
+            case "Floral":
+                return floralImages;
+            case "Oriental":
+                return orientalImages;
+            default:
+                return new int[0];
+        }
+    }
+}
+
+
+
+
+
+/*
         // Configurar el Spinner con las opciones
         List<String> categories = new ArrayList<>();
         categories.add("Floral");
@@ -140,7 +200,6 @@ public class Buscador extends AppCompatActivity {
 
         // Ejemplo de lógica de verificación simple: verificar si la URL de la foto contiene la categoría
         return photoUrl.contains(category);
-    }
-}
+    }*/
 
 

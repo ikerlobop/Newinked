@@ -30,6 +30,7 @@ public class LoginTatuador extends AppCompatActivity {
 
     EditText tatuadorEditText, contrasenaEditText;
     Button loginButton;
+    TextView forgotPasswordTextView;
 
     FirebaseAuth mAuth;
     DatabaseReference mDatabase;
@@ -46,64 +47,57 @@ public class LoginTatuador extends AppCompatActivity {
         tatuadorEditText = findViewById(R.id.emailEditText);
         contrasenaEditText = findViewById(R.id.contrasenaEditText);
         loginButton = findViewById(R.id.loginButtonTatuador);
+        forgotPasswordTextView = findViewById(R.id.tvRegistro);
 
-        loginButton.setOnClickListener(new View.OnClickListener() {
+        loginButton.setOnClickListener(view -> {
+            String email = tatuadorEditText.getText().toString();
+            String contrasena = contrasenaEditText.getText().toString();
+
+            if (TextUtils.isEmpty(email) || TextUtils.isEmpty(contrasena)) {
+                Toast.makeText(LoginTatuador.this, "Por favor, complete todos los campos", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            mAuth.signInWithEmailAndPassword(email, contrasena)
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            DatabaseReference tatuadorRef = mDatabase.child("tatuadores");
+                            Query query = tatuadorRef.orderByChild("email").equalTo(email);
+                            query.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                    List<String> tatuadorIds = new ArrayList<>();
+                                    for (DataSnapshot tatuadorSnapshot : snapshot.getChildren()) {
+                                        String tatuadorId = tatuadorSnapshot.getKey();
+                                        tatuadorIds.add(tatuadorId);
+                                    }
+
+                                    if (!tatuadorIds.isEmpty()) {
+                                        Intent intent = new Intent(LoginTatuador.this, PerfilTatuador.class);
+                                        intent.putStringArrayListExtra("tatuadorIds", (ArrayList<String>) tatuadorIds);
+                                        startActivity(intent);
+                                        finish();
+                                    } else {
+                                        Toast.makeText(LoginTatuador.this, "No se encontraron tatuadores con este correo electrónico", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+                                    Toast.makeText(LoginTatuador.this, "Error al acceder a la base de datos", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        } else {
+                            Toast.makeText(LoginTatuador.this, "Error al iniciar sesión. Verifique sus credenciales e intente nuevamente", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+        });
+
+        forgotPasswordTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String email = tatuadorEditText.getText().toString();
-                String contrasena = contrasenaEditText.getText().toString();
-
-                if (TextUtils.isEmpty(email) || TextUtils.isEmpty(contrasena)) {
-                    Toast.makeText(LoginTatuador.this, "Por favor, complete todos los campos", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                mAuth.signInWithEmailAndPassword(email, contrasena)
-                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                if (task.isSuccessful()) {
-                                    DatabaseReference tatuadorRef = mDatabase.child("tatuadores");
-                                    Query query = tatuadorRef.orderByChild("email").equalTo(email);
-                                    query.addListenerForSingleValueEvent(new ValueEventListener() {
-                                        @Override
-                                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                            List<String> tatuadorIds = new ArrayList<>();
-                                            for (DataSnapshot tatuadorSnapshot : snapshot.getChildren()) {
-                                                String tatuadorId = tatuadorSnapshot.getKey();
-                                                tatuadorIds.add(tatuadorId);
-                                            }
-
-                                            if (!tatuadorIds.isEmpty()) {
-                                                // Aquí tienes los IDs de los tatuadores
-                                                // Puedes manejar los IDs como necesites
-                                                Intent intent = new Intent(LoginTatuador.this, PerfilTatuador.class);
-                                                intent.putStringArrayListExtra("tatuadorIds", (ArrayList<String>) tatuadorIds);
-                                                startActivity(intent);
-                                                finish();
-                                            } else {
-                                                Toast.makeText(LoginTatuador.this, "No se encontraron tatuadores con este correo electrónico", Toast.LENGTH_SHORT).show();
-                                            }
-                                        }
-
-                                        @Override
-                                        public void onCancelled(@NonNull DatabaseError error) {
-                                            // Maneja el error
-                                        }
-                                    });
-                                } else {
-                                    Toast.makeText(LoginTatuador.this, "Error al iniciar sesión", Toast.LENGTH_SHORT).show();
-                                }
-                            }
-                        });
-                TextView forgotPasswordTextView = findViewById(R.id.tvRegistro);
-                forgotPasswordTextView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Intent recuperarContrasenaIntent = new Intent(LoginTatuador.this, RecuperarContrasenaActivity.class);
-                        startActivity(recuperarContrasenaIntent);
-                    }
-                });
+                Intent recuperarContrasenaIntent = new Intent(LoginTatuador.this, RecuperarContrasenaActivity.class);
+                startActivity(recuperarContrasenaIntent);
             }
         });
     }

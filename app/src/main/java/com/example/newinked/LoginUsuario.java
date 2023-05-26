@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -22,18 +23,19 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class LoginUsuario extends AppCompatActivity {
 
     EditText usuarioEditText, contrasenaEditText;
     Button loginButtonUsuario;
+    TextView forgotPasswordTextView;
 
     // Declarar una instancia de FirebaseAuth del ámbito de la actividad
     FirebaseAuth mAuth;
     DatabaseReference mdatabase;
 
     DataSnapshot snapshot;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,11 +51,12 @@ public class LoginUsuario extends AppCompatActivity {
         usuarioEditText = findViewById(R.id.usuarioEditText);
         contrasenaEditText = findViewById(R.id.contrasenaEditText);
         loginButtonUsuario = findViewById(R.id.loginButtonUsuario);
+        forgotPasswordTextView = findViewById(R.id.tvRegistro);
 
         // Listener del botón de inicio de sesión
         loginButtonUsuario.setOnClickListener(view -> {
-             String email = usuarioEditText.getText().toString();
-             String contrasena = contrasenaEditText.getText().toString();
+            String email = usuarioEditText.getText().toString();
+            String contrasena = contrasenaEditText.getText().toString();
 
             // Verificar que los campos no estén vacíos
             if (email.isEmpty() || contrasena.isEmpty()) {
@@ -99,8 +102,18 @@ public class LoginUsuario extends AppCompatActivity {
                     });
 
         });
+
+        // Listener del texto "Olvidé mi contraseña"
+        forgotPasswordTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent recuperarContrasenaIntent = new Intent(LoginUsuario.this, RecuperarContrasenaActivity.class);
+                startActivity(recuperarContrasenaIntent);
+            }
+        });
     }
 }
+
 
 
 

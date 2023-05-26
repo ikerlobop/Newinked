@@ -14,21 +14,25 @@ import java.util.List;
 
 public class ImageAdapter extends BaseAdapter {
     private Context context;
-    private int[] imageResources;
+    private List<String> imageUrls;
 
-    public ImageAdapter(Context context, int[] imageResources) {
+    public ImageAdapter(Context context, List<String> imageUrls) {
         this.context = context;
-        this.imageResources = imageResources;
+        this.imageUrls = imageUrls;
+    }
+
+    public ImageAdapter(Buscador context, int[] imagesToShow) {
+
     }
 
     @Override
     public int getCount() {
-        return imageResources.length;
+        return imageUrls.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return null;
+        return imageUrls.get(position);
     }
 
     @Override
@@ -41,6 +45,7 @@ public class ImageAdapter extends BaseAdapter {
         ImageView imageView;
 
         if (convertView == null) {
+            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             imageView = new ImageView(context);
             imageView.setLayoutParams(new GridView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 200));
             imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
@@ -49,7 +54,10 @@ public class ImageAdapter extends BaseAdapter {
             imageView = (ImageView) convertView;
         }
 
-        imageView.setImageResource(imageResources[position]);
+        String imageUrl = imageUrls.get(position);
+
+        // Cargar la imagen utilizando Picasso
+        Picasso.get().load(imageUrl).into(imageView);
 
         return imageView;
     }

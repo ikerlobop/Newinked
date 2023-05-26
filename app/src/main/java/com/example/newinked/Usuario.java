@@ -9,7 +9,7 @@ public class Usuario {
 
     private String fechaNacimiento;
 
-
+    //para firebase
     public Usuario() {
 
     }

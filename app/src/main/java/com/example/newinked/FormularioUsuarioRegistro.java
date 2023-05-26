@@ -3,8 +3,10 @@ package com.example.newinked;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,13 +27,67 @@ public class FormularioUsuarioRegistro extends AppCompatActivity {
 
     private EditText ConfirmaUsuarioContrasena;
 
-    private EditText UsuarioUbicacion;
+    private Spinner UsuarioUbicacion;
 
     private EditText UsuarioFechaNacimiento;
 
     Button botonRegistroUsuario;
 
     private DatabaseReference mdatabase;
+
+    private String[] provincias = {
+            "Álava",
+            "Albacete",
+            "Alicante",
+            "Almería",
+            "Asturias",
+            "Ávila",
+            "Badajoz",
+            "Barcelona",
+            "Burgos",
+            "Cáceres",
+            "Cádiz",
+            "Cantabria",
+            "Castellón",
+            "Ciudad Real",
+            "Córdoba",
+            "La Coruña",
+            "Cuenca",
+            "Gerona",
+            "Granada",
+            "Guadalajara",
+            "Guipúzcoa",
+            "Huelva",
+            "Huesca",
+            "Islas Baleares",
+            "Jaén",
+            "León",
+            "Lérida",
+            "Lugo",
+            "Madrid",
+            "Málaga",
+            "Murcia",
+            "Navarra",
+            "Orense",
+            "Palencia",
+            "Las Palmas",
+            "Pontevedra",
+            "La Rioja",
+            "Salamanca",
+            "Segovia",
+            "Sevilla",
+            "Soria",
+            "Tarragona",
+            "Santa Cruz de Tenerife",
+            "Teruel",
+            "Toledo",
+            "Valencia",
+            "Valladolid",
+            "Vizcaya",
+            "Zamora",
+            "Zaragoza"
+    };
+
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -45,8 +101,15 @@ public class FormularioUsuarioRegistro extends AppCompatActivity {
         UsuarioContrasena = findViewById(R.id.contrasenaEditText);
         ConfirmaUsuarioContrasena = findViewById(R.id.confirmarContrasenaEditText);
         UsuarioFechaNacimiento = findViewById(R.id.fechaNacimientoEditText);
-        UsuarioUbicacion = findViewById(R.id.ubicacionEditText);
+        UsuarioUbicacion = findViewById(R.id.sexoSpinner);
         botonRegistroUsuario = findViewById(R.id.registrarButtonUsuario);
+
+        // Crear un adaptador para el Spinner
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, provincias);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        // Establecer el adaptador en el Spinner
+        UsuarioUbicacion.setAdapter(adapter);
 
 
         // Obtener una instancia de la base de datos de Firebase
@@ -59,9 +122,8 @@ public class FormularioUsuarioRegistro extends AppCompatActivity {
             String email = UsuarioEmail.getText().toString();
             String contrasena = UsuarioContrasena.getText().toString();
             String confirmaContrasena = ConfirmaUsuarioContrasena.getText().toString();
-            String ubicacion = UsuarioUbicacion.getText().toString();
+            String ubicacion = UsuarioUbicacion.getSelectedItem().toString();
             String fechaNacimiento = UsuarioFechaNacimiento.getText().toString();
-
 
             // Validar que los campos no estén vacíos
             if (nombre.isEmpty() || email.isEmpty() || contrasena.isEmpty() || fechaNacimiento.isEmpty()|| confirmaContrasena.isEmpty() || ubicacion.isEmpty()) {
@@ -100,7 +162,7 @@ public class FormularioUsuarioRegistro extends AppCompatActivity {
                             UsuarioContrasena.setText("");
                             UsuarioFechaNacimiento.setText("");
                             ConfirmaUsuarioContrasena.setText("");
-                            UsuarioUbicacion.setText("");
+                            UsuarioUbicacion.setSelection(0);
 
                             // Llevar al usuario a la actividad LoginTatuador después de un registro exitoso
                             Intent intent = new Intent(FormularioUsuarioRegistro.this, LoginUsuario.class);

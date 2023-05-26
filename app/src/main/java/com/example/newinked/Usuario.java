@@ -7,17 +7,20 @@ public class Usuario {
 
     private String ubicacion;
 
+    private String fechaNacimiento;
+
 
     public Usuario() {
+
     }
 
 
-
-    public Usuario(String nombre, String email, String contrasena, String ubicacion) {
+    public Usuario(String nombre, String email, String contrasena, String ubicacion, String fechaNacimiento){
         this.nombre = nombre;
         this.email = email;
         this.contrasena = contrasena;
         this.ubicacion = ubicacion;
+        this.fechaNacimiento = fechaNacimiento;
 
     }
 
@@ -36,6 +39,10 @@ public class Usuario {
 
     public String getUbicacion() {
         return ubicacion;
+    }
+
+    public String getFechaNacimiento() {
+        return fechaNacimiento;
     }
 
 

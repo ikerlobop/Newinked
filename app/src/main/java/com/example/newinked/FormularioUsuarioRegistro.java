@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -30,6 +31,8 @@ public class FormularioUsuarioRegistro extends AppCompatActivity {
 
     private EditText UsuarioUbicacion;
 
+    private EditText UsuarioFechaNacimiento;
+
     Button botonRegistroUsuario;
 
     private DatabaseReference mdatabase;
@@ -45,6 +48,7 @@ public class FormularioUsuarioRegistro extends AppCompatActivity {
         UsuarioEmail = findViewById(R.id.correoElectronicoEditText);
         UsuarioContrasena = findViewById(R.id.contrasenaEditText);
         ConfirmaUsuarioContrasena = findViewById(R.id.confirmarContrasenaEditText);
+        UsuarioFechaNacimiento = findViewById(R.id.fechaNacimientoEditText);
         UsuarioUbicacion = findViewById(R.id.ubicacionEditText);
         botonRegistroUsuario = findViewById(R.id.registrarButtonUsuario);
 
@@ -62,9 +66,11 @@ public class FormularioUsuarioRegistro extends AppCompatActivity {
                 String contrasena = UsuarioContrasena.getText().toString();
                 String confirmaContrasena = ConfirmaUsuarioContrasena.getText().toString();
                 String ubicacion = UsuarioUbicacion.getText().toString();
+                String fechaNacimiento = UsuarioFechaNacimiento.getText().toString();
+
 
                 // Validar que los campos no estén vacíos
-                if (nombre.isEmpty() || email.isEmpty() || contrasena.isEmpty() || confirmaContrasena.isEmpty() || ubicacion.isEmpty()) {
+                if (nombre.isEmpty() || email.isEmpty() || contrasena.isEmpty() || fechaNacimiento.isEmpty()|| confirmaContrasena.isEmpty() || ubicacion.isEmpty()) {
                     Toast.makeText(FormularioUsuarioRegistro.this, "Por favor, llene todos los campos", Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -83,7 +89,7 @@ public class FormularioUsuarioRegistro extends AppCompatActivity {
                                 return;
                             } else {
                                 // Crear un objeto Usuario con los valores ingresados
-                                Usuario usuario = new Usuario(nombre, email, contrasena, ubicacion);
+                                Usuario usuario = new Usuario(nombre, email, contrasena, ubicacion, fechaNacimiento);
 
                                 // Guardar el objeto Usuario en la base de datos
                                 mdatabase.child("usuarios").push().setValue(usuario);
@@ -98,6 +104,7 @@ public class FormularioUsuarioRegistro extends AppCompatActivity {
                                 UsuarioNombre.setText("");
                                 UsuarioEmail.setText("");
                                 UsuarioContrasena.setText("");
+                                UsuarioFechaNacimiento.setText("");
                                 ConfirmaUsuarioContrasena.setText("");
                                 UsuarioUbicacion.setText("");
 

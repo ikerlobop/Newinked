@@ -19,8 +19,10 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -38,6 +40,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class PerfilTatuador extends AppCompatActivity {
 
@@ -48,6 +51,8 @@ public class PerfilTatuador extends AppCompatActivity {
     private EditText userBioLabel;
     private TextView galleryLabel;
     private GridView galleryGridView;
+
+    private Button saveButton;
 
     FirebaseAuth mAuth;
     DatabaseReference mDatabase;
@@ -65,12 +70,75 @@ public class PerfilTatuador extends AppCompatActivity {
         userNameLabel = findViewById(R.id.user_name_label);
         userBioLabel = findViewById(R.id.user_bio_label);
         galleryLabel = findViewById(R.id.gallery_label);
+        saveButton = findViewById(R.id.edit_profile_button);
 
-        // Foto de perfil en el perfil del tatuador contenida en res/drawable
-        userPhoto.setImageResource(R.drawable.image);
-        userNameLabel.setText("Alba");
-        userBioLabel.setText("Tatuadora con 10 años de experiencia, ubicada en el centro de Madrid");
+        // Obtener el usuario actual
+        FirebaseUser user = mAuth.getCurrentUser();
 
+        // Crear la consulta para buscar el tatuador por email
+        Query query = mDatabase.child("tatuadores").orderByChild("email").equalTo(user.getEmail());
+
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    // El tatuador con el email especificado existe en la base de datos
+                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                        // Obtener los datos del tatuador
+                        String nombre = dataSnapshot.child("nombre").getValue(String.class);
+                        String bio = dataSnapshot.child("bio").getValue(String.class);
+                        String foto = dataSnapshot.child("foto").getValue(String.class);
+
+                        // Actualizar los campos correspondientes en la interfaz de usuario
+                        userNameLabel.setText(nombre);
+                        userBioLabel.setText(bio);
+
+                        // Verificar si hay imágenes en la base de datos y cargar la primera imagen en el ImageView
+                        if (dataSnapshot.hasChild("imagenes")) {
+                            DataSnapshot imagenesSnapshot = dataSnapshot.child("imagenes").getChildren().iterator().next();
+                            String imageUrl = imagenesSnapshot.getValue(String.class);
+                            Picasso.get().load(imageUrl).into(userPhoto);
+                        } else {
+                            // No hay imágenes en la base de datos, mostrar una imagen predeterminada
+                           // userPhoto.setImageResource(R.drawable.default_user_photo);
+                        }
+
+                        // Manejar el clic del botón "Guardar"
+                        saveButton.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                String newNombre = userNameLabel.getText().toString();
+                                String newBio = userBioLabel.getText().toString();
+
+                                // Actualizar el nombre y la bio en la base de datos
+                                dataSnapshot.getRef().child("nombre").setValue(newNombre);
+                                dataSnapshot.getRef().child("bio").setValue(newBio).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if (task.isSuccessful()) {
+                                            Toast.makeText(PerfilTatuador.this, "Biografía actualizada correctamente", Toast.LENGTH_SHORT).show();
+                                        } else {
+                                            Toast.makeText(PerfilTatuador.this, "Error al actualizar la biografía", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                });
+                            }
+                        });
+                    }
+                } else {
+                    // El tatuador con el email especificado no existe en la base de datos
+                    Toast.makeText(PerfilTatuador.this, "No se encontró el tatuador", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(PerfilTatuador.this, "Error al obtener los datos del tatuador", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+// Obtener referencia al GridView de la galería
         galleryGridView = findViewById(R.id.gallery_gridview);
 
         // Obtener referencia al Spinner de estilos
@@ -80,6 +148,16 @@ public class PerfilTatuador extends AppCompatActivity {
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.estilos_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         estiloSpinner.setAdapter(adapter);
+
+
+        Button gridPhotoButton = findViewById(R.id.gridbutton);
+        gridPhotoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(intent, REQUEST_SELECT_IMAGE);
+            }
+        });
 
         // Configurar el Listener para el Spinner de estilos
         estiloSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -128,14 +206,61 @@ public class PerfilTatuador extends AppCompatActivity {
         if (requestCode == REQUEST_SELECT_IMAGE && resultCode == RESULT_OK && data != null) {
             Uri selectedImageUri = data.getData();
 
-            // Cargar la imagen utilizando Picasso
-            ImageView imageView = findViewById(R.id.user_profile_image);
-            Picasso.get().load(selectedImageUri).into(imageView);
+            // Obtener una referencia única para la imagen en Firebase Storage
+            StorageReference storageRef = FirebaseStorage.getInstance().getReference();
+            StorageReference imageRef = storageRef.child("imagenes/" + UUID.randomUUID().toString());
+
+            // Subir la imagen a Firebase Storage
+            UploadTask uploadTask = imageRef.putFile(selectedImageUri);
+            uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    // Obtener la URL de descarga de la imagen subida
+                    Task<Uri> downloadUrlTask = imageRef.getDownloadUrl();
+                    downloadUrlTask.addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri downloadUri) {
+                            // Obtener la URL de descarga de la imagen
+                            String imageUrl = downloadUri.toString();
+
+                            // Obtener el usuario actual
+                            FirebaseUser user = mAuth.getCurrentUser();
+
+                            // Realizar la consulta para obtener el tatuador por email
+                            Query query = mDatabase.child("tatuadores").orderByChild("email").equalTo(user.getEmail());
+                            query.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                    if (snapshot.exists()) {
+                                        // El tatuador con el email especificado existe en la base de datos
+                                        for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                                            // Guardar la URL de la imagen en la base de datos
+                                            DatabaseReference ref = dataSnapshot.getRef();
+                                            ref.child("imagenes").push().setValue(imageUrl);
+
+                                            // Cargar la imagen utilizando Picasso
+                                            ImageView imageView = findViewById(R.id.user_profile_image);
+                                            Picasso.get().load(imageUrl).into(imageView);
+                                        }
+                                    } else {
+                                        // El tatuador con el email especificado no existe en la base de datos
+                                        Toast.makeText(PerfilTatuador.this, "No se encontró el tatuador", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+                                    Toast.makeText(PerfilTatuador.this, "Error al obtener los datos del tatuador", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        }
+                    });
+                }
+            });
         }
     }
-    // Resto del código de la clase PerfilTatuador
-    // ...
 }
+
 
 
 

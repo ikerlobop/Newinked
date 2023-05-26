@@ -98,6 +98,7 @@ public class FormularioUsuarioRegistro extends AppCompatActivity {
                                 UsuarioNombre.setText("");
                                 UsuarioEmail.setText("");
                                 UsuarioContrasena.setText("");
+                                ConfirmaUsuarioContrasena.setText("");
                                 UsuarioUbicacion.setText("");
 
                                 // Llevar al usuario a la actividad LoginTatuador después de un registro exitoso

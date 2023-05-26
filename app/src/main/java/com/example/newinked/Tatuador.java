@@ -10,20 +10,28 @@ public class Tatuador {
     private String biografia;
     private String idtatuador;
 
-    private String mensaje;
+
     private List<String> imagenes;
 
-    public Tatuador(String nombre, String email, String contrasena, String ubicacion, String biografia, String mensaje) {
+    public Tatuador(String nombre, String email, String contrasena, String ubicacion, String biografia) {
         this.nombre = nombre;
         this.email = email;
         this.contrasena = contrasena;
         this.ubicacion = ubicacion;
         this.biografia = biografia;
-        this.mensaje = mensaje;
+    }
+
+    //para firebase
+    public Tatuador() {
     }
 
     public Tatuador(String nombre, String email, String contrasena, String ubicacion) {
+        this.nombre = nombre;
+        this.email = email;
+        this.contrasena = contrasena;
+        this.ubicacion = ubicacion;
     }
+
 
     public String getNombre() {
         return nombre;
@@ -65,13 +73,6 @@ public class Tatuador {
         this.biografia = biografia;
     }
 
-    public String getMensaje() {
-        return mensaje;
-    }
-
-    public void setMensaje(String mensaje) {
-        this.mensaje = mensaje;
-    }
 
     public String getIdtatuador() {
         return idtatuador;
@@ -100,6 +101,18 @@ public class Tatuador {
                 ", idtatuador='" + idtatuador + '\'' +
                 ", imagenes=" + imagenes +
                 '}';
+    }
+
+    public void getFotoPerfilUrl() {
+        return;
+    }
+
+    public void setBio(String s) {
+        return;
+    }
+
+    public String getBio() {
+        return biografia;
     }
 }
 

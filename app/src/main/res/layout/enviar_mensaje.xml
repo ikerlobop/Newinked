@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/common_google_signin_btn_text_light_pressed"
     android:padding="16dp">
 
     <TextView
@@ -10,24 +12,57 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Enviar mensaje a: "
-        android:textSize="18sp" />
+        android:textColor="@color/button_default_color"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.007"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.022" />
 
     <EditText
         android:id="@+id/editTextMessage"
         android:layout_width="382dp"
         android:layout_height="141dp"
-        android:layout_below="@id/textViewRecipient"
         android:layout_marginTop="36dp"
+        android:fontFamily="@font/roboto_medium"
         android:hint="Escribe tu mensaje..."
         android:inputType="textMultiLine"
-        android:maxLines="5" />
+        android:maxLines="5"
+        android:textColor="@color/button_default_color"
+        android:textColorHint="@color/button_default_color"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textViewRecipient"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/buttonSend"
-        android:layout_width="wrap_content"
+        android:layout_width="131dp"
         android:layout_height="wrap_content"
-        android:layout_below="@id/editTextMessage"
-        android:layout_marginTop="67dp"
-        android:text="Enviar" />
+        android:layout_marginTop="40dp"
+        android:background="@drawable/button_background4"
+        android:text="Enviar"
+        android:textColor="@color/button_default_color"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/editTextMessage"
+        app:layout_constraintVertical_bias="0.0" />
 
-</RelativeLayout>
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="268dp"
+        android:layout_height="318dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.804"
+        app:srcCompat="@drawable/principal2" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -9,12 +9,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="@font/dm_sans_medium"
+        android:padding="20dp"
         android:text="@string/registro_de_tatuadores"
         android:textAlignment="center"
-        android:textColor="@color/button_default_color"
+        android:textColor="#FF1B9C"
         android:textSize="22sp"
-        android:textStyle="bold"
-        android:padding="20dp" />
+        android:textStyle="bold" />
 
     <ScrollView
         android:layout_width="match_parent"

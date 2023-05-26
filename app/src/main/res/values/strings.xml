@@ -62,6 +62,14 @@
     <string name="enviar_solicitud">Enviar solicitud</string>
     <string name="correo">Correo electrónico</string>
     <string name="recuperar">Recuperar contraseña</string>
+    <string name="enviar_mensaje_a">Enviar mensaje a:</string>
+    <string name="escribe_tu_mensaje">Escribe tu mensaje...</string>
+    <string name="enviar">Enviar</string>
+    <string name="nombre">Nombre</string>
+    <string name="emaill">Email</string>
+    <string name="ubi">Ubicación</string>
+    <string name="todossswsws">TODO</string>
+    <string name="enviar_mensaje">ENVIAR MENSAJE</string>
 
 
 </resources>

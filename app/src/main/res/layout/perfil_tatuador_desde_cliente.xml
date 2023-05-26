@@ -1,26 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/common_google_signin_btn_text_light_pressed">
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="200dp"
         android:layout_height="200dp"
         android:layout_marginTop="32dp"
-        android:src="@drawable/your_image"
+        android:background="@drawable/flor1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/todossswsws" />
 
     <TextView
         android:id="@+id/textViewName"
-        android:layout_width="113dp"
-        android:layout_height="38dp"
-        android:text="Nombre"
+        android:layout_width="161dp"
+        android:layout_height="40dp"
+        android:background="@drawable/edittext_background"
+        android:fontFamily="@font/roboto_medium"
+        android:text="@string/nombre"
+        android:textColor="@color/button_default_color"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.476"
@@ -30,9 +34,12 @@
 
     <TextView
         android:id="@+id/textViewEmail"
-        android:layout_width="120dp"
-        android:layout_height="36dp"
-        android:text="Email"
+        android:layout_width="160dp"
+        android:layout_height="44dp"
+        android:background="@drawable/edittext_background"
+        android:fontFamily="@font/roboto_medium"
+        android:text="@string/emaill"
+        android:textColor="@color/button_default_color"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -42,9 +49,12 @@
 
     <TextView
         android:id="@+id/textViewLocation"
-        android:layout_width="127dp"
-        android:layout_height="39dp"
-        android:text="Ubicación"
+        android:layout_width="166dp"
+        android:layout_height="46dp"
+        android:background="@drawable/edittext_background"
+        android:fontFamily="@font/roboto_medium"
+        android:text="@string/ubi"
+        android:textColor="@color/button_default_color"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -54,9 +64,12 @@
 
     <Button
         android:id="@+id/buttonSendMessage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="ENVIAR MENSAJE"
+        android:layout_width="203dp"
+        android:layout_height="48dp"
+        android:background="@drawable/button_background4"
+        android:fontFamily="@font/roboto_medium"
+        android:text="@string/enviar_mensaje"
+        android:textColor="@color/button_default_color"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

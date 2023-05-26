@@ -3,8 +3,10 @@ package com.example.newinked;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,10 +23,63 @@ public class FormularioTatuadorRegistro extends AppCompatActivity {
     private EditText TatuadorEmail;
     private EditText TatuadorContrasena;
     private EditText ConfirmaTatuadorContrasena;
-    private EditText TatuadorUbicacion;
+    private Spinner TatuadorUbicacion;
     private Button botonRegistro;
     private DatabaseReference mDatabase;
     private String idTatuador;
+
+    private String[] provincias = {
+            "Álava",
+            "Albacete",
+            "Alicante",
+            "Almería",
+            "Asturias",
+            "Ávila",
+            "Badajoz",
+            "Barcelona",
+            "Burgos",
+            "Cáceres",
+            "Cádiz",
+            "Cantabria",
+            "Castellón",
+            "Ciudad Real",
+            "Córdoba",
+            "La Coruña",
+            "Cuenca",
+            "Gerona",
+            "Granada",
+            "Guadalajara",
+            "Guipúzcoa",
+            "Huelva",
+            "Huesca",
+            "Islas Baleares",
+            "Jaén",
+            "León",
+            "Lérida",
+            "Lugo",
+            "Madrid",
+            "Málaga",
+            "Murcia",
+            "Navarra",
+            "Orense",
+            "Palencia",
+            "Las Palmas",
+            "Pontevedra",
+            "La Rioja",
+            "Salamanca",
+            "Segovia",
+            "Sevilla",
+            "Soria",
+            "Tarragona",
+            "Santa Cruz de Tenerife",
+            "Teruel",
+            "Toledo",
+            "Valencia",
+            "Valladolid",
+            "Vizcaya",
+            "Zamora",
+            "Zaragoza"
+    };
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -37,7 +92,13 @@ public class FormularioTatuadorRegistro extends AppCompatActivity {
         botonRegistro = findViewById(R.id.registrarButtonTatuador);
         ConfirmaTatuadorContrasena = findViewById(R.id.confirmarContrasenaEditText);
         TatuadorContrasena = findViewById(R.id.contrasenaEditText);
-        TatuadorUbicacion = findViewById(R.id.ubicacionEditText);
+        TatuadorUbicacion = findViewById(R.id.sexoSpinner);
+        // Crear un adaptador para el Spinner
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, provincias);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        // Establecer el adaptador en el Spinner
+        TatuadorUbicacion.setAdapter(adapter);
 
         // Obtener una instancia de la base de datos de Firebase
         mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -49,7 +110,7 @@ public class FormularioTatuadorRegistro extends AppCompatActivity {
             String email = TatuadorEmail.getText().toString();
             String contrasena = TatuadorContrasena.getText().toString();
             String confirmaContrasena = ConfirmaTatuadorContrasena.getText().toString();
-            String ubicacion = TatuadorUbicacion.getText().toString();
+            String ubicacion = TatuadorUbicacion.getSelectedItem().toString();
 
             // Validar que los campos no estén vacíos
             if (nombre.isEmpty() || email.isEmpty() || contrasena.isEmpty() || confirmaContrasena.isEmpty() || ubicacion.isEmpty()) {
@@ -93,7 +154,7 @@ public class FormularioTatuadorRegistro extends AppCompatActivity {
                             TatuadorEmail.setText("");
                             TatuadorContrasena.setText("");
                             ConfirmaTatuadorContrasena.setText("");
-                            TatuadorUbicacion.setText("");
+                            TatuadorUbicacion.setSelection(0);
 
                             // Llevar al usuario a la actividad LoginTatuador después de un registro exitoso
                             Intent intent = new Intent(FormularioTatuadorRegistro.this, LoginTatuador.class);

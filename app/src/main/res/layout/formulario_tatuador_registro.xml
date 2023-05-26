@@ -42,19 +42,21 @@
                 android:textColorHint="@android:color/white"
                 android:autofillHints="" />
 
-            <EditText
-                android:id="@+id/ubicacionEditText"
+            <Spinner
+
+                android:id="@+id/sexoSpinner"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginTop="20dp"
                 android:background="@drawable/edittext_background"
                 android:backgroundTint="@color/button_default_color"
                 android:fontFamily="@font/roboto_medium"
-                android:hint="@string/ubicacion"
-                android:inputType="text"
                 android:padding="10dp"
+                android:hint="Ubicación"
                 android:textColor="@color/button_default_color"
-                android:textColorHint="@android:color/white" />
+                android:spinnerStyle="@style/SpinnerTextStyle"
+                android:autofillHints="" />
+
 
             <EditText
                 android:id="@+id/correoElectronicoEditText"

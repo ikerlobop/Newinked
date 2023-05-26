@@ -8,6 +8,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -41,21 +42,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+
 public class PerfilTatuador extends AppCompatActivity {
 
     private static final int REQUEST_SELECT_IMAGE = 1;
 
-    private ImageView userPhoto;
-    private EditText userNameLabel;
-    private EditText userBioLabel;
-    private TextView galleryLabel;
-    private GridView galleryGridView;
-
+    private EditText nombreEditText;
+    private EditText bioEditText;
     private Button saveButton;
+    private GridView gridView;
 
-    FirebaseAuth mAuth;
-    DatabaseReference mDatabase;
-    DataSnapshot snapshot;
+    private FirebaseAuth mAuth;
+    private DatabaseReference mDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,12 +62,6 @@ public class PerfilTatuador extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
-
-        userPhoto = findViewById(R.id.user_profile_image);
-        userNameLabel = findViewById(R.id.user_name_label);
-        userBioLabel = findViewById(R.id.user_bio_label);
-        galleryLabel = findViewById(R.id.gallery_label);
-        saveButton = findViewById(R.id.edit_profile_button);
 
         // Obtener el usuario actual
         FirebaseUser user = mAuth.getCurrentUser();
@@ -83,36 +75,35 @@ public class PerfilTatuador extends AppCompatActivity {
                 if (snapshot.exists()) {
                     // El tatuador con el email especificado existe en la base de datos
                     for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                        // Obtener los datos del tatuador
+                        // Obtener referencias a los campos de nombre y bio
+                        nombreEditText = findViewById(R.id.user_name_label);
+                        bioEditText = findViewById(R.id.user_bio_label);
+
+                        // Obtener los valores actuales de nombre y bio del tatuador
                         String nombre = dataSnapshot.child("nombre").getValue(String.class);
                         String bio = dataSnapshot.child("bio").getValue(String.class);
-                        String foto = dataSnapshot.child("foto").getValue(String.class);
 
-                        // Actualizar los campos correspondientes en la interfaz de usuario
-                        userNameLabel.setText(nombre);
-                        userBioLabel.setText(bio);
-
-                        // Verificar si hay imágenes en la base de datos y cargar la primera imagen en el ImageView
-                        if (dataSnapshot.hasChild("imagenes")) {
-                            DataSnapshot imagenesSnapshot = dataSnapshot.child("imagenes").getChildren().iterator().next();
-                            String imageUrl = imagenesSnapshot.getValue(String.class);
-                            Picasso.get().load(imageUrl).into(userPhoto);
-                        } else {
-                            // No hay imágenes en la base de datos, mostrar una imagen predeterminada
-                            // userPhoto.setImageResource(R.drawable.default_user_photo);
-                        }
+                        // Establecer los valores actuales en los EditText
+                        nombreEditText.setText(nombre);
+                        bioEditText.setText(bio);
 
                         // Manejar el clic del botón "Guardar"
+                        saveButton = findViewById(R.id.edit_profile_button);
                         saveButton.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                String newUserName = userNameLabel.getText().toString().trim();
-                                String newUserBio = userBioLabel.getText().toString().trim();
+                                String nuevoNombre = nombreEditText.getText().toString().trim();
+                                String nuevaBio = bioEditText.getText().toString().trim();
+
+                                // Validar que se haya ingresado un nombre
+                                if (TextUtils.isEmpty(nuevoNombre)) {
+                                    Toast.makeText(PerfilTatuador.this, "Ingrese un nombre", Toast.LENGTH_SHORT).show();
+                                    return;
+                                }
 
                                 // Guardar los cambios en la base de datos
-                                DatabaseReference tatuadorRef = dataSnapshot.getRef();
-                                tatuadorRef.child("nombre").setValue(newUserName);
-                                tatuadorRef.child("bio").setValue(newUserBio);
+                                dataSnapshot.getRef().child("nombre").setValue(nuevoNombre);
+                                dataSnapshot.getRef().child("bio").setValue(nuevaBio);
 
                                 Toast.makeText(PerfilTatuador.this, "Perfil actualizado", Toast.LENGTH_SHORT).show();
                             }
@@ -140,31 +131,66 @@ public class PerfilTatuador extends AppCompatActivity {
             }
         });
 
-        // Listener para el botón de subir imagen de perfil
-        Button profilePhotoButton = findViewById(R.id.edit_profile_button);
-        profilePhotoButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                uploadProfileImage();
-            }
-        });
-
-        galleryGridView = findViewById(R.id.gallery_gridview);
+        gridView = findViewById(R.id.gallery_gridview);
         setupGalleryGridView();
     }
 
-    // Método para subir imágenes a la galería (grid)
     private void uploadToGallery() {
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(intent, REQUEST_SELECT_IMAGE);
     }
 
-    // Método para subir la imagen de perfil
-    private void uploadProfileImage() {
-        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        startActivityForResult(intent, REQUEST_SELECT_IMAGE);
-    }
+    private void setupGalleryGridView() {
+        // Obtener la referencia del tatuador actual
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String email = user.getEmail();
 
+        DatabaseReference usuarioRef = mDatabase.child("tatuadores");
+        Query query = usuarioRef.orderByChild("email").equalTo(email);
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    // Obtener la referencia al tatuador encontrado
+                    DataSnapshot tatuadorSnapshot = dataSnapshot.getChildren().iterator().next();
+                    DatabaseReference tatuadorRef = tatuadorSnapshot.getRef();
+
+                    // Obtener la referencia a las imágenes del tatuador
+                    DatabaseReference imagenesRef = tatuadorRef.child("imagenes");
+
+                    // Escuchar los cambios en las imágenes del tatuador
+                    imagenesRef.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            List<String> imageUrls = new ArrayList<>();
+
+                            // Obtener todas las URLs de las imágenes del tatuador
+                            for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                                String imageUrl = snapshot.getValue(String.class);
+                                imageUrls.add(imageUrl);
+                            }
+
+                            // Configurar el adaptador del GridView con las imágenes del tatuador
+                            GalleryAdapter adapter = new GalleryAdapter(PerfilTatuador.this, imageUrls);
+                            gridView.setAdapter(adapter);
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                            // Error en la consulta de la base de datos
+                            Toast.makeText(PerfilTatuador.this, "Error en la consulta de la base de datos", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // Error en la consulta de la base de datos
+                Toast.makeText(PerfilTatuador.this, "Error en la consulta de la base de datos", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -217,14 +243,8 @@ public class PerfilTatuador extends AppCompatActivity {
                                                     DatabaseReference imagenesRef = tatuadorRef.child("imagenes");
                                                     imagenesRef.push().setValue(imageUrl);
 
-                                                    // Actualizar la interfaz de usuario con la nueva imagen en el ImageView o en el GridView
-                                                    if (requestCode == REQUEST_SELECT_IMAGE && resultCode == RESULT_OK && data != null) {
-                                                        // Actualizar el GridView de la galería
-                                                        setupGalleryGridView();
-                                                    } else {
-                                                        // Actualizar el ImageView de la imagen de perfil
-                                                        Picasso.get().load(imageUrl).into(userPhoto);
-                                                    }
+                                                    // Actualizar la interfaz de usuario con la nueva imagen en el GridView
+                                                    setupGalleryGridView();
                                                 } else {
                                                     // Error al obtener la URL de descarga de la imagen
                                                     Toast.makeText(PerfilTatuador.this, "Error al obtener la URL de descarga de la imagen", Toast.LENGTH_SHORT).show();
@@ -254,46 +274,4 @@ public class PerfilTatuador extends AppCompatActivity {
             });
         }
     }
-
-    // Configurar el GridView de la galería
-    private void setupGalleryGridView() {
-        FirebaseUser user = mAuth.getCurrentUser();
-        DatabaseReference tatuadorRef = mDatabase.child("tatuadores").child(user.getUid()).child("imagenes");
-
-        tatuadorRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()) {
-                    List<String> imageUrls = new ArrayList<>();
-                    for (DataSnapshot imageSnapshot : snapshot.getChildren()) {
-                        String imageUrl = imageSnapshot.getValue(String.class);
-                        imageUrls.add(imageUrl);
-                    }
-
-                    ImageAdapter adapter = new ImageAdapter(PerfilTatuador.this, imageUrls);
-                    galleryGridView.setAdapter(adapter);
-
-                    galleryGridView.setNumColumns(3);
-                    galleryGridView.setColumnWidth(300);
-
-                    galleryGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                            String imageUrl = (String) parent.getItemAtPosition(position);
-                            Toast.makeText(PerfilTatuador.this, "Imagen seleccionada: " + imageUrl, Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                } else {
-                    Toast.makeText(PerfilTatuador.this, "No hay imágenes en la galería", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(PerfilTatuador.this, "Error de base de datos", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-
 }

@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
+    android:background="@color/common_google_signin_btn_text_light_pressed"
     android:padding="16dp">
 
 
@@ -24,7 +24,9 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="112dp"
-        android:layout_marginTop="36dp" />
+        android:layout_marginTop="36dp"
+        android:textColor="@color/button_default_color"
+        android:textColorHint="@color/button_default_color" />
 
     <EditText
         android:id="@+id/user_bio_label"
@@ -32,8 +34,10 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_marginStart="122dp"
-        android:layout_marginTop="117dp"
-        android:text="@string/user_bio_label" />
+        android:layout_marginTop="90dp"
+        android:text="@string/user_bio_label"
+        android:textColor="@color/button_default_color"
+        android:textColorHint="@color/button_default_color" />
 
     <TextView
         android:id="@+id/bio_nuevo"
@@ -49,13 +53,16 @@
         android:layout_width="369dp"
         android:layout_height="496dp"
         android:layout_marginTop="186dp"
+        android:background="@drawable/about_textview_background"
         android:orientation="vertical">
 
         <TextView
             android:id="@+id/gallery_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/gallery_label" />
+            android:text="@string/gallery_label"
+            android:textColor="@color/button_default_color"
+            android:textColorHint="@color/button_default_color" />
 
         <GridView
             android:id="@+id/gallery_gridview"
@@ -79,13 +86,14 @@
 
     <Button
         android:id="@+id/edit_profile_button"
-        android:layout_width="116dp"
-        android:layout_height="46dp"
+        android:layout_width="130dp"
+        android:layout_height="81dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="241dp"
-        android:layout_marginTop="56dp"
-        android:layout_marginEnd="38dp"
-        android:text="@string/edit_profile" />
+        android:layout_marginStart="264dp"
+        android:layout_marginEnd="1dp"
+        android:background="@drawable/button_background4"
+        android:text="@string/edit_profile"
+        android:textColor="@color/button_default_color" />
 
 </RelativeLayout>

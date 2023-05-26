@@ -15,7 +15,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class PerfilTatuadorDesdeCliente extends AppCompatActivity {
-    private DatabaseReference tatuadorRef;
+ /*   private DatabaseReference tatuadorRef;
 
     private Button enviarMensajeButton;
 
@@ -70,6 +70,6 @@ public class PerfilTatuadorDesdeCliente extends AppCompatActivity {
                 System.out.println("Error al leer los datos del tatuador: " + databaseError.getMessage());
             }
         });
-    }
+    }*/
 }
 

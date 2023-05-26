@@ -6,55 +6,48 @@
     android:background="@drawable/background"
     android:padding="16dp">
 
-    <LinearLayout
+
+    <ImageView
+        android:id="@+id/user_profile_image"
+        android:layout_width="75dp"
+        android:layout_height="97dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="22dp"
+        android:layout_marginEnd="320dp"
+        android:contentDescription="@string/profile_image" />
+
+    <EditText
+        android:id="@+id/user_name_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="112dp"
+        android:layout_marginTop="36dp" />
+
+    <EditText
+        android:id="@+id/user_bio_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="122dp"
+        android:layout_marginTop="117dp"
+        android:text="@string/user_bio_label" />
+
+    <TextView
+        android:id="@+id/bio_nuevo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:orientation="vertical">
-
-        <ImageView
-            android:id="@+id/user_profile_image"
-            android:layout_width="96dp"
-            android:layout_height="100dp"
-            android:contentDescription="@string/profile_image" />
-
-        <Button
-            android:id="@+id/edit_profile_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/edit_profile" />
-
-        <EditText
-            android:id="@+id/user_name_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/user_name_label" />
-
-        <EditText
-            android:id="@+id/user_bio_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/user_bio_label" />
-
-        <TextView
-            android:id="@+id/bio_nuevo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="TextView" />
-
-    </LinearLayout>
-
-    <View
-        android:id="@+id/dashed_line"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_below="@id/user_profile_image"
-        tools:ignore="NotSibling" />
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="184dp"
+        android:text="TextView" />
 
     <LinearLayout
         android:id="@+id/gallery_layout"
-        android:layout_width="395dp"
-        android:layout_height="494dp"
+        android:layout_width="369dp"
+        android:layout_height="496dp"
         android:layout_marginTop="186dp"
         android:orientation="vertical">
 
@@ -67,7 +60,7 @@
         <GridView
             android:id="@+id/gallery_gridview"
             android:layout_width="match_parent"
-            android:layout_height="367dp"
+            android:layout_height="wrap_content"
             android:numColumns="3" />
 
         <Button
@@ -83,5 +76,16 @@
             android:layout_marginTop="8dp" />
 
     </LinearLayout>
+
+    <Button
+        android:id="@+id/edit_profile_button"
+        android:layout_width="116dp"
+        android:layout_height="46dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="241dp"
+        android:layout_marginTop="56dp"
+        android:layout_marginEnd="38dp"
+        android:text="@string/edit_profile" />
 
 </RelativeLayout>

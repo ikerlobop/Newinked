@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.GridView;
 import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
@@ -13,21 +14,21 @@ import java.util.List;
 
 public class ImageAdapter extends BaseAdapter {
     private Context context;
-    private List<String> imageUrls;
+    private int[] imageResources;
 
-    public ImageAdapter(Context context, List<String> imageUrls) {
+    public ImageAdapter(Context context, int[] imageResources) {
         this.context = context;
-        this.imageUrls = imageUrls;
+        this.imageResources = imageResources;
     }
 
     @Override
     public int getCount() {
-        return imageUrls.size();
+        return imageResources.length;
     }
 
     @Override
     public Object getItem(int position) {
-        return imageUrls.get(position);
+        return null;
     }
 
     @Override
@@ -37,16 +38,19 @@ public class ImageAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+        ImageView imageView;
+
         if (convertView == null) {
-            convertView = LayoutInflater.from(context).inflate(R.layout.grid_item_image, parent, false);
+            imageView = new ImageView(context);
+            imageView.setLayoutParams(new GridView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 200));
+            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            imageView.setPadding(8, 8, 8, 8);
+        } else {
+            imageView = (ImageView) convertView;
         }
 
-        ImageView imageView = convertView.findViewById(R.id.grid_item_image_viw);
-        String imageUrl = imageUrls.get(position);
+        imageView.setImageResource(imageResources[position]);
 
-        // Utiliza Picasso o cualquier otra biblioteca de carga de imágenes para cargar la imagen en el ImageView
-        Picasso.get().load(imageUrl).into(imageView);
-
-        return convertView;
+        return imageView;
     }
 }

@@ -1,5 +1,4 @@
 package com.example.newinked;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
@@ -26,7 +25,7 @@ public class FormularioTatuadorRegistro extends AppCompatActivity {
     private EditText ConfirmaTatuadorContrasena;
     private EditText TatuadorUbicacion;
     private Button botonRegistro;
-    private DatabaseReference mdatabase;
+    private DatabaseReference mDatabase;
     private String idTatuador;
 
     @SuppressLint("MissingInflatedId")
@@ -43,7 +42,7 @@ public class FormularioTatuadorRegistro extends AppCompatActivity {
         TatuadorUbicacion = findViewById(R.id.ubicacionEditText);
 
         // Obtener una instancia de la base de datos de Firebase
-        mdatabase = FirebaseDatabase.getInstance().getReference();
+        mDatabase = FirebaseDatabase.getInstance().getReference();
 
         // Agregar un listener al botón de registro para guardar el objeto Tatuador en la base de datos al pulsar
         botonRegistro.setOnClickListener(new View.OnClickListener() {
@@ -67,7 +66,7 @@ public class FormularioTatuadorRegistro extends AppCompatActivity {
                     return;
                 } else {
                     // Verificar si ya existe un usuario con el mismo email
-                    mdatabase.child("tatuadores").orderByChild("email").equalTo(email).addListenerForSingleValueEvent(new ValueEventListener() {
+                    mDatabase.child("tatuadores").orderByChild("email").equalTo(email).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             // Si se encuentra un usuario con este email, mostrar un mensaje de error
@@ -79,12 +78,13 @@ public class FormularioTatuadorRegistro extends AppCompatActivity {
                                 Tatuador tatuador = new Tatuador(nombre, email, contrasena, ubicacion);
 
                                 // Obtener una referencia para el nuevo tatuador en la base de datos
-                                DatabaseReference tatuadorRef = mdatabase.child("tatuadores").push();
+                                DatabaseReference tatuadorRef = mDatabase.child("tatuadores").push();
                                 idTatuador = tatuadorRef.getKey();
                                 tatuador.setIdtatuador(idTatuador);
 
                                 // Guardar el objeto Tatuador en la base de datos
                                 tatuadorRef.setValue(tatuador);
+
 
                                 // Escribir en Firebase Auth el usuario
                                 FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, contrasena);
@@ -109,6 +109,7 @@ public class FormularioTatuadorRegistro extends AppCompatActivity {
                         @Override
                         public void onCancelled(@NonNull DatabaseError error) {
                             // Manejar el error
+                            Toast.makeText(FormularioTatuadorRegistro.this, "Error al acceder a la base de datos", Toast.LENGTH_SHORT).show();
                         }
                     });
                 }
@@ -116,4 +117,5 @@ public class FormularioTatuadorRegistro extends AppCompatActivity {
         });
     }
 }
+
 

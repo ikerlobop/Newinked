@@ -1,6 +1,6 @@
 package com.example.newinked;
+
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -12,7 +12,6 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class EnviarMensaje extends AppCompatActivity {
     private EditText mensajeEditText;
-    private Button enviarMensajeButton;
 
     private DatabaseReference mensajesRef;
 
@@ -26,15 +25,10 @@ public class EnviarMensaje extends AppCompatActivity {
 
         // Inicializar las vistas
         mensajeEditText = findViewById(R.id.editTextMessage);
-        enviarMensajeButton = findViewById(R.id.buttonSend);
+        Button enviarMensajeButton = findViewById(R.id.buttonSend);
 
         // Establecer el listener del botón de enviar mensaje
-        enviarMensajeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                enviarMensaje();
-            }
-        });
+        enviarMensajeButton.setOnClickListener(v -> enviarMensaje());
     }
 
     private void enviarMensaje() {
@@ -47,6 +41,7 @@ public class EnviarMensaje extends AppCompatActivity {
             String mensajeId = mensajesRef.push().getKey();
 
             // Guardar el mensaje en la base de datos
+            assert mensajeId != null;
             mensajesRef.child(mensajeId).setValue(mensaje);
 
             // Mostrar mensaje de éxito

@@ -2,12 +2,12 @@ package com.example.newinked;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
-import com.airbnb.lottie.LottieAnimationView;
-import com.airbnb.lottie.LottieDrawable;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.airbnb.lottie.LottieAnimationView;
+import com.airbnb.lottie.LottieDrawable;
 
 public class InicioSesionActivity extends AppCompatActivity {
 
@@ -29,20 +29,14 @@ public class InicioSesionActivity extends AppCompatActivity {
         btnTatuador2 = findViewById(R.id.btnTatuador2);
 
         // Definimos los listeners para nuestros botones
-        btnUsuario2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(InicioSesionActivity.this, LoginUsuario.class);
-                startActivity(intent);
-            }
+        btnUsuario2.setOnClickListener(view -> {
+            Intent intent = new Intent(InicioSesionActivity.this, LoginUsuario.class);
+            startActivity(intent);
         });
 
-        btnTatuador2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(InicioSesionActivity.this, LoginTatuador.class);
-                startActivity(intent);
-            }
+        btnTatuador2.setOnClickListener(view -> {
+            Intent intent = new Intent(InicioSesionActivity.this, LoginTatuador.class);
+            startActivity(intent);
         });
     }
 }

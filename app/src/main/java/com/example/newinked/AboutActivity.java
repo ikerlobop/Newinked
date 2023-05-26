@@ -1,12 +1,9 @@
 package com.example.newinked;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-
 import com.airbnb.lottie.LottieAnimationView;
 
 public class AboutActivity extends AppCompatActivity {
@@ -33,14 +30,11 @@ public class AboutActivity extends AppCompatActivity {
         avFlecha.playAnimation();
 
         // Agregar un Listener al avFlecha para hacerlo interactivo como un botón
-        avFlecha.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Acción a realizar cuando se hace clic en avFlecha (simulando un botón)
-                // Redirigir a la actividad MainActivity
-                Intent intent = new Intent(AboutActivity.this, MainActivity.class);
-                startActivity(intent);
-            }
+        avFlecha.setOnClickListener(v -> {
+            // Acción a realizar cuando se hace clic en avFlecha (simulando un botón)
+            // Redirigir a la actividad MainActivity
+            Intent intent = new Intent(AboutActivity.this, MainActivity.class);
+            startActivity(intent);
         });
     }
 }

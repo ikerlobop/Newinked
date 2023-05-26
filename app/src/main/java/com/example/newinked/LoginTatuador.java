@@ -3,7 +3,6 @@ package com.example.newinked;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -12,9 +11,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -93,12 +89,9 @@ public class LoginTatuador extends AppCompatActivity {
                     });
         });
 
-        forgotPasswordTextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent recuperarContrasenaIntent = new Intent(LoginTatuador.this, RecuperarContrasenaActivity.class);
-                startActivity(recuperarContrasenaIntent);
-            }
+        forgotPasswordTextView.setOnClickListener(view -> {
+            Intent recuperarContrasenaIntent = new Intent(LoginTatuador.this, RecuperarContrasenaActivity.class);
+            startActivity(recuperarContrasenaIntent);
         });
     }
 }

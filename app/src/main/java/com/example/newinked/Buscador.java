@@ -8,39 +8,25 @@ import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.Spinner;
 import android.widget.TextView;
-
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 
 public class Buscador extends AppCompatActivity {
 
-    private TextView titleTextView;
-    private Spinner categorySpinner;
     private GridView photoGridView;
     private ImageAdapter imageAdapter;
 
-    private int[] linealImages = {R.drawable.lineal1, R.drawable.lineal2};
-    private int[] floralImages = {R.drawable.floral1, R.drawable.floral2};
-    private int[] orientalImages = {R.drawable.oriental1, R.drawable.oriental2, R.drawable.oriental3};
+    private final int[] linealImages = {R.drawable.lineal1, R.drawable.lineal2};
+    private final int[] floralImages = {R.drawable.floral1, R.drawable.floral2};
+    private final int[] orientalImages = {R.drawable.oriental1, R.drawable.oriental2, R.drawable.oriental3};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.buscador_activity);
 
-        titleTextView = findViewById(R.id.titleTextView);
-        categorySpinner = findViewById(R.id.categorySpinner);
+        TextView titleTextView = findViewById(R.id.titleTextView);
+        Spinner categorySpinner = findViewById(R.id.categorySpinner);
         photoGridView = findViewById(R.id.photoGridView);
 
         // Obtener los estilos desde el archivo arrays.xml
@@ -73,13 +59,10 @@ public class Buscador extends AppCompatActivity {
         });
 
         // Establecer el evento de clic en el GridView
-        photoGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                // Abre la actividad PerfilTatuadorDesdeCliente al hacer clic en una foto
-                Intent intent = new Intent(Buscador.this, PerfilTatuadorDesdeCliente.class);
-                startActivity(intent);
-            }
+        photoGridView.setOnItemClickListener((parent, view, position, id) -> {
+            // Abre la actividad PerfilTatuadorDesdeCliente al hacer clic en una foto
+            Intent intent = new Intent(Buscador.this, PerfilTatuadorDesdeCliente.class);
+            startActivity(intent);
         });
     }
 

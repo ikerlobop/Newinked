@@ -1,14 +1,14 @@
 package com.example.newinked;
 
-import static com.example.newinked.R.*;
-
-import androidx.appcompat.app.AppCompatActivity;
+import static com.example.newinked.R.id;
+import static com.example.newinked.R.layout;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -23,32 +23,22 @@ public class MainActivity extends AppCompatActivity {
         setContentView(layout.activity_main);
 
         registerButton = findViewById(id.registerButton);
-        registerButton.setOnClickListener(new View.OnClickListener() {
+        registerButton.setOnClickListener(v -> {
 
-            @Override
-            public void onClick(View v) {
-
-                Intent intent = new Intent(MainActivity.this, RegistroActivity.class);
-                startActivity(intent);
-            }
+            Intent intent = new Intent(MainActivity.this, RegistroActivity.class);
+            startActivity(intent);
         });
 
         loginButton = findViewById(id.loginButtonUsuario);
-        loginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, InicioSesionActivity.class);
-                startActivity(intent);
-            }
+        loginButton.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, InicioSesionActivity.class);
+            startActivity(intent);
         });
 
         aboutTextView = findViewById(id.tvAbout);
-        aboutTextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, AboutActivity.class);
-                startActivity(intent);
-            }
+        aboutTextView.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, AboutActivity.class);
+            startActivity(intent);
         });
 
 

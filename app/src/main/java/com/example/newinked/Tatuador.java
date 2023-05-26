@@ -13,23 +13,15 @@ public class Tatuador {
 
     private List<String> imagenes;
 
-    public Tatuador(String nombre, String email, String contrasena, String ubicacion, String biografia) {
-        this.nombre = nombre;
-        this.email = email;
-        this.contrasena = contrasena;
-        this.ubicacion = ubicacion;
-        this.biografia = biografia;
-    }
-
-    //para firebase
-    public Tatuador() {
-    }
-
     public Tatuador(String nombre, String email, String contrasena, String ubicacion) {
         this.nombre = nombre;
         this.email = email;
         this.contrasena = contrasena;
         this.ubicacion = ubicacion;
+    }
+
+    //para firebase
+    public Tatuador() {
     }
 
 
@@ -90,18 +82,6 @@ public class Tatuador {
         this.imagenes = imagenes;
     }
 
-    @Override
-    public String toString() {
-        return "Tatuador{" +
-                "nombre='" + nombre + '\'' +
-                ", email='" + email + '\'' +
-                ", contrasena='" + contrasena + '\'' +
-                ", ubicacion='" + ubicacion + '\'' +
-                ", biografia='" + biografia + '\'' +
-                ", idtatuador='" + idtatuador + '\'' +
-                ", imagenes=" + imagenes +
-                '}';
-    }
 
     public void getFotoPerfilUrl() {
         return;

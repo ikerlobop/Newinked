@@ -1,79 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/common_google_signin_btn_text_light_pressed">
+    android:layout_height="match_parent">
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="200dp"
         android:layout_height="200dp"
         android:layout_marginTop="32dp"
-        android:background="@drawable/flor1"
+        android:src="@drawable/your_image"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:contentDescription="@string/todossswsws" />
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <TextView
         android:id="@+id/textViewName"
-        android:layout_width="161dp"
-        android:layout_height="40dp"
-        android:background="@drawable/edittext_background"
-        android:fontFamily="@font/roboto_medium"
-        android:text="@string/nombre"
-        android:textColor="@color/button_default_color"
+        android:layout_width="113dp"
+        android:layout_height="38dp"
+        android:text="Nombre"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.476"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/imageView"
-        app:layout_constraintVertical_bias="0.03" />
+        app:layout_constraintHorizontal_bias="0.476"/>
 
     <TextView
         android:id="@+id/textViewEmail"
-        android:layout_width="160dp"
-        android:layout_height="44dp"
-        android:background="@drawable/edittext_background"
-        android:fontFamily="@font/roboto_medium"
-        android:text="@string/emaill"
-        android:textColor="@color/button_default_color"
+        android:layout_width="120dp"
+        android:layout_height="36dp"
+        android:text="Email"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.437" />
+        app:layout_constraintHorizontal_bias="0.498"/>
 
     <TextView
         android:id="@+id/textViewLocation"
-        android:layout_width="166dp"
-        android:layout_height="46dp"
-        android:background="@drawable/edittext_background"
-        android:fontFamily="@font/roboto_medium"
-        android:text="@string/ubi"
-        android:textColor="@color/button_default_color"
+        android:layout_width="127dp"
+        android:layout_height="39dp"
+        android:text="Ubicación"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.521" />
+        app:layout_constraintHorizontal_bias="0.498" />
 
     <Button
         android:id="@+id/buttonSendMessage"
-        android:layout_width="203dp"
-        android:layout_height="48dp"
-        android:background="@drawable/button_background4"
-        android:fontFamily="@font/roboto_medium"
-        android:text="@string/enviar_mensaje"
-        android:textColor="@color/button_default_color"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ENVIAR MENSAJE"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.674" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

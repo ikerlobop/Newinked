@@ -1,4 +1,5 @@
 package com.example.newinked;
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +18,7 @@ public class GalleryAdapter extends BaseAdapter {
     public GalleryAdapter(Context context, List<String> imageUrls) {
         this.context = context;
         this.imageUrls = imageUrls;
+
     }
 
     @Override
@@ -57,3 +59,4 @@ public class GalleryAdapter extends BaseAdapter {
         ImageView imageView;
     }
 }
+

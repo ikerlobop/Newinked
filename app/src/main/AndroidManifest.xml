@@ -65,6 +65,9 @@
         <activity
             android:name=".PerfilTatuadorDesdeCliente"
             android:exported="true" />
+        <activity
+            android:name=".EnviarMensaje"
+            android:exported="true" />
 
         <meta-data
             android:name="preloaded_fonts"

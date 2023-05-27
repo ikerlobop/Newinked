@@ -8,7 +8,18 @@ import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class Buscador extends AppCompatActivity {
@@ -16,9 +27,6 @@ public class Buscador extends AppCompatActivity {
     private GridView photoGridView;
     private ImageAdapter imageAdapter;
 
-    private final int[] linealImages = {R.drawable.lineal1, R.drawable.lineal2};
-    private final int[] floralImages = {R.drawable.floral1, R.drawable.floral2};
-    private final int[] orientalImages = {R.drawable.oriental1, R.drawable.oriental2, R.drawable.oriental3};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,57 +37,43 @@ public class Buscador extends AppCompatActivity {
         Spinner categorySpinner = findViewById(R.id.categorySpinner);
         photoGridView = findViewById(R.id.photoGridView);
 
-        // Obtener los estilos desde el archivo arrays.xml
-        String[] estilosArray = getResources().getStringArray(R.array.estilos_array);
+        // Configurar el Spinner con las opciones
+        String[] categories = new String[] {"Floral", "Oriental", "Lineal"};
+        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_spinner_item, categories);
 
-        // Crear un ArrayAdapter para el Spinner
-        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, estilosArray);
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         categorySpinner.setAdapter(spinnerAdapter);
 
-        // Establecer el evento de selección del Spinner
-        categorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference reference = database.getReference("tatuadores");
+
+        reference.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                // Obtener el estilo seleccionado
-                String estiloSeleccionado = estilosArray[position];
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                List<String> imageUrls = new ArrayList<>();
 
-                // Obtener el arreglo de imágenes según el estilo seleccionado
-                int[] imagesToShow = getImagesForStyle(estiloSeleccionado);
+                for (DataSnapshot tatuadorSnapshot : dataSnapshot.getChildren()) {
+                    for (DataSnapshot imageSnapshot : tatuadorSnapshot.child("imagenes").getChildren()) {
+                        String imageUrl = imageSnapshot.getValue(String.class);
+                        imageUrls.add(imageUrl);
+                    }
+                }
 
-                // Crear el adapter y establecerlo en el GridView
-                imageAdapter = new ImageAdapter(Buscador.this, imagesToShow);
+                // Configurar el adaptador del GridView
+                imageAdapter = new ImageAdapter(Buscador.this, imageUrls);
                 photoGridView.setAdapter(imageAdapter);
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                // No se requiere implementación adicional
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // Manejar errores de lectura de la base de datos si es necesario
             }
         });
 
-        // Establecer el evento de clic en el GridView
-        photoGridView.setOnItemClickListener((parent, view, position, id) -> {
-            // Abre la actividad PerfilTatuadorDesdeCliente al hacer clic en una foto
-            Intent intent = new Intent(Buscador.this, PerfilTatuadorDesdeCliente.class);
-            startActivity(intent);
-        });
-    }
 
-    private int[] getImagesForStyle(String estilo) {
-        switch (estilo) {
-            case "Lineal":
-                return linealImages;
-            case "Floral":
-                return floralImages;
-            case "Oriental":
-                return orientalImages;
-            default:
-                return new int[0];
-        }
     }
 }
-
 
 
 

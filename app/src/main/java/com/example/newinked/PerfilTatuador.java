@@ -51,6 +51,7 @@ public class PerfilTatuador extends AppCompatActivity {
     private EditText bioEditText;
     private Button saveButton;
     private GridView gridView;
+
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
 
@@ -61,9 +62,6 @@ public class PerfilTatuador extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        gridView = findViewById(R.id.gallery_gridview);
-        nombreEditText = findViewById(R.id.user_name_label);
-        bioEditText = findViewById(R.id.user_bio_label);
 
         // Obtener el usuario actual
         FirebaseUser user = mAuth.getCurrentUser();
@@ -77,6 +75,10 @@ public class PerfilTatuador extends AppCompatActivity {
                 if (snapshot.exists()) {
                     // El tatuador con el email especificado existe en la base de datos
                     for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                        // Obtener referencias a los campos de nombre y bio
+                        nombreEditText = findViewById(R.id.user_name_label);
+                        bioEditText = findViewById(R.id.user_bio_label);
+
                         // Obtener los valores actuales de nombre y bio del tatuador
                         String nombre = dataSnapshot.child("nombre").getValue(String.class);
                         String bio = dataSnapshot.child("bio").getValue(String.class);
@@ -120,10 +122,6 @@ public class PerfilTatuador extends AppCompatActivity {
             }
         });
 
-        // Configurar el adaptador del GridView con las imágenes del tatuador
-        setupGalleryGridView();
-
-
         // Listener para el botón de subir imágenes a la galería (grid)
         Button gridPhotoButton = findViewById(R.id.gridbutton);
         gridPhotoButton.setOnClickListener(new View.OnClickListener() {
@@ -132,6 +130,9 @@ public class PerfilTatuador extends AppCompatActivity {
                 uploadToGallery();
             }
         });
+
+        gridView = findViewById(R.id.gallery_gridview);
+        setupGalleryGridView();
     }
 
     private void uploadToGallery() {
@@ -172,15 +173,6 @@ public class PerfilTatuador extends AppCompatActivity {
                             // Configurar el adaptador del GridView con las imágenes del tatuador
                             GalleryAdapter adapter = new GalleryAdapter(PerfilTatuador.this, imageUrls);
                             gridView.setAdapter(adapter);
-                            // Redimensionar las imágenes del GridView
-                            for (int i = 0; i < gridView.getChildCount(); i++) {
-                                ImageView imageView = gridView.getChildAt(i).findViewById(R.id.imageView);
-                                Picasso.get()
-                                        .load(imageUrls.get(i))
-                                        .resize(5, 5) // Establece el tamaño deseado aquí
-                                        .centerCrop()
-                                        .into(imageView);
-                            }
                         }
 
                         @Override
@@ -236,16 +228,27 @@ public class PerfilTatuador extends AppCompatActivity {
                                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                                     @Override
                                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                                        // Obtener la URL de descarga de la imagen
-                                        imageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                            @Override
-                                            public void onSuccess(Uri downloadUri) {
-                                                // Obtener la referencia a las imágenes del tatuador
-                                                DatabaseReference imagenesRef = tatuadorRef.child("imagenes");
+                                        // La imagen se subió exitosamente
+                                        Toast.makeText(PerfilTatuador.this, "Imagen subida", Toast.LENGTH_SHORT).show();
 
-                                                // Guardar la URL de descarga de la imagen en la base de datos
-                                                String imageUrl = downloadUri.toString();
-                                                imagenesRef.push().setValue(imageUrl);
+                                        // Obtener la URL de descarga de la imagen
+                                        imageRef.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Uri> task) {
+                                                if (task.isSuccessful()) {
+                                                    Uri downloadUri = task.getResult();
+
+                                                    // Guardar la URL de descarga de la imagen en la base de datos
+                                                    String imageUrl = downloadUri.toString();
+                                                    DatabaseReference imagenesRef = tatuadorRef.child("imagenes");
+                                                    imagenesRef.push().setValue(imageUrl);
+
+                                                    // Actualizar la interfaz de usuario con la nueva imagen en el GridView
+                                                    setupGalleryGridView();
+                                                } else {
+                                                    // Error al obtener la URL de descarga de la imagen
+                                                    Toast.makeText(PerfilTatuador.this, "Error al obtener la URL de descarga de la imagen", Toast.LENGTH_SHORT).show();
+                                                }
                                             }
                                         });
                                     }
@@ -257,6 +260,9 @@ public class PerfilTatuador extends AppCompatActivity {
                                         Toast.makeText(PerfilTatuador.this, "Error al subir la imagen", Toast.LENGTH_SHORT).show();
                                     }
                                 });
+                    } else {
+                        // No se encontró ningún tatuador con el email dado
+                        Toast.makeText(PerfilTatuador.this, "No se encontró ningún tatuador", Toast.LENGTH_SHORT).show();
                     }
                 }
 

@@ -12,7 +12,7 @@
         android:layout_height="200dp"
 
         android:layout_marginTop="32dp"
-        android:contentDescription="@string/e"
+        android:contentDescription="e"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.464"
         app:layout_constraintStart_toStartOf="parent"
@@ -24,7 +24,7 @@
         android:layout_height="60dp"
         android:background="@drawable/about_textview_background"
         android:fontFamily="@font/dm_sans_medium"
-        android:text="@string/name"
+        android:text="Nombre"
         android:textColor="@color/button_default_color"
         android:textColorHint="@color/button_default_color"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -41,15 +41,15 @@
         android:layout_height="60dp"
         android:background="@drawable/about_textview_background"
         android:fontFamily="@font/dm_sans_medium"
-        android:text="@string/emails"
+        android:text="email"
         android:textColor="@color/button_default_color"
         android:textColorHint="@color/button_default_color"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.459"
+        app:layout_constraintHorizontal_bias="0.464"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.522" />
+        app:layout_constraintVertical_bias="0.518" />
 
     <TextView
         android:id="@+id/textViewLocation"
@@ -57,7 +57,7 @@
         android:layout_height="60dp"
         android:background="@drawable/about_textview_background"
         android:fontFamily="@font/dm_sans_medium"
-        android:text="@string/ubica"
+        android:text="ubicacion"
         android:textColor="@color/button_default_color"
         android:textColorHint="@color/button_default_color"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -73,13 +73,14 @@
         android:layout_height="50dp"
         android:background="@drawable/button_background4"
         android:fontFamily="@font/roboto_medium"
-        android:text="@string/enviar_mensajee"
+        android:text="@string/enviar_mensaje"
         android:textColor="@color/button_default_color"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.454"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.743" />
+        app:layout_constraintVertical_bias="0.743"
+        tools:ignore="TextSizeCheck" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

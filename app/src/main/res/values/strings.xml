@@ -70,7 +70,11 @@
     <string name="ubi">Ubicación</string>
     <string name="todossswsws">TODO</string>
     <string name="enviar_mensaje">ENVIAR MENSAJE</string>
-
+    <string-array name="categoriaopciones">
+        <item>Lineal</item>
+        <item>Floral</item>
+        <item>Oriental</item>
+    </string-array>
 
 
 </resources>

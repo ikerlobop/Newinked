@@ -36,38 +36,36 @@ public class PerfilTatuadorDesdeCliente extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.perfil_tatuador_desde_cliente);
-
+        // Obtener los datos pasados por el intent
+        String tatuadorNombre = getIntent().getStringExtra("nombre");
+        String tatuadoUbicacion = getIntent().getStringExtra("ubicacion");
+        String tatuadorEmail = getIntent().getStringExtra("email");
         imageViewPhoto = findViewById(R.id.imageView7);
         textViewName = findViewById(R.id.textViewName);
         textViewEmail = findViewById(R.id.textViewEmail);
         textViewLocation = findViewById(R.id.textViewLocation);
         buttonSendMessage = findViewById(R.id.buttonSendMessage);
 
+        // Establecer el nombre del tatuador en el TextView
+        textViewName.setText(tatuadorNombre);
+        textViewLocation.setText(tatuadoUbicacion);
+        textViewEmail.setText(tatuadorEmail);
+
         //enseñar imagen del tatuador en res
         imageViewPhoto.setImageResource(R.drawable.image);
-        // Establecer los valores en los TextView
-        textViewName.setText("Alba");
-        textViewEmail.setText("alba@gmail.com");
-        textViewLocation.setText("Madrid");
+
+
 
         buttonSendMessage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Obtener los valores de los TextView
-                String name = textViewName.getText().toString();
-                String email = textViewEmail.getText().toString();
-                String location = textViewLocation.getText().toString();
 
-                // Crear el intent para enviar un correo electrónico
-                Intent intent = new Intent(Intent.ACTION_SENDTO);
-                intent.setData(Uri.parse("mailto:" + email));
-                intent.putExtra(Intent.EXTRA_SUBJECT, "Mensaje de cliente");
-                intent.putExtra(Intent.EXTRA_TEXT, "Hola, " + name + "! Soy un cliente interesado en tus servicios de tatuaje. Me encuentro en " + location + ".");
-
-                // Verificar si hay alguna aplicación de correo electrónico instalada
-                if (intent.resolveActivity(getPackageManager()) != null) {
-                    startActivity(intent);
-                }
+                Intent intent = new Intent(PerfilTatuadorDesdeCliente.this, EnviarMensaje.class);
+                intent.putExtra("nombre", tatuadorNombre);
+                intent.putExtra("email", tatuadorEmail);
+                intent.putExtra("ubicacion", tatuadoUbicacion);
+                startActivity(intent);
+                startActivity(intent);
             }
         });
     }

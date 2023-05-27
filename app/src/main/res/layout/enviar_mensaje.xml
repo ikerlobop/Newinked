@@ -8,18 +8,54 @@
     android:padding="16dp">
 
     <TextView
+        android:id="@+id/textViewRecipient2"
+        android:layout_width="94dp"
+        android:layout_height="38dp"
+        android:layout_marginStart="16dp"
+        android:text="Ubicación:"
+        android:textColor="@color/button_default_color"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textViewRecipientName2" />
+
+    <TextView
+        android:id="@+id/textViewRecipientName2"
+        android:layout_width="201dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="36dp"
+        android:text="Ubicacion Tatuador"
+        android:textColor="@color/button_default_color"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/textViewRecipient2"
+        app:layout_constraintTop_toBottomOf="@+id/textViewRecipientName" />
+
+    <TextView
         android:id="@+id/textViewRecipient"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="153dp"
+        android:layout_height="49dp"
         android:text="Enviar mensaje a: "
         android:textColor="@color/button_default_color"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.007"
+        app:layout_constraintHorizontal_bias="0.06"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.022" />
+        app:layout_constraintVertical_bias="0.026" />
+
+    <TextView
+        android:id="@+id/textViewRecipientName"
+        android:layout_width="204dp"
+        android:layout_height="35dp"
+        android:text="Nombre Tatuador"
+        android:textColor="@color/button_default_color"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.75"
+        app:layout_constraintStart_toEndOf="@+id/textViewRecipient"
+        app:layout_constraintTop_toTopOf="@+id/textViewRecipient" />
 
     <EditText
         android:id="@+id/editTextMessage"
@@ -34,9 +70,10 @@
         android:textColorHint="@color/button_default_color"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.482"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textViewRecipient"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.227" />
 
     <Button
         android:id="@+id/buttonSend"
@@ -48,21 +85,22 @@
         android:textColor="@color/button_default_color"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/editTextMessage"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.04" />
 
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="268dp"
-        android:layout_height="318dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.804"
-        app:srcCompat="@drawable/principal2" />
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="109dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="20dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

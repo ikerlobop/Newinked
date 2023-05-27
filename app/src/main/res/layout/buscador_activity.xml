@@ -39,15 +39,16 @@
 
     <GridView
         android:id="@+id/photoGridView"
-        android:layout_width="319dp"
-        android:layout_height="409dp"
+        android:layout_width="277dp"
+        android:layout_height="375dp"
         android:background="@drawable/about_textview_background"
         android:numColumns="3"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.485"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.732" />
+        app:layout_constraintTop_toBottomOf="@+id/categorySpinner"
+        app:layout_constraintVertical_bias="0.656" />
 
     <TextView
         android:id="@+id/textView"

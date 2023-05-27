@@ -1,8 +1,10 @@
 package com.example.newinked;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,14 +13,33 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class EnviarMensaje extends AppCompatActivity {
-    private EditText mensajeEditText;
+
+    private TextView recipientNameTextView;
+    private TextView recipientNameTextView2;
+
+
 
     private DatabaseReference mensajesRef;
+    private EditText mensajeEditText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.enviar_mensaje);
+
+        // Obtener los datos pasados por el intent
+        String tatuadorNombre = getIntent().getStringExtra("nombre");
+        String tatuadoUbicacion = getIntent().getStringExtra("ubicacion");
+
+
+        // Enlazar el TextView del destinatario
+        recipientNameTextView = findViewById(R.id.textViewRecipientName);
+        recipientNameTextView2 = findViewById(R.id.textViewRecipientName2);
+
+        // Establecer el nombre del tatuador en el TextView
+        recipientNameTextView.setText(tatuadorNombre);
+        recipientNameTextView2.setText(tatuadoUbicacion);
+
 
         // Inicializar la referencia a la base de datos
         mensajesRef = FirebaseDatabase.getInstance().getReference().child("mensajes");
@@ -55,4 +76,3 @@ public class EnviarMensaje extends AppCompatActivity {
         }
     }
 }
-

@@ -1,6 +1,5 @@
 package com.example.newinked;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,10 +12,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class EnviarMensaje extends AppCompatActivity {
-
-    private TextView recipientNameTextView;
-    private TextView recipientNameTextView2;
-
 
 
     private DatabaseReference mensajesRef;
@@ -33,8 +28,8 @@ public class EnviarMensaje extends AppCompatActivity {
 
 
         // Enlazar el TextView del destinatario
-        recipientNameTextView = findViewById(R.id.textViewRecipientName);
-        recipientNameTextView2 = findViewById(R.id.textViewRecipientName2);
+        TextView recipientNameTextView = findViewById(R.id.textViewRecipientName);
+        TextView recipientNameTextView2 = findViewById(R.id.textViewRecipientName2);
 
         // Establecer el nombre del tatuador en el TextView
         recipientNameTextView.setText(tatuadorNombre);

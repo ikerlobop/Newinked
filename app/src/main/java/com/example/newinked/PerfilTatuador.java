@@ -32,6 +32,8 @@ public class PerfilTatuador extends AppCompatActivity {
 
     private EditText nombreEditText;
     private EditText bioEditText;
+
+    private EditText telefonoEditText;
     private Button saveButton;
     private GridView gridView;
 
@@ -49,6 +51,7 @@ public class PerfilTatuador extends AppCompatActivity {
         FirebaseUser user = mAuth.getCurrentUser();
 
         // Crear la consulta para buscar el tatuador por email
+        assert user != null;
         Query query = mDatabase.child("tatuadores").orderByChild("email").equalTo(user.getEmail());
 
         query.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -60,20 +63,28 @@ public class PerfilTatuador extends AppCompatActivity {
                         // Obtener referencias a los campos de nombre y bio
                         nombreEditText = findViewById(R.id.user_name_label);
                         bioEditText = findViewById(R.id.user_bio_label);
+                        telefonoEditText = findViewById(R.id.userTelefono);
 
                         // Obtener los valores actuales de nombre y bio del tatuador
                         String nombre = dataSnapshot.child("nombre").getValue(String.class);
                         String bio = dataSnapshot.child("bio").getValue(String.class);
+                        String telefono = dataSnapshot.child("telefono").getValue(String.class);
+
+
+
+
 
                         // Establecer los valores actuales en los EditText
                         nombreEditText.setText(nombre);
                         bioEditText.setText(bio);
+                        telefonoEditText.setText(telefono);
 
                         // Manejar el clic del botón "Guardar"
                         saveButton = findViewById(R.id.edit_profile_button);
                         saveButton.setOnClickListener(v -> {
                             String nuevoNombre = nombreEditText.getText().toString().trim();
                             String nuevaBio = bioEditText.getText().toString().trim();
+                            String nuevoTelefono = telefonoEditText.getText().toString().trim();
 
                             // Validar que se haya ingresado un nombre
                             if (TextUtils.isEmpty(nuevoNombre)) {
@@ -84,6 +95,7 @@ public class PerfilTatuador extends AppCompatActivity {
                             // Guardar los cambios en la base de datos
                             dataSnapshot.getRef().child("nombre").setValue(nuevoNombre);
                             dataSnapshot.getRef().child("bio").setValue(nuevaBio);
+                            dataSnapshot.getRef().child("telefono").setValue(nuevoTelefono);
 
                             Toast.makeText(PerfilTatuador.this, "Perfil actualizado", Toast.LENGTH_SHORT).show();
                         });
@@ -117,6 +129,7 @@ public class PerfilTatuador extends AppCompatActivity {
     private void setupGalleryGridView() {
         // Obtener la referencia del tatuador actual
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        assert user != null;
         String email = user.getEmail();
 
         DatabaseReference usuarioRef = mDatabase.child("tatuadores");
@@ -175,6 +188,7 @@ public class PerfilTatuador extends AppCompatActivity {
 
             // Obtener el email del usuario actual
             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+            assert user != null;
             String email = user.getEmail();
 
             // Consultar la referencia del tatuador basado en el email
@@ -183,7 +197,8 @@ public class PerfilTatuador extends AppCompatActivity {
             query.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    if (dataSnapshot.exists()) {
+                    if (dataSnapshot.exists() && dataSnapshot.getChildren().iterator().hasNext()) {
+
                         // Obtener la referencia al tatuador encontrado
                         DataSnapshot tatuadorSnapshot = dataSnapshot.getChildren().iterator().next();
                         DatabaseReference tatuadorRef = tatuadorSnapshot.getRef();

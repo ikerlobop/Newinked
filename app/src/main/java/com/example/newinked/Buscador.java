@@ -54,17 +54,20 @@ public class Buscador extends AppCompatActivity {
                 List<String> tatuadorNombres = new ArrayList<>();
                 List<String> tatuadorUbicacions = new ArrayList<>();
                 List<String> tatuadorEmails = new ArrayList<>();
+                List<String> tatuadorCalles = new ArrayList<>();
 
                 for (DataSnapshot tatuadorSnapshot : dataSnapshot.getChildren()) {
                     String tatuadorNombre = tatuadorSnapshot.child("nombre").getValue(String.class);
                     String tatuadorEmail = tatuadorSnapshot.child("email").getValue(String.class);
                     String tatuadorUbicacion = tatuadorSnapshot.child("ubicacion").getValue(String.class);
+                    String tatuadorCalle = tatuadorSnapshot.child("calle").getValue(String.class);
                     for (DataSnapshot imageSnapshot : tatuadorSnapshot.child("imagenes").getChildren()) {
                         String imageUrl = imageSnapshot.getValue(String.class);
                         imageUrls.add(imageUrl);
                         tatuadorNombres.add(tatuadorNombre);
                         tatuadorUbicacions.add(tatuadorUbicacion);
                         tatuadorEmails.add(tatuadorEmail);
+                        tatuadorCalles.add(tatuadorCalle);
                     }
                 }
 
@@ -77,11 +80,13 @@ public class Buscador extends AppCompatActivity {
                     String ubicacion = tatuadorUbicacions.get(position);
                     String tatuadorNombre = tatuadorNombres.get(position);
                     String email = tatuadorEmails.get(position);
+                    String calle = tatuadorCalles.get(position);
 
                     Intent intent = new Intent(Buscador.this,PerfilTatuadorDesdeCliente.class);
                     intent.putExtra("nombre", tatuadorNombre);
                     intent.putExtra("email", email);
                     intent.putExtra("ubicacion", ubicacion);
+                    intent.putExtra("calle", calle);
                     startActivity(intent);
                 });
             }

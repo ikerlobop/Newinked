@@ -3,10 +3,12 @@ package com.example.newinked;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,6 +18,15 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
 
 public class FormularioTatuadorRegistro extends AppCompatActivity {
 
@@ -23,63 +34,10 @@ public class FormularioTatuadorRegistro extends AppCompatActivity {
     private EditText TatuadorEmail;
     private EditText TatuadorContrasena;
     private EditText ConfirmaTatuadorContrasena;
-    private Spinner TatuadorUbicacion;
-    private Button botonRegistro;
+
+
     private DatabaseReference mDatabase;
     private String idTatuador;
-
-    private String[] provincias = {
-            "Álava",
-            "Albacete",
-            "Alicante",
-            "Almería",
-            "Asturias",
-            "Ávila",
-            "Badajoz",
-            "Barcelona",
-            "Burgos",
-            "Cáceres",
-            "Cádiz",
-            "Cantabria",
-            "Castellón",
-            "Ciudad Real",
-            "Córdoba",
-            "La Coruña",
-            "Cuenca",
-            "Gerona",
-            "Granada",
-            "Guadalajara",
-            "Guipúzcoa",
-            "Huelva",
-            "Huesca",
-            "Islas Baleares",
-            "Jaén",
-            "León",
-            "Lérida",
-            "Lugo",
-            "Madrid",
-            "Málaga",
-            "Murcia",
-            "Navarra",
-            "Orense",
-            "Palencia",
-            "Las Palmas",
-            "Pontevedra",
-            "La Rioja",
-            "Salamanca",
-            "Segovia",
-            "Sevilla",
-            "Soria",
-            "Tarragona",
-            "Santa Cruz de Tenerife",
-            "Teruel",
-            "Toledo",
-            "Valencia",
-            "Valladolid",
-            "Vizcaya",
-            "Zamora",
-            "Zaragoza"
-    };
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -89,19 +47,39 @@ public class FormularioTatuadorRegistro extends AppCompatActivity {
 
         TatuadorNombre = findViewById(R.id.nombreCompletoEditText);
         TatuadorEmail = findViewById(R.id.correoElectronicoEditText);
-        botonRegistro = findViewById(R.id.registrarButtonTatuador);
+        Button botonRegistro = findViewById(R.id.registrarButtonTatuador);
         ConfirmaTatuadorContrasena = findViewById(R.id.confirmarContrasenaEditText);
         TatuadorContrasena = findViewById(R.id.contrasenaEditText);
-        TatuadorUbicacion = findViewById(R.id.sexoSpinner);
-        // Crear un adaptador para el Spinner
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, provincias);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        // Establecer el adaptador en el Spinner
-        TatuadorUbicacion.setAdapter(adapter);
+        AutoCompleteTextView autoCompleteTextViewPoblacion = findViewById(R.id.autoTexviewPoblacion);
 
         // Obtener una instancia de la base de datos de Firebase
         mDatabase = FirebaseDatabase.getInstance().getReference();
+
+        // Obtener la lista de poblaciones desde tu archivo JSON o cualquier otra fuente de datos
+        ArrayList<String> poblaciones = obtenerPoblacionesDesdeJSON();
+
+        // Configurar el adaptador con la lista de poblaciones
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, poblaciones);
+        autoCompleteTextViewPoblacion.setAdapter(adapter);
+
+        // Configurar el autocompletado al escribir en el AutoCompleteTextView
+        autoCompleteTextViewPoblacion.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                // No se necesita hacer nada antes de cambiar el texto
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                // Filtrar las sugerencias según el texto ingresado
+                adapter.getFilter().filter(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                // No se necesita hacer nada después de cambiar el texto
+            }
+        });
 
         // Agregar un listener al botón de registro para guardar el objeto Tatuador en la base de datos al pulsar
         botonRegistro.setOnClickListener(v -> {
@@ -110,7 +88,7 @@ public class FormularioTatuadorRegistro extends AppCompatActivity {
             String email = TatuadorEmail.getText().toString();
             String contrasena = TatuadorContrasena.getText().toString();
             String confirmaContrasena = ConfirmaTatuadorContrasena.getText().toString();
-            String ubicacion = TatuadorUbicacion.getSelectedItem().toString();
+            String ubicacion = autoCompleteTextViewPoblacion.getText().toString();
 
             // Validar que los campos no estén vacíos
             if (nombre.isEmpty() || email.isEmpty() || contrasena.isEmpty() || confirmaContrasena.isEmpty() || ubicacion.isEmpty()) {
@@ -142,7 +120,6 @@ public class FormularioTatuadorRegistro extends AppCompatActivity {
                             // Guardar el objeto Tatuador en la base de datos
                             tatuadorRef.setValue(tatuador);
 
-
                             // Escribir en Firebase Auth el usuario
                             FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, contrasena);
 
@@ -154,7 +131,7 @@ public class FormularioTatuadorRegistro extends AppCompatActivity {
                             TatuadorEmail.setText("");
                             TatuadorContrasena.setText("");
                             ConfirmaTatuadorContrasena.setText("");
-                            TatuadorUbicacion.setSelection(0);
+                            autoCompleteTextViewPoblacion.setText("");
 
                             // Llevar al usuario a la actividad LoginTatuador después de un registro exitoso
                             Intent intent = new Intent(FormularioTatuadorRegistro.this, LoginTatuador.class);
@@ -172,6 +149,32 @@ public class FormularioTatuadorRegistro extends AppCompatActivity {
             }
         });
     }
+
+    private ArrayList<String> obtenerPoblacionesDesdeJSON() {
+        ArrayList<String> poblaciones = new ArrayList<>();
+
+        try {
+            InputStream inputStream = getResources().openRawResource(R.raw.rows);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+            StringBuilder jsonContent = new StringBuilder();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                jsonContent.append(line);
+            }
+            reader.close();
+
+            // Procesar el contenido JSON
+            JSONArray jsonArray = new JSONArray(jsonContent.toString());
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                String poblacion = jsonObject.getString("label"); // Obtener el valor del campo "label"
+                poblaciones.add(poblacion);
+            }
+        } catch (IOException | JSONException e) {
+            e.printStackTrace();
+        }
+
+        return poblaciones;
+    }
+
 }
-
-

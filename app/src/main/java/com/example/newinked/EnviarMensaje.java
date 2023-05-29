@@ -40,6 +40,7 @@ public class EnviarMensaje extends AppCompatActivity {
         String tatuadorNombre = getIntent().getStringExtra("nombre");
         String tatuadoUbicacion = getIntent().getStringExtra("ubicacion");
         String tatuadorEmail = getIntent().getStringExtra("email");
+        String tatuadorCalle = getIntent().getStringExtra("calle");
 
         // Enlazar el TextView del destinatario
         TextView recipientNameTextView = findViewById(R.id.textViewRecipientName);

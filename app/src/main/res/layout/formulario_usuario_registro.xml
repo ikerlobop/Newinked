@@ -53,9 +53,8 @@
             android:textColorHint="@android:color/white"
             android:autofillHints="" />
 
-        <Spinner
-
-            android:id="@+id/sexoSpinner"
+        <AutoCompleteTextView
+            android:id="@+id/autoTexviewPoblacionusuario"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_marginTop="20dp"
@@ -63,10 +62,10 @@
             android:backgroundTint="@color/button_default_color"
             android:fontFamily="@font/roboto_medium"
             android:padding="10dp"
-            android:hint="Ubicación"
+            android:hint="Escribe población"
             android:textColor="@color/button_default_color"
             android:textColorHint="@android:color/white"
-            android:spinnerStyle="@style/SpinnerTextStyle"
+            android:completionThreshold="1"
             android:autofillHints="" />
 
         <EditText

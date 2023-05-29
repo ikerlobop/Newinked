@@ -86,6 +86,7 @@ public class Buscador extends AppCompatActivity {
                 });
             }
 
+
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 Toast.makeText(Buscador.this, "Error al cargar las imágenes", Toast.LENGTH_SHORT).show();

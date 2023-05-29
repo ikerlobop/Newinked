@@ -20,17 +20,14 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class LoginTatuador extends AppCompatActivity {
 
     EditText tatuadorEditText, contrasenaEditText;
     Button loginButton;
     TextView forgotPasswordTextView;
-
     FirebaseAuth mAuth;
     DatabaseReference mDatabase;
-    DataSnapshot snapshot;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +59,7 @@ public class LoginTatuador extends AppCompatActivity {
                             query.addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                    List<String> tatuadorIds = new ArrayList<>();
+                                    ArrayList<String> tatuadorIds = new ArrayList<>();
                                     for (DataSnapshot tatuadorSnapshot : snapshot.getChildren()) {
                                         String tatuadorId = tatuadorSnapshot.getKey();
                                         tatuadorIds.add(tatuadorId);
@@ -70,7 +67,7 @@ public class LoginTatuador extends AppCompatActivity {
 
                                     if (!tatuadorIds.isEmpty()) {
                                         Intent intent = new Intent(LoginTatuador.this, PerfilTatuador.class);
-                                        intent.putStringArrayListExtra("tatuadorIds", (ArrayList<String>) tatuadorIds);
+                                        intent.putStringArrayListExtra("tatuadorIds", tatuadorIds);
                                         startActivity(intent);
                                         finish();
                                     } else {

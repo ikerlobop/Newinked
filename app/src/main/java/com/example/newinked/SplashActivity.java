@@ -35,13 +35,10 @@ public class SplashActivity extends AppCompatActivity {
         animationView.playAnimation();
 
         // Iniciar la actividad principal después de un retraso de SPLASH_SCREEN_DELAY
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Intent intent = new Intent(SplashActivity.this, MainActivity.class);
-                startActivity(intent);
-                finish();
-            }
+        new Handler().postDelayed(() -> {
+            Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();
         }, SPLASH_SCREEN_DELAY);
     }
 }

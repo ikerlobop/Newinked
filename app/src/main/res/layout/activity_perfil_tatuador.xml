@@ -33,6 +33,7 @@
             android:layout_width="253dp"
             android:layout_height="44dp"
             android:autofillHints=""
+            android:hint="Nombre"
             android:background="@drawable/about_container_background"
             android:textColor="@color/button_default_color"
             android:textColorHint="@color/button_default_color"
@@ -44,14 +45,14 @@
             app:layout_constraintVertical_bias="0.924"/>
 
         <EditText
-            android:id="@+id/user_street"
+            android:id="@+id/userTelefono"
+            android:hint="Telefóno"
             android:layout_width="256dp"
             android:layout_height="43dp"
             android:layout_marginBottom="20dp"
             android:background="@drawable/about_container_background"
             android:fontFamily="@font/roboto_medium"
             android:importantForAutofill="no"
-            android:text="@string/user_street"
             android:textColor="@color/button_default_color"
             android:textColorHint="@color/button_default_color"
             app:layout_constraintBottom_toTopOf="@+id/gridbutton"
@@ -67,7 +68,7 @@
             android:autofillHints=""
             android:background="@drawable/about_container_background"
             android:fontFamily="@font/roboto_medium"
-            android:text="@string/user_bio_label"
+            android:hint="Biografía"
             android:textColor="@color/button_default_color"
             android:textColorHint="@color/button_default_color"
             app:layout_constraintBottom_toTopOf="@+id/user_street"

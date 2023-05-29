@@ -1,129 +1,164 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/relativeLayout"
+    android:id="@+id/scrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/common_google_signin_btn_text_light_pressed"
     android:padding="16dp">
 
-
-    <ImageView
-        android:id="@+id/user_profile_image"
-        android:layout_width="73dp"
-        android:layout_height="65dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="296dp"
-        android:contentDescription="@string/profile_image"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/user_name_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="140dp"
-        android:textColor="@color/button_default_color"
-        android:textColorHint="@color/button_default_color"
-        app:layout_constraintEnd_toStartOf="@+id/edit_profile_button"
-        app:layout_constraintHorizontal_bias="0.066"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/user_bio_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="188dp"
-        android:text="@string/user_bio_label"
-        android:textColor="@color/button_default_color"
-        android:textColorHint="@color/button_default_color"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/bio_nuevo"
-        android:layout_width="348dp"
-        android:layout_height="6dp"
-        android:layout_marginTop="236dp"
-        android:text="TextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.253"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/gallery_layout"
-        android:layout_width="328dp"
-        android:layout_height="316dp"
-        android:layout_marginTop="44dp"
-        android:background="@drawable/about_textview_background"
-        app:layout_constraintBottom_toTopOf="@+id/tattoo_style_spinner"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.493"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bio_nuevo"
-        app:layout_constraintVertical_bias="0.0">
+        android:id="@+id/relativeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:layout_editor_absoluteX="-3dp"
+        tools:layout_editor_absoluteY="21dp">
 
-        <GridView
-            android:id="@+id/gallery_gridview"
-            android:layout_width="287dp"
-            android:layout_height="244dp"
-            android:columnWidth="100dp"
-            android:numColumns="3"
+        <ImageView
+            android:id="@+id/user_profile_image"
+            android:layout_width="95dp"
+            android:layout_height="82dp"
+            android:background="@drawable/about_textview_background"
+            android:contentDescription="@string/profile_image"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.042"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.001" />
+
+        <EditText
+            android:id="@+id/user_name_label"
+            android:layout_width="253dp"
+            android:layout_height="44dp"
+            android:autofillHints=""
+            android:background="@drawable/about_container_background"
+            android:textColor="@color/button_default_color"
+            android:textColorHint="@color/button_default_color"
+            app:layout_constraintBottom_toTopOf="@+id/user_bio_label"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.079"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.924"/>
+
+        <EditText
+            android:id="@+id/user_street"
+            android:layout_width="256dp"
+            android:layout_height="43dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/about_container_background"
+            android:fontFamily="@font/roboto_medium"
+            android:importantForAutofill="no"
+            android:text="@string/user_street"
+            android:textColor="@color/button_default_color"
+            android:textColorHint="@color/button_default_color"
+            app:layout_constraintBottom_toTopOf="@+id/gridbutton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.081"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <EditText
+            android:id="@+id/user_bio_label"
+            android:layout_width="256dp"
+            android:layout_height="43dp"
+            android:layout_marginTop="212dp"
+            android:autofillHints=""
+            android:background="@drawable/about_container_background"
+            android:fontFamily="@font/roboto_medium"
+            android:text="@string/user_bio_label"
+            android:textColor="@color/button_default_color"
+            android:textColorHint="@color/button_default_color"
+            app:layout_constraintBottom_toTopOf="@+id/user_street"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.081"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.19" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/gallery_layout"
+            android:layout_width="378dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="48dp"
+            android:background="@drawable/about_textview_background"
+            app:layout_constraintTop_toBottomOf="@+id/gridbutton"
+            tools:layout_editor_absoluteX="0dp"
+            tools:ignore="MissingConstraints">
+
+            <GridView
+                android:id="@+id/gallery_gridview"
+                android:layout_width="326dp"
+                android:layout_height="252dp"
+                android:columnWidth="100dp"
+                android:numColumns="3"
+                android:focusableInTouchMode="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <Button
+            android:id="@+id/edit_profile_button"
+            android:layout_width="133dp"
+            android:layout_height="68dp"
+            android:layout_marginStart="252dp"
+            android:layout_marginEnd="1dp"
+            android:background="@drawable/button_background4"
+            android:fontFamily="@font/roboto_medium"
+            android:text="@string/edit_profile"
+            android:textColor="@color/button_default_color"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <Spinner
+            android:id="@+id/categoria"
+            android:layout_width="wrap_content"
+            android:layout_height="43dp"
+            android:backgroundTint="@color/button_default_color"
+            android:entries="@array/categoriaopciones"
+            app:layout_constraintBottom_toTopOf="@+id/gallery_layout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.945"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edit_profile_button"
+            app:layout_constraintVertical_bias="0.975" />
+
+        <Button
+            android:id="@+id/add_photo_button"
+            android:layout_width="94dp"
+            android:layout_height="39dp"
+            android:background="@drawable/button_background4"
+            android:fontFamily="@font/dm_sans_medium"
+            android:text="@string/editar_foto"
+            android:textColor="@color/button_default_color"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toTopOf="@+id/user_name_label"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.035"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/user_profile_image"
+            app:layout_constraintVertical_bias="0.289" />
+
+        <Button
+            android:id="@+id/gridbutton"
+            android:layout_width="151dp"
+            android:layout_height="44dp"
+            android:layout_marginTop="80dp"
+            android:background="@drawable/button_background4"
+            android:text="@string/subir_fotos"
+            android:textColor="@color/button_default_color"
+            app:layout_constraintEnd_toStartOf="@+id/categoria"
+            app:layout_constraintHorizontal_bias="0.125"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/user_bio_label" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <Button
-        android:id="@+id/edit_profile_button"
-        android:layout_width="142dp"
-        android:layout_height="77dp"
-        android:layout_marginStart="252dp"
-        android:layout_marginEnd="1dp"
-        android:background="@drawable/button_background4"
-        android:text="@string/edit_profile"
-        android:textColor="@color/button_default_color"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Spinner
-        android:id="@+id/categoria"
-        android:layout_width="wrap_content"
-        android:layout_height="43dp"
-        android:layout_marginBottom="28dp"
-        android:entries="@array/categoriaopciones"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/add_photo_button"
-        android:layout_width="95dp"
-        android:layout_height="35dp"
-        android:text="Editar Foto de Perfil"
-
-        app:layout_constraintBottom_toTopOf="@+id/bio_nuevo"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.447"
-        tools:layout_editor_absoluteX="4dp" />
-
-    <Button
-        android:id="@+id/gridbutton"
-        android:layout_width="100dp"
-        android:layout_height="36dp"
-        android:layout_marginTop="252dp"
-        android:text="Subir fotos"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

@@ -70,6 +70,15 @@
     <string name="ubi">Ubicación</string>
     <string name="todossswsws">TODO</string>
     <string name="enviar_mensaje">ENVIAR MENSAJE</string>
+    <string name="subir_fotos">Subir fotos</string>
+    <string name="editar_foto_de_perfil">Editar Foto de Perfil</string>
+    <string name="user_street">Dirección</string>
+    <string name="editar_foto">EDITAR FOTO</string>
+    <string name="direccion">Dirección</string>
+    <string name="emailll">Email</string>
+    <string name="ubicacionnn">Ubicación</string>
+    <string name="nom">Nombre</string>
+    <string name="e" />
     <string-array name="categoriaopciones">
         <item>Lineal</item>
         <item>Floral</item>

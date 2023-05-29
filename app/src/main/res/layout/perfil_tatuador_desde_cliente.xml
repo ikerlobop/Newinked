@@ -1,96 +1,124 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/common_google_signin_btn_text_light_pressed">
 
-    <ImageView
-        android:id="@+id/imageView7"
-        android:layout_width="161dp"
-        android:layout_height="164dp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-        android:layout_marginTop="32dp"
-        android:contentDescription="e"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.464"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <ImageView
+            android:id="@+id/imageView7"
+            android:layout_width="151dp"
+            android:layout_height="140dp"
+            android:layout_marginTop="32dp"
+            android:contentDescription="e"
+            app:layout_constraintBottom_toTopOf="@+id/textViewName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.456"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
 
-    <TextView
-        android:id="@+id/textViewName"
-        android:layout_width="200dp"
-        android:layout_height="60dp"
-        android:background="@drawable/about_textview_background"
-        android:fontFamily="@font/dm_sans_medium"
-        android:text="Nombre"
-        android:textColor="@color/button_default_color"
-        android:textColorHint="@color/button_default_color"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.464"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.318"
-        tools:ignore="MissingConstraints" />
+        <TextView
+            android:id="@+id/textViewName"
+            android:layout_width="200dp"
+            android:layout_height="60dp"
+            android:layout_marginBottom="12dp"
+            android:background="@drawable/about_textview_background"
+            android:fontFamily="@font/roboto_medium"
+            android:text="@string/nom"
+            android:textColor="@color/button_default_color"
+            android:textColorHint="@color/button_default_color"
+            app:layout_constraintBottom_toTopOf="@+id/textViewEmail"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.464"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.979"
+            tools:ignore="MissingConstraints" />
 
-    <TextView
-        android:id="@+id/textViewEmail"
-        android:layout_width="200dp"
-        android:layout_height="60dp"
-        android:background="@drawable/about_textview_background"
-        android:fontFamily="@font/dm_sans_medium"
-        android:text="email"
-        android:textColor="@color/button_default_color"
-        android:textColorHint="@color/button_default_color"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.464"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.43" />
+        <TextView
+            android:id="@+id/textViewLocation"
+            android:layout_width="200dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="320dp"
+            android:background="@drawable/about_textview_background"
+            android:fontFamily="@font/roboto_medium"
+            android:text="@string/ubicacionnn"
+            android:textColor="@color/button_default_color"
+            android:textColorHint="@color/button_default_color"
+            app:layout_constraintBottom_toTopOf="@+id/textViewLocation4"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.464"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="MissingConstraints" />
 
-    <TextView
-        android:id="@+id/textViewLocation"
-        android:layout_width="200dp"
-        android:layout_height="60dp"
-        android:background="@drawable/about_textview_background"
-        android:fontFamily="@font/dm_sans_medium"
-        android:text="ubicacion"
-        android:textColor="@color/button_default_color"
-        android:textColorHint="@color/button_default_color"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.464"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.56" />
+        <TextView
+            android:id="@+id/textViewLocation4"
+            android:layout_width="200dp"
+            android:layout_height="60dp"
+            android:layout_marginBottom="12dp"
+            android:background="@drawable/about_textview_background"
+            android:fontFamily="@font/roboto_medium"
+            android:text="@string/direccion"
+            android:textColor="@color/button_default_color"
+            android:textColorHint="@color/button_default_color"
+            app:layout_constraintBottom_toTopOf="@+id/mapView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.464"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.992" />
 
-    <org.osmdroid.views.MapView
-        android:id="@+id/mapView"
-        android:layout_width="306dp"
-        android:layout_height="162dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewLocation"
-        app:layout_constraintVertical_bias="0.187" />
+        <TextView
+            android:id="@+id/textViewEmail"
+            android:layout_width="200dp"
+            android:layout_height="60dp"
+            android:layout_marginBottom="12dp"
+            android:background="@drawable/about_textview_background"
+            android:fontFamily="@font/roboto_medium"
+            android:text="@string/emailll"
+            android:textColor="@color/button_default_color"
+            android:textColorHint="@color/button_default_color"
+            app:layout_constraintBottom_toTopOf="@+id/textViewLocation"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.464"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0" />
 
-    <Button
-        android:id="@+id/buttonSendMessage"
-        android:layout_width="208dp"
-        android:layout_height="58dp"
-        android:background="@drawable/button_background4"
-        android:fontFamily="@font/roboto_medium"
-        android:text="@string/enviar_mensaje"
-        android:textColor="@color/button_default_color"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/mapView"
-        app:layout_constraintVertical_bias="0.825"
-        tools:ignore="TextSizeCheck" />
+        <org.osmdroid.views.MapView
+            android:id="@+id/mapView"
+            android:layout_width="306dp"
+            android:layout_height="162dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.495"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.861" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <Button
+            android:id="@+id/buttonSendMessage"
+            android:layout_width="208dp"
+            android:layout_height="58dp"
+            android:layout_marginBottom="4dp"
+            android:background="@drawable/button_background4"
+            android:fontFamily="@font/roboto_medium"
+            android:text="@string/enviar_mensaje"
+            android:textColor="@color/button_default_color"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.551"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/mapView"
+            app:layout_constraintVertical_bias="0.294"
+            tools:ignore="TextSizeCheck" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

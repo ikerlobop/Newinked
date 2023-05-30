@@ -44,7 +44,7 @@ public class GalleryAdapter extends BaseAdapter {
         ViewHolder viewHolder;
 
         if (convertView == null) {
-            convertView = LayoutInflater.from(context).inflate(R.layout.galley_item, parent, false);
+            convertView = LayoutInflater.from(context).inflate(R.layout.gallery_item, parent, false);
             viewHolder = new ViewHolder();
             viewHolder.imageView = convertView.findViewById(R.id.gallery_image);
             convertView.setTag(viewHolder);

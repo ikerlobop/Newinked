@@ -1,5 +1,4 @@
 package com.example.newinked;
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -56,24 +55,7 @@ public class ImageAdapter extends BaseAdapter {
         // Cargar la imagen utilizando Picasso
         Picasso.get().load(imageUrl).into(imageView);
 
-        imageView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        // Realizar la animación de zoom hacia adentro
-                        v.animate().scaleX(1.2f).scaleY(1.2f).setDuration(200).start();
-                        break;
-                    case MotionEvent.ACTION_UP:
-                        // Realizar la animación de zoom hacia afuera
-                        v.animate().scaleX(1.0f).scaleY(1.0f).setDuration(200).start();
-                        break;
-                }
-                return true;
-            }
-        });
 
         return imageView;
     }
 }
-

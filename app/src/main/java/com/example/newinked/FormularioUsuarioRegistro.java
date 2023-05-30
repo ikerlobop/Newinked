@@ -28,7 +28,11 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 public class FormularioUsuarioRegistro extends AppCompatActivity {
 
@@ -112,7 +116,16 @@ public class FormularioUsuarioRegistro extends AppCompatActivity {
             else if  (!contrasena.equals(confirmaContrasena)) {
                 Toast.makeText(FormularioUsuarioRegistro.this, "Las contraseñas no coinciden", Toast.LENGTH_SHORT).show();
                 return;
-            } else {
+            } else if (!validarFechaNacimiento(fechaNacimiento)) {
+                Toast.makeText(FormularioUsuarioRegistro.this, "La fecha de nacimiento no es válida", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            else if (esMenorDeEdad(fechaNacimiento)){
+                Toast.makeText(FormularioUsuarioRegistro.this, "Debes ser mayor de edad para registrarte", Toast.LENGTH_SHORT).show();
+                return;
+            }
+             else {
+
                 // Verificar si ya existe un usuario con el mismo email
                 mdatabase.child("usuarios").orderByChild("email").equalTo(email).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -156,6 +169,48 @@ public class FormularioUsuarioRegistro extends AppCompatActivity {
                 });
             }
         });
+    }
+    private boolean validarFechaNacimiento(String fechaNacimiento) {
+        // Validar que la fecha de nacimiento tenga el formato correcto
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        simpleDateFormat.setLenient(false);
+        try {
+            Date fechaNacimientoDate = simpleDateFormat.parse(fechaNacimiento);
+
+            // Obtener el año actual
+            Calendar calendar = Calendar.getInstance();
+            int yearActual = calendar.get(Calendar.YEAR);
+
+            // Obtener el año de la fecha de nacimiento
+            calendar.setTime(fechaNacimientoDate);
+            int yearNacimiento = calendar.get(Calendar.YEAR);
+
+            // Validar el rango de años (establecer un rango adecuado)
+            int anioMinimo = 1930; // Año mínimo aceptado
+            int anioMaximo = yearActual - 18; // Año máximo (se resta 18 años del año actual)
+
+            if (yearNacimiento < anioMinimo || yearNacimiento > anioMaximo) {
+                return false;
+            }
+        } catch (ParseException e) {
+            return false;
+        }
+        return true;
+    }
+    private boolean esMenorDeEdad(String fechaNacimiento) {
+        // Validar que el usuario sea mayor de edad
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        simpleDateFormat.setLenient(false);
+        try {
+            Date fechaNacimientoDate = simpleDateFormat.parse(fechaNacimiento);
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(fechaNacimientoDate);
+            calendar.add(Calendar.YEAR, 18);
+            Date fechaMayorEdad = calendar.getTime();
+            return fechaMayorEdad.after(new Date());
+        } catch (ParseException e) {
+            return false;
+        }
     }
     private ArrayList<String> obtenerPoblacionesDesdeJSON() {
         ArrayList<String> poblaciones = new ArrayList<>();

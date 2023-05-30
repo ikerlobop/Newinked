@@ -21,7 +21,6 @@ import com.google.firebase.database.ValueEventListener;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -52,17 +51,17 @@ public class FormularioTatuadorRegistro extends AppCompatActivity {
         TatuadorContrasena = findViewById(R.id.contrasenaEditText);
         AutoCompleteTextView autoCompleteTextViewPoblacion = findViewById(R.id.autoTexviewPoblacion);
 
-        // Obtener una instancia de la base de datos de Firebase
+        // Obtenemos la instancia de la base de datos
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
-        // Obtener la lista de poblaciones desde tu archivo JSON o cualquier otra fuente de datos
+        // Obtener la lista de poblaciones desde el archivo Json
         ArrayList<String> poblaciones = obtenerPoblacionesDesdeJSON();
 
-        // Configurar el adaptador con la lista de poblaciones
+        // Se configur el array adapter para el autocompletado de las poblaciones
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, poblaciones);
         autoCompleteTextViewPoblacion.setAdapter(adapter);
 
-        // Configurar el autocompletado al escribir en el AutoCompleteTextView
+        // Configuramos el listener para el autocompletado de las poblaciones
         autoCompleteTextViewPoblacion.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -71,7 +70,7 @@ public class FormularioTatuadorRegistro extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                // Filtrar las sugerencias según el texto ingresado
+                //Sugerencias de autocompletado mediante el filtro
                 adapter.getFilter().filter(s.toString());
             }
 
@@ -154,20 +153,25 @@ public class FormularioTatuadorRegistro extends AppCompatActivity {
         ArrayList<String> poblaciones = new ArrayList<>();
 
         try {
+            //Leemos el archivo JSON desde su ubicación
             InputStream inputStream = getResources().openRawResource(R.raw.rows);
             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
             StringBuilder jsonContent = new StringBuilder();
             String line;
+            //Mientras haya lineas en el archivo, las leemos y las añadimos al StringBuilder
             while ((line = reader.readLine()) != null) {
                 jsonContent.append(line);
             }
+            //Cerramos el reader
             reader.close();
 
-            // Procesar el contenido JSON
+            // Procesamos el contenido del JSON
             JSONArray jsonArray = new JSONArray(jsonContent.toString());
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
-                String poblacion = jsonObject.getString("label"); // Obtener el valor del campo "label"
+
+                //Para obtener el nombre de la poblacion buscamos por el nombre de la columna "label"
+                String poblacion = jsonObject.getString("label");
                 poblaciones.add(poblacion);
             }
         } catch (IOException | JSONException e) {

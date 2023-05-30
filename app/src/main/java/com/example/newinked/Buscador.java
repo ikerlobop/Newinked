@@ -34,7 +34,7 @@ public class Buscador extends AppCompatActivity {
         Spinner categorySpinner = findViewById(R.id.categorySpinner);
         photoGridView = findViewById(R.id.photoGridView);
 
-        // Configurar el Spinner con las opciones
+        // Configuramo s el Spinner con las opciones
         String[] categories = new String[]{"Floral", "Oriental", "Lineal"};
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item, categories);
@@ -69,17 +69,18 @@ public class Buscador extends AppCompatActivity {
                     }
                 }
 
-                // Configurar el adaptador del GridView
+                // Configuramos el adaptador del GridView
                 imageAdapter = new ImageAdapter(Buscador.this, imageUrls);
                 photoGridView.setAdapter(imageAdapter);
 
-                // Configurar el listener para cuando se haga click en una imagen
+                // Configuramos el listener para cuando se haga click en una imagen
                 photoGridView.setOnItemClickListener((parent, view, position, id) -> {
                     String ubicacion = tatuadorUbicacions.get(position);
                     String tatuadorNombre = tatuadorNombres.get(position);
                     String email = tatuadorEmails.get(position);
                     String telefono = tatuadorTelefonos.get(position);
 
+                    //lanzamos intent con los datos para pasar a la siguiente activity
                     Intent intent = new Intent(Buscador.this,PerfilTatuadorDesdeCliente.class);
                     intent.putExtra("nombre", tatuadorNombre);
                     intent.putExtra("email", email);

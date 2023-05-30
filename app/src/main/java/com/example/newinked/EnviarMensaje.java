@@ -1,4 +1,5 @@
 package com.example.newinked;
+import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
@@ -10,8 +11,10 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.common.net.InternetDomainName;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 
 import org.osmdroid.config.Configuration;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
@@ -56,9 +59,13 @@ public class EnviarMensaje extends AppCompatActivity {
         // Inicializar las vistas
         mensajeEditText = findViewById(R.id.editTextMessage);
         Button enviarMensajeButton = findViewById(R.id.buttonSend);
+        Button llamarPorTelefono = findViewById(R.id.buttonSend2);
 
         // Establecer el listener del botón de enviar mensaje
         enviarMensajeButton.setOnClickListener(v -> enviarMensaje());
+
+        // Establecer el listener del botón de llamar por teléfono
+        llamarPorTelefono.setOnClickListener(v -> llamarPorTelefono(tatuadorTelefono));
 
         // Inicializar el geocoder
         geocoder = new Geocoder(this);
@@ -94,6 +101,14 @@ public class EnviarMensaje extends AppCompatActivity {
         return new GeoPoint(0, 0);
     }
 
+    private void llamarPorTelefono(String telefono) {
+        // Crear un intent implícito para llamar por teléfono
+        //añade prefijo 34
+        String uri = "tel:" + "34" + telefono.trim();
+        startActivity(new android.content.Intent(android.content.Intent.ACTION_DIAL, android.net.Uri.parse(uri)));
+
+
+    }
     private void enviarMensaje() {
         // Obtener el mensaje del EditText
         String mensaje = mensajeEditText.getText().toString().trim();
@@ -107,15 +122,29 @@ public class EnviarMensaje extends AppCompatActivity {
             assert mensajeId != null;
             mensajesRef.child(mensajeId).setValue(mensaje);
 
-            // Mostrar mensaje de éxito
-            Toast.makeText(this, "Mensaje enviado correctamente", Toast.LENGTH_SHORT).show();
+            //abre correo de movil gmail
+            String[] TO = {getIntent().getStringExtra("email")};
+            String[] CC = {""};
+            Intent emailIntent = new Intent(Intent.ACTION_SEND);
+
+            emailIntent.setData(android.net.Uri.parse("mailto:"));
+            emailIntent.setType("text/plain");
+            emailIntent.putExtra(Intent.EXTRA_EMAIL, TO);
+            emailIntent.putExtra(Intent.EXTRA_CC, CC);
+            emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Mensaje de NewInked");
+
+
+
+            // Mostrar un mensaje de éxito
+            Toast.makeText(this, "Mensaje enviado", Toast.LENGTH_SHORT).show();
 
             // Limpiar el EditText
             mensajeEditText.setText("");
         } else {
-            // Mostrar mensaje de error si el campo está vacío
-            Toast.makeText(this, "Por favor, ingresa un mensaje", Toast.LENGTH_SHORT).show();
+            // Mostrar un mensaje de error
+            Toast.makeText(this, "Escribe un mensaje", Toast.LENGTH_SHORT).show();
         }
+
     }
 }
 

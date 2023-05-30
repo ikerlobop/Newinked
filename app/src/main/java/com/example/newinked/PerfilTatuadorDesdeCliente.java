@@ -32,7 +32,7 @@ public class PerfilTatuadorDesdeCliente extends AppCompatActivity {
         String tatuadorNombre = getIntent().getStringExtra("nombre");
         String tatuadoUbicacion = getIntent().getStringExtra("ubicacion");
         String tatuadorEmail = getIntent().getStringExtra("email");
-        String tatuadorCalle = getIntent().getStringExtra("calle");
+        String tatuadorTelefono = getIntent().getStringExtra("telefono");
 
         // Enlazar las vistas
         ImageView imageViewPhoto = findViewById(R.id.imageView7);
@@ -46,7 +46,7 @@ public class PerfilTatuadorDesdeCliente extends AppCompatActivity {
         textViewName.setText(tatuadorNombre);
         textViewLocation.setText(tatuadoUbicacion);
         textViewEmail.setText(tatuadorEmail);
-        textViewStreet.setText(tatuadorCalle);
+        textViewStreet.setText(tatuadorTelefono);
 
         // Enseñar imagen del tatuador en res
         imageViewPhoto.setImageResource(R.drawable.image);
@@ -72,7 +72,7 @@ public class PerfilTatuadorDesdeCliente extends AppCompatActivity {
             intent.putExtra("nombre", tatuadorNombre);
             intent.putExtra("email", tatuadorEmail);
             intent.putExtra("ubicacion", tatuadoUbicacion);
-            intent.putExtra("calle", tatuadorCalle);
+            intent.putExtra("telefono", tatuadorTelefono);
             startActivity(intent);
         });
     }

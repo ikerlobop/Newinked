@@ -15,7 +15,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -25,7 +24,6 @@ public class Buscador extends AppCompatActivity {
 
     private GridView photoGridView;
     private ImageAdapter imageAdapter;
-    private DatabaseReference reference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +43,7 @@ public class Buscador extends AppCompatActivity {
         categorySpinner.setAdapter(spinnerAdapter);
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        reference = database.getReference("tatuadores");
+        DatabaseReference reference = database.getReference("tatuadores");
 
         reference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -54,20 +52,20 @@ public class Buscador extends AppCompatActivity {
                 List<String> tatuadorNombres = new ArrayList<>();
                 List<String> tatuadorUbicacions = new ArrayList<>();
                 List<String> tatuadorEmails = new ArrayList<>();
-                List<String> tatuadorCalles = new ArrayList<>();
+                List<String> tatuadorTelefonos = new ArrayList<>();
 
                 for (DataSnapshot tatuadorSnapshot : dataSnapshot.getChildren()) {
                     String tatuadorNombre = tatuadorSnapshot.child("nombre").getValue(String.class);
                     String tatuadorEmail = tatuadorSnapshot.child("email").getValue(String.class);
                     String tatuadorUbicacion = tatuadorSnapshot.child("ubicacion").getValue(String.class);
-                    String tatuadorCalle = tatuadorSnapshot.child("calle").getValue(String.class);
+                    String tatuadorTelefono = tatuadorSnapshot.child("telefono").getValue(String.class);
                     for (DataSnapshot imageSnapshot : tatuadorSnapshot.child("imagenes").getChildren()) {
                         String imageUrl = imageSnapshot.getValue(String.class);
                         imageUrls.add(imageUrl);
                         tatuadorNombres.add(tatuadorNombre);
                         tatuadorUbicacions.add(tatuadorUbicacion);
                         tatuadorEmails.add(tatuadorEmail);
-                        tatuadorCalles.add(tatuadorCalle);
+                        tatuadorTelefonos.add(tatuadorTelefono);
                     }
                 }
 
@@ -80,13 +78,13 @@ public class Buscador extends AppCompatActivity {
                     String ubicacion = tatuadorUbicacions.get(position);
                     String tatuadorNombre = tatuadorNombres.get(position);
                     String email = tatuadorEmails.get(position);
-                    String calle = tatuadorCalles.get(position);
+                    String telefono = tatuadorTelefonos.get(position);
 
                     Intent intent = new Intent(Buscador.this,PerfilTatuadorDesdeCliente.class);
                     intent.putExtra("nombre", tatuadorNombre);
                     intent.putExtra("email", email);
                     intent.putExtra("ubicacion", ubicacion);
-                    intent.putExtra("calle", calle);
+                    intent.putExtra("telefono", telefono);
                     startActivity(intent);
                 });
             }

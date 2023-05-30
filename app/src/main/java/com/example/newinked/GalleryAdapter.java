@@ -2,6 +2,7 @@ package com.example.newinked;
 
 import android.content.Context;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -18,7 +19,6 @@ public class GalleryAdapter extends BaseAdapter {
     public GalleryAdapter(Context context, List<String> imageUrls) {
         this.context = context;
         this.imageUrls = imageUrls;
-
     }
 
     @Override
@@ -52,6 +52,23 @@ public class GalleryAdapter extends BaseAdapter {
         String imageUrl = imageUrls.get(position);
         Picasso.get().load(imageUrl).into(viewHolder.imageView);
 
+        viewHolder.imageView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        // Realizar la animación de zoom hacia adentro
+                        v.animate().scaleX(1.f).scaleY(1.4f).setDuration(100).start();
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        // Realizar la animación de zoom hacia afuera
+                        v.animate().scaleX(1.0f).scaleY(1.0f).setDuration(100).start();
+                        break;
+                }
+                return true;
+            }
+        });
+
         return convertView;
     }
 
@@ -59,4 +76,3 @@ public class GalleryAdapter extends BaseAdapter {
         ImageView imageView;
     }
 }
-

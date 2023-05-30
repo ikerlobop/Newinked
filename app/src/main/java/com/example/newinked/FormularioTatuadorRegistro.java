@@ -154,7 +154,7 @@ public class FormularioTatuadorRegistro extends AppCompatActivity {
 
         try {
             //Leemos el archivo JSON desde su ubicación
-            InputStream inputStream = getResources().openRawResource(R.raw.rows);
+            InputStream inputStream = getResources().openRawResource(R.raw.poblaciones);
             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
             StringBuilder jsonContent = new StringBuilder();
             String line;

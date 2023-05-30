@@ -219,7 +219,7 @@ public class FormularioUsuarioRegistro extends AppCompatActivity {
         ArrayList<String> poblaciones = new ArrayList<>();
 
         try {
-            InputStream inputStream = getResources().openRawResource(R.raw.rows);
+            InputStream inputStream = getResources().openRawResource(R.raw.poblaciones);
             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
             StringBuilder jsonContent = new StringBuilder();
             String line;

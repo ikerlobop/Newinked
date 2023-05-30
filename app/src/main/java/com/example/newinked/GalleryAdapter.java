@@ -9,11 +9,12 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.Toast;
-
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+
+//adaptador para tatuador.
 public class GalleryAdapter extends BaseAdapter {
     private Context context;
     private List<String> imageUrls;

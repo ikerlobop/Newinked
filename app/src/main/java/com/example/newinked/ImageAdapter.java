@@ -12,6 +12,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+//adpatador para buscador de usuario.
 public class ImageAdapter extends BaseAdapter {
     private Context context;
     private List<String> imageUrls;

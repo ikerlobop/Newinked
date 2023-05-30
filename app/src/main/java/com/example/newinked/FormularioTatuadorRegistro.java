@@ -165,7 +165,7 @@ public class FormularioTatuadorRegistro extends AppCompatActivity {
             //Cerramos el reader
             reader.close();
 
-            // Procesamos el contenido del JSON
+            // recorre el contenido del JSON
             JSONArray jsonArray = new JSONArray(jsonContent.toString());
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);

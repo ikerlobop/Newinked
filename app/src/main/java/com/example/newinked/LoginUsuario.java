@@ -39,11 +39,11 @@ public class LoginUsuario extends AppCompatActivity {
         setContentView(R.layout.activity_login_usuario);
 
 
-        // Inicializar la instancia de FirebaseAuth
+        // Inicializamos el objeto FirebaseAuth
         mAuth = FirebaseAuth.getInstance();
         mdatabase = FirebaseDatabase.getInstance().getReference();
 
-        // Referencias a las vistas
+        // Referencias de los views
         usuarioEditText = findViewById(R.id.usuarioEditText);
         contrasenaEditText = findViewById(R.id.contrasenaEditText);
         loginButtonUsuario = findViewById(R.id.loginButtonUsuario);
@@ -54,13 +54,13 @@ public class LoginUsuario extends AppCompatActivity {
             String email = usuarioEditText.getText().toString();
             String contrasena = contrasenaEditText.getText().toString();
 
-            // Verificar que los campos no estén vacíos
+            // Campos vacíos -> mensaje de error
             if (email.isEmpty() || contrasena.isEmpty()) {
                 Toast.makeText(LoginUsuario.this, "Por favor, ingrese su usuario y contraseña", Toast.LENGTH_SHORT).show();
                 return;
             }
 
-            // Autenticar al usuario con Firebase Auth
+            // Autenticamos usuario y contraseña
             mAuth.signInWithEmailAndPassword(email, contrasena)
                     .addOnCompleteListener(task -> {
                         if (task.isSuccessful()) {

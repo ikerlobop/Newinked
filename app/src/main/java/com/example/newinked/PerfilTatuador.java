@@ -71,9 +71,6 @@ public class PerfilTatuador extends AppCompatActivity {
                         String telefono = dataSnapshot.child("telefono").getValue(String.class);
 
 
-
-
-
                         // Establecer los valores actuales en los EditText
                         nombreEditText.setText(nombre);
                         bioEditText.setText(bio);

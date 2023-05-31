@@ -58,6 +58,11 @@ public class GalleryAdapter extends BaseAdapter {
             viewHolder = new ViewHolder();
             viewHolder.imageView = convertView.findViewById(R.id.gallery_image);
             convertView.setTag(viewHolder);
+
+            //setPadding
+            viewHolder.imageView.setPadding(8, 8, 8, 8);
+            viewHolder.imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }

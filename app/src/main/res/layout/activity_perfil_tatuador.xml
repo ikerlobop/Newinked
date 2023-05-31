@@ -87,14 +87,12 @@
 
         <androidx.constraintlayout.motion.widget.MotionLayout
             android:id="@+id/gallery_layout"
-            android:layout_width="331dp"
+            android:layout_width="350dp"
             android:layout_height="162dp"
-            android:layout_marginStart="26dp"
-            android:layout_marginTop="36dp"
+            android:layout_marginStart="6dp"
+            android:layout_marginTop="40dp"
             android:background="@drawable/about_textview_background"
             app:layoutDescription="@xml/activity_perfil_tatuador_xml_gallery_layout_scene"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.259"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/gridbutton"
             tools:ignore="MissingConstraints">
@@ -104,20 +102,22 @@
                 android:layout_width="380dp"
                 android:layout_height="144dp"
                 app:layout_constraintStart_toStartOf="parent"
-                tools:layout_editor_absoluteY="10dp">
+                tools:layout_editor_absoluteY="10dp"
+                android:scrollbars="vertical"
+                android:scrollbarStyle="insideOverlay"
+                android:scrollbarSize="10dp">
+
 
                 <GridView
                     android:id="@+id/gallery_gridview"
-                    android:layout_width="329dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="28dp"
+                    android:layout_width="330dp"
+                    android:layout_height="400dp"
+                    android:layout_marginTop="35dp"
+                    android:layout_marginStart="15dp"
                     android:columnWidth="100dp"
                     android:focusableInTouchMode="true"
                     android:numColumns="3"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.51"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+              />
 
             </ScrollView>
         </androidx.constraintlayout.motion.widget.MotionLayout>

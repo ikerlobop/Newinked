@@ -68,6 +68,9 @@
         <activity
             android:name=".EnviarMensaje"
             android:exported="true" />
+        <activity
+            android:name=".BajaActivity"
+            android:exported="true" />
 
         <meta-data
             android:name="preloaded_fonts"

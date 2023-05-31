@@ -15,6 +15,8 @@ public class MainActivity extends AppCompatActivity {
 
     Button loginButton;
     Button registerButton;
+
+    Button deleteButton;
     TextView aboutTextView;
 
     @Override
@@ -38,6 +40,12 @@ public class MainActivity extends AppCompatActivity {
         aboutTextView = findViewById(id.tvAbout);
         aboutTextView.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, AboutActivity.class);
+            startActivity(intent);
+        });
+
+        deleteButton = findViewById(id.baja);
+        deleteButton.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, BajaActivity.class);
             startActivity(intent);
         });
 

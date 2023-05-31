@@ -5,12 +5,16 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.TextUtils;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.Spinner;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -21,10 +25,10 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-
 
 public class PerfilTatuador extends AppCompatActivity {
 
@@ -32,10 +36,10 @@ public class PerfilTatuador extends AppCompatActivity {
 
     private EditText nombreEditText;
     private EditText bioEditText;
-
     private EditText telefonoEditText;
     private Button saveButton;
     private GridView gridView;
+    private Spinner spinner;
 
     private DatabaseReference mDatabase;
 
@@ -64,12 +68,17 @@ public class PerfilTatuador extends AppCompatActivity {
                         nombreEditText = findViewById(R.id.user_name_label);
                         bioEditText = findViewById(R.id.user_bio_label);
                         telefonoEditText = findViewById(R.id.userTelefono);
+                        Spinner spinner = findViewById(R.id.categoria);
+
+                        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(PerfilTatuador.this, R.array.categoriaopciones, R.layout.spinner_item_preview);
+                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        adapter.setDropDownViewResource(R.layout.spinner_item);
+                        spinner.setAdapter(adapter);
 
                         // Obtener los valores actuales de nombre y bio del tatuador
                         String nombre = dataSnapshot.child("nombre").getValue(String.class);
                         String bio = dataSnapshot.child("bio").getValue(String.class);
                         String telefono = dataSnapshot.child("telefono").getValue(String.class);
-
 
                         // Establecer los valores actuales en los EditText
                         nombreEditText.setText(nombre);

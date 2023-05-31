@@ -86,6 +86,7 @@
     <string name="baja">BAJA</string>
     <string name="bajja">BAJA DE LA CUENTA</string>
     <string-array name="categoriaopciones">
+        <item>Todos</item>
         <item>Lineal</item>
         <item>Floral</item>
         <item>Oriental</item>

@@ -1,0 +1,12 @@
+
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+android:id="@android:id/text1"
+    android:background="@drawable/about_textview_background"
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:textColor="#FFFFFF"
+    android:backgroundTint="#9C2C7C"
+android:textStyle="bold"
+    android:fontFamily="@font/roboto_medium"
+android:textSize="16sp"
+android:padding="8dp" />

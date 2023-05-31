@@ -55,6 +55,25 @@
             tools:layout_conversion_absoluteWidth="379dp" />
 
         <Button
+            android:id="@+id/baja"
+            android:layout_width="169dp"
+            android:layout_height="44dp"
+            android:background="@drawable/edittext_background"
+            android:backgroundTint="#FF1B9C"
+            android:fontFamily='@font/roboto_medium'
+            android:text="Borrar cuenta"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toTopOf="@+id/tvAbout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.152"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0"
+            tools:layout_conversion_absoluteHeight="48dp"
+            tools:layout_conversion_absoluteWidth="379dp" />
+
+        <Button
             android:id="@+id/registerButton"
             style="@style/Widget.AppCompat.Button"
             android:layout_width="260dp"

@@ -34,13 +34,11 @@ public class Buscador extends AppCompatActivity {
         Spinner categorySpinner = findViewById(R.id.categorySpinner);
         photoGridView = findViewById(R.id.photoGridView);
 
-        // Configuramo s el Spinner con las opciones
-        String[] categories = new String[]{"Floral", "Oriental", "Lineal"};
-        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_spinner_item, categories);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(Buscador.this, R.array.categoriaopciones, R.layout.spinner_item_preview);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        adapter.setDropDownViewResource(R.layout.spinner_item);
+        categorySpinner.setAdapter(adapter);
 
-        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        categorySpinner.setAdapter(spinnerAdapter);
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference reference = database.getReference("tatuadores");

@@ -85,60 +85,73 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.19" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <androidx.constraintlayout.motion.widget.MotionLayout
             android:id="@+id/gallery_layout"
-            android:layout_width="378dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="44dp"
+            android:layout_width="331dp"
+            android:layout_height="162dp"
+            android:layout_marginStart="26dp"
+            android:layout_marginTop="36dp"
             android:background="@drawable/about_textview_background"
+            app:layoutDescription="@xml/activity_perfil_tatuador_xml_gallery_layout_scene"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.259"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/gridbutton"
             tools:ignore="MissingConstraints">
 
-            <GridView
-                android:id="@+id/gallery_gridview"
-                android:layout_width="326dp"
-                android:layout_height="252dp"
-                android:columnWidth="100dp"
-                android:focusableInTouchMode="true"
-                android:numColumns="3"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
+            <ScrollView
+                android:id="@+id/scrollView2"
+                android:layout_width="380dp"
+                android:layout_height="144dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                tools:layout_editor_absoluteY="10dp">
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                <GridView
+                    android:id="@+id/gallery_gridview"
+                    android:layout_width="329dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="28dp"
+                    android:columnWidth="100dp"
+                    android:focusableInTouchMode="true"
+                    android:numColumns="3"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.51"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </ScrollView>
+        </androidx.constraintlayout.motion.widget.MotionLayout>
 
         <Button
             android:id="@+id/edit_profile_button"
             android:layout_width="110dp"
             android:layout_height="40dp"
-            android:layout_marginTop="52dp"
             android:background="@drawable/button_background4"
             android:fontFamily="@font/roboto_medium"
             android:text="@string/edit_profile"
             android:textColor="@color/button_default_color"
             android:textSize="12sp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/gallery_layout"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.635"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.242" />
+            app:layout_constraintHorizontal_bias="0.21"
+            app:layout_constraintStart_toEndOf="@+id/gridbutton"
+            app:layout_constraintTop_toBottomOf="@+id/userTelefono"
+            app:layout_constraintVertical_bias="0.35" />
 
         <Spinner
             android:id="@+id/categoria"
-            android:layout_width="wrap_content"
-            android:layout_height="43dp"
-            android:backgroundTint="@color/button_default_color"
+            android:layout_width="94dp"
+            android:layout_height="39dp"
+            android:background="@drawable/about_container_background"
+            android:backgroundTint="@color/black"
             android:entries="@array/categoriaopciones"
+            android:fontFamily="@font/roboto_medium"
             app:layout_constraintBottom_toTopOf="@+id/gallery_layout"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.945"
+            app:layout_constraintHorizontal_bias="0.946"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/edit_profile_button"
-            app:layout_constraintVertical_bias="0.975" />
+            app:layout_constraintVertical_bias="0.0" />
 
         <Button
             android:id="@+id/add_photo_button"
@@ -160,15 +173,19 @@
             android:id="@+id/gridbutton"
             android:layout_width="150dp"
             android:layout_height="40dp"
-            android:layout_marginTop="80dp"
+            android:layout_marginTop="124dp"
             android:background="@drawable/button_background4"
             android:fontFamily="@font/roboto_medium"
             android:text="@string/subir_fotos"
             android:textColor="@color/button_default_color"
             app:layout_constraintEnd_toStartOf="@+id/categoria"
-            app:layout_constraintHorizontal_bias="0.125"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/user_bio_label" />
 
+
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
 </ScrollView>

@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="SpinnerTextStyle" parent="android:Widget.TextView.SpinnerItem">
-        <item
-            name="android:textColor">#FFFFFF
-        </item>
-        <!-- Establece el color del texto en blanco -->
+    <style name="CategoriaOpcionesStyle" parent="android:Widget.TextView.SpinnerItem">
+            <item name="android:textColor">#9C27B0</item>
+        <item name="actionBarItemBackground">@drawable/about_container_background</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">@font/roboto_medium</item>
+        <item name="android:padding">10dp</item>
+
+
     </style>
 </resources>

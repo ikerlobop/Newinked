@@ -79,6 +79,8 @@
     <string name="ubicacionnn">Ubicación</string>
     <string name="nom">Nombre</string>
     <string name="e" />
+    <string name="explora">Explora...</string>
+    <string name="click_en_la_foto_para_ver_el_perfil_del_tatuador">Click en la foto para ver el perfil del tatuador</string>
     <string-array name="categoriaopciones">
         <item>Lineal</item>
         <item>Floral</item>

@@ -10,37 +10,39 @@
 
     <TextView
         android:id="@+id/titleTextView"
-        android:layout_width="229dp"
-        android:layout_height="55dp"
+        android:layout_width="251dp"
+        android:layout_height="90dp"
         android:background="@drawable/about_container_background"
         android:fontFamily="@font/roboto_medium"
-        android:text="Explora..."
+        android:padding="16dp"
+        android:text="@string/explora"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textColor="#FF1B9C"
         android:textSize="40sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.031"
+        app:layout_constraintHorizontal_bias="0.164"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.023" />
+        app:layout_constraintVertical_bias="0.024" />
 
     <Spinner
         android:id="@+id/categorySpinner"
         android:layout_width="338dp"
         android:layout_height="53dp"
+        android:backgroundTint="@color/button_default_color"
         android:foreground="@drawable/about_textview_background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.487"
+        app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.129" />
+        app:layout_constraintVertical_bias="0.176" />
 
     <GridView
         android:id="@+id/photoGridView"
-        android:layout_width="277dp"
-        android:layout_height="375dp"
+        android:layout_width="280dp"
+        android:layout_height="392dp"
         android:background="@drawable/about_textview_background"
         android:numColumns="3"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -55,7 +57,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/roboto_medium"
-        android:text="Click en la foto para ver el perfil del tatuador"
+        android:text="@string/click_en_la_foto_para_ver_el_perfil_del_tatuador"
+        android:padding="16dp"
         android:textColor="@color/button_default_color"
         app:layout_constraintBottom_toTopOf="@+id/photoGridView"
         app:layout_constraintEnd_toEndOf="parent"

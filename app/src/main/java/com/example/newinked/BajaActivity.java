@@ -1,5 +1,6 @@
 package com.example.newinked;
 
+import android.animation.ValueAnimator;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -36,6 +38,11 @@ public class BajaActivity extends AppCompatActivity {
         setContentView(R.layout.baja_activity);
 
         mAuth = FirebaseAuth.getInstance();
+
+        LottieAnimationView animationView = findViewById(R.id.sad);
+        animationView.setAnimation(R.raw.sad);
+        animationView.setRepeatCount(ValueAnimator.INFINITE); // repite indefinidamente el loading
+        animationView.playAnimation();
 
         emailEditText = findViewById(R.id.editTextTextEmailAddress);
         passwordEditText = findViewById(R.id.editTextTextPassword);

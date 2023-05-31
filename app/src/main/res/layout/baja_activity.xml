@@ -3,84 +3,147 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/common_google_signin_btn_text_light_pressed">
 
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="103dp"
+        android:layout_height="80dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.461"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.133"
+        app:srcCompat="@drawable/flor1" />
 
     <TextView
-        android:id="@+id/textView2"
-        android:layout_width="161dp"
-        android:layout_height="39dp"
-        android:layout_marginTop="172dp"
+        android:id="@+id/tvIntroduceEmail"
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="200dp"
+        android:background="@drawable/about_container_background"
+        android:fontFamily="@font/roboto_medium"
+        android:padding="10dp"
         android:text="Introduce tu email"
+        android:textColor="@color/button_default_color"
+        app:layout_constraintBottom_toTopOf="@+id/editTextTextEmailAddress"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.473"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/editTextTextEmailAddress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="252dp"
+        android:background="@drawable/about_container_background"
         android:ems="10"
+        android:fontFamily="@font/roboto_medium"
         android:inputType="textEmailAddress"
+        android:padding="10dp"
+        android:textColor="@color/button_default_color"
+        android:textColorHint="@color/button_default_color"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.473"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/editTextTextPassword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="308dp"
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="356dp"
+        android:background="@drawable/about_container_background"
         android:ems="10"
+        android:fontFamily="@font/roboto_medium"
         android:inputType="textPassword"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:padding="10dp"
+        android:textColor="@color/button_default_color"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/bajaButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.473"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView3"
-        android:layout_width="159dp"
+        android:id="@+id/tvIntroduceContrasena"
+        android:layout_width="200dp"
         android:layout_height="40dp"
-        android:text="Introduce tu contraseña"
+        android:layout_marginTop="304dp"
+        android:background="@drawable/about_container_background"
+        android:fontFamily="@font/roboto_medium"
+        android:padding="10dp"
+        android:text="@string/introduce_tu_contrase_a"
+        android:textColor="@color/button_default_color"
         app:layout_constraintBottom_toTopOf="@+id/editTextTextPassword"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.473"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextEmailAddress"
-        app:layout_constraintVertical_bias="0.564" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView4"
-        android:layout_width="238dp"
-        android:layout_height="90dp"
-        android:text="Lamentamos tu decisión esperamos volver a verte pronto"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="222dp"
+        android:layout_height="119dp"
+        android:layout_marginTop="504dp"
+        android:background="@drawable/about_textview_background"
+        android:fontFamily="@font/dm_sans_medium"
+        android:padding="10dp"
+        android:text="@string/lamentamos_tu_decisi_n_esperamos_volver_a_verte_pronto"
+        android:textColor="@color/button_default_color"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.518"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/lblBaja"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Baja de Usuario"
-        app:layout_constraintBottom_toTopOf="@+id/textView2"
+        android:fontFamily="@font/dm_sans_medium"
+        android:text="@string/bajja"
+        android:textColor="#FF1B9C"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.522" />
+        app:layout_constraintVertical_bias="0.057" />
 
     <Button
         android:id="@+id/bajaButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="404dp"
+        android:background="@drawable/button_background4"
+        android:fontFamily="@font/roboto_medium"
         android:text="Baja"
+        android:textColor="@color/button_default_color"
         app:layout_constraintBottom_toTopOf="@+id/textView4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.102" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/sad"
+        android:layout_width="89dp"
+        android:layout_height="72dp"
+        android:adjustViewBounds="true"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword"
-        app:layout_constraintVertical_bias="0.467" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.984"
+        app:lottie_rawRes="@raw/sad"
+        tools:visibility="visible" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

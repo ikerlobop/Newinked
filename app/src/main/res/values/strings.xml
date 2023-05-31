@@ -81,6 +81,10 @@
     <string name="e" />
     <string name="explora">Explora...</string>
     <string name="click_en_la_foto_para_ver_el_perfil_del_tatuador">Click en la foto para ver el perfil del tatuador</string>
+    <string name="lamentamos_tu_decisi_n_esperamos_volver_a_verte_pronto">Lamentamos tu decisión esperamos volver a verte pronto</string>
+    <string name="introduce_tu_contrase_a">Introduce tu contraseña</string>
+    <string name="baja">BAJA</string>
+    <string name="bajja">BAJA DE LA CUENTA</string>
     <string-array name="categoriaopciones">
         <item>Lineal</item>
         <item>Floral</item>

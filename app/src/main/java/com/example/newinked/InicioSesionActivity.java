@@ -19,7 +19,7 @@ public class InicioSesionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.iniciosesion_activity);
 
-        lottieAnimationView = findViewById(R.id.personlogin2);
+        lottieAnimationView = findViewById(R.id.load);
         lottieAnimationView.setAnimation(R.raw.personlogin);
         lottieAnimationView.playAnimation();
         lottieAnimationView.setRepeatCount(LottieDrawable.INFINITE);

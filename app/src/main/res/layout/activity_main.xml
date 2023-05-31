@@ -15,6 +15,7 @@
         android:orientation="vertical"
         tools:ignore="UselessParent">
 
+
         <TextView
             android:id="@+id/tvAbout"
             android:layout_width="wrap_content"
@@ -28,11 +29,10 @@
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.935"
+            app:layout_constraintHorizontal_bias="0.87"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/loginButtonUsuario"
             app:layout_constraintVertical_bias="0.87" />
-
 
         <Button
             android:id="@+id/loginButtonUsuario"
@@ -56,20 +56,19 @@
 
         <Button
             android:id="@+id/baja"
-            android:layout_width="169dp"
-            android:layout_height="44dp"
-            android:background="@drawable/edittext_background"
-            android:backgroundTint="#FF1B9C"
+            android:layout_width="155dp"
+            android:layout_height="39dp"
+            android:background="@drawable/about_textview_background"
             android:fontFamily='@font/roboto_medium'
             android:text="Borrar cuenta"
-            android:textColor="#FFFFFF"
+            android:textColor="#FF1B9C"
             android:textSize="18sp"
-            app:layout_constraintBottom_toTopOf="@+id/tvAbout"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.152"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/tvAbout"
+            app:layout_constraintHorizontal_bias="0.666"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0"
+            app:layout_constraintVertical_bias="0.972"
             tools:layout_conversion_absoluteHeight="48dp"
             tools:layout_conversion_absoluteWidth="379dp" />
 

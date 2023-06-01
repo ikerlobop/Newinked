@@ -21,7 +21,7 @@ public class RecuperarContrasenaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recuperar_contrasena);
 
-        // Establecer la animación de carga en la pantalla de bienvenida
+        //Lottie
         LottieAnimationView animationView = findViewById(R.id.passwordLottie);
         animationView.setAnimation(R.raw.password);
         animationView.setRepeatCount(ValueAnimator.INFINITE); // repite indefinidamente el loading

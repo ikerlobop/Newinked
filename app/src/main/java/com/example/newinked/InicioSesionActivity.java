@@ -24,11 +24,11 @@ public class InicioSesionActivity extends AppCompatActivity {
         lottieAnimationView.playAnimation();
         lottieAnimationView.setRepeatCount(LottieDrawable.INFINITE);
 
-        // Buscamos nuestras vistas usando sus IDs
+
         btnUsuario2 = findViewById(R.id.btnUsuario2);
         btnTatuador2 = findViewById(R.id.btnTatuador2);
 
-        // Definimos los listeners para nuestros botones
+        //Se define aqui el listener para los botones
         btnUsuario2.setOnClickListener(view -> {
             Intent intent = new Intent(InicioSesionActivity.this, LoginUsuario.class);
             startActivity(intent);

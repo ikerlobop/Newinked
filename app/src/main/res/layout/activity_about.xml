@@ -76,7 +76,7 @@
             android:fontFamily="@font/dm_sans_medium"
             android:padding="16dp"
             android:text="@string/inkfinder"
-            android:textAlignment="textStart"
+            android:textAlignment="center"
             android:textAllCaps="false"
             android:textColor="@color/material_dynamic_neutral99"
             android:textSize="18sp" />

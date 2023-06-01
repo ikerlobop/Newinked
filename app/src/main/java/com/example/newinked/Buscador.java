@@ -79,19 +79,23 @@ public class Buscador extends AppCompatActivity {
                         if (categorySpinner.getSelectedItem().toString().equals("Todos")) {
                             // Agregar todas las imágenes sin filtrar
                             imageUrls.add(imageUrl);
+                            tatuadorNombres.add(tatuadorNombre);
+                            tatuadorUbicacions.add(tatuadorUbicacion);
+                            tatuadorEmails.add(tatuadorEmail);
+                            tatuadorTelefonos.add(tatuadorTelefono);
                         } else {
                             // Filtrar por estilo seleccionado en el Spinner
                             String estiloSeleccionado = categorySpinner.getSelectedItem().toString();
                             String estilo = imageSnapshot.child("estilo").getValue(String.class);
                             if (estiloSeleccionado.equals(estilo)) {
-                                imageUrls.add(imageUrl);
+                                  imageUrls.add(imageUrl);
+                                  tatuadorNombres.add(tatuadorNombre);
+                                  tatuadorUbicacions.add(tatuadorUbicacion);
+                                  tatuadorEmails.add(tatuadorEmail);
+                                  tatuadorTelefonos.add(tatuadorTelefono);
+
                             }
                         }
-
-                        tatuadorNombres.add(tatuadorNombre);
-                        tatuadorUbicacions.add(tatuadorUbicacion);
-                        tatuadorEmails.add(tatuadorEmail);
-                        tatuadorTelefonos.add(tatuadorTelefono);
                     }
                 }
 

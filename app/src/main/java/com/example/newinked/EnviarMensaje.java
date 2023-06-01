@@ -1,8 +1,11 @@
 package com.example.newinked;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.location.Address;
 import android.location.Geocoder;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.widget.Button;
@@ -105,37 +108,44 @@ public class EnviarMensaje extends AppCompatActivity {
 
     }
     private void enviarMensaje() {
-        // Obtenemos  el mensaje del EditText, trim para eliminar espacios en blanco
+        String tatuadorEmail = getIntent().getStringExtra("email");
         String mensaje = mensajeEditText.getText().toString().trim();
 
-        // Verificamos si el mensaje no está vacío
         if (!mensaje.isEmpty()) {
-            // Generamos un nuevo ID para el mensaje
             String mensajeId = mensajesRef.push().getKey();
-
-            // Guardamos el mensaje en la base de datos
             assert mensajeId != null;
             mensajesRef.child(mensajeId).setValue(mensaje);
 
-            // abre correo de movil gmail
-            String[] TO = {getIntent().getStringExtra("email")};
-            String[] CC = {""};
-            Intent emailIntent = new Intent(Intent.ACTION_SEND);
-
-            emailIntent.setData(android.net.Uri.parse("mailto:"));
-            emailIntent.setType("text/plain");
-            emailIntent.putExtra(Intent.EXTRA_EMAIL, TO);
-            emailIntent.putExtra(Intent.EXTRA_CC, CC);
+            // Abrir el correo de Gmail en el dispositivo móvil
+            Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
+            emailIntent.setData(Uri.parse("mailto:" + tatuadorEmail));
             emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Mensaje de NewInked");
 
-            Toast.makeText(this, "Mensaje enviado", Toast.LENGTH_SHORT).show();
+            PackageManager packageManager = getPackageManager();
+            List<ResolveInfo> activities = packageManager.queryIntentActivities(emailIntent, 0);
+            boolean isGmailInstalled = false;
+
+            for (ResolveInfo activity : activities) {
+                if (activity.activityInfo.packageName.toLowerCase().contains("com.google.android.gm")) {
+                    emailIntent.setClassName(activity.activityInfo.packageName, activity.activityInfo.name);
+                    isGmailInstalled = true;
+                    break;
+                }
+            }
+
+            if (isGmailInstalled) {
+                startActivity(emailIntent);
+                Toast.makeText(this, "Mensaje enviado", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "La aplicación de Gmail no está instalada", Toast.LENGTH_SHORT).show();
+            }
 
             mensajeEditText.setText("");
         } else {
-
             Toast.makeText(this, "Escribe un mensaje", Toast.LENGTH_SHORT).show();
         }
-
     }
+
+
 }
 

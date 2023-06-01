@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -42,12 +43,18 @@ public class PerfilTatuador extends AppCompatActivity {
     private Button saveButton;
     private GridView gridView;
     private Spinner spinner;
+
+
+    //private Button perfilButton;
     private DatabaseReference mDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_perfil_tatuador);
+
+        ImageView userProfileImage = findViewById(R.id.user_profile_image);
+        userProfileImage.setImageResource(R.drawable.image);
 
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -71,6 +78,7 @@ public class PerfilTatuador extends AppCompatActivity {
                         bioEditText = findViewById(R.id.user_bio_label);
                         telefonoEditText = findViewById(R.id.userTelefono);
                         spinner = findViewById(R.id.categoria);
+                       // perfilButton = findViewById(R.id.add_photo_button);
 
                         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(PerfilTatuador.this, R.array.categoriaopciones, R.layout.spinner_item_preview);
                         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -86,6 +94,16 @@ public class PerfilTatuador extends AppCompatActivity {
                         nombreEditText.setText(nombre);
                         bioEditText.setText(bio);
                         telefonoEditText.setText(telefono);
+
+                        /* Manejar el clic del botón "Perfil"
+                        perfilButton.setOnClickListener(v -> {
+                            //abre galeria local del movil
+                            Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                            startActivityForResult(intent, REQUEST_SELECT_IMAGE);
+                            //la sube a la base de datos
+                            //la muestra en el perfil
+                            imageView.setImageURI(data.getData());
+                        });*/
 
                         // Manejar el clic del botón "Guardar"
                         saveButton = findViewById(R.id.edit_profile_button);

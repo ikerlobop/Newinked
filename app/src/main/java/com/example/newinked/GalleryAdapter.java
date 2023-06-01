@@ -70,7 +70,7 @@ public class GalleryAdapter extends BaseAdapter {
         String imageUrl = imageUrls.get(position);
         Picasso.get().load(imageUrl).into(viewHolder.imageView);
 
-        viewHolder.imageUrl = imageUrl; // Guardar la URL en el campo imageUrl del ViewHolder
+        viewHolder.imageUrl = imageUrl;
 
         viewHolder.imageView.setOnTouchListener(new View.OnTouchListener() {
             private boolean isLongPress = false;
@@ -80,13 +80,13 @@ public class GalleryAdapter extends BaseAdapter {
             public boolean onTouch(View v, MotionEvent event) {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
-                        // Iniciar un retraso de 5 segundos para borrar la imagen
+                        // Borra imagen con long press
                         isLongPress = false;
                         handler.postDelayed(longPressRunnable, 5000);
                         v.animate().scaleX(1.8f).scaleY(1.8f).setDuration(100).start();
                         break;
                     case MotionEvent.ACTION_UP:
-                        // Cancelar el retraso y restablecer la escala
+                        // Reescala
                         if (!isLongPress) {
                             handler.removeCallbacks(longPressRunnable);
                             v.animate().scaleX(1.0f).scaleY(1.0f).setDuration(100).start();
@@ -118,11 +118,11 @@ public class GalleryAdapter extends BaseAdapter {
 
                             @Override
                             public void onCancelled(@NonNull DatabaseError databaseError) {
-                                // Manejo de errores en caso de que la consulta sea cancelada
+                                Toast.makeText(context, "Error al borrar la imagen", Toast.LENGTH_SHORT).show();
                             }
                         });
 
-                        // Borrar en Firebase Firestore
+                        //borrado con firestore
                         FirebaseFirestore firestore = FirebaseFirestore.getInstance();
                         CollectionReference galleryRef = firestore.collection("gallery");
                         com.google.firebase.firestore.Query firestoreQuery = galleryRef.whereEqualTo("imageUrl", imageUrlToRemove);
@@ -131,7 +131,7 @@ public class GalleryAdapter extends BaseAdapter {
                                 QueryDocumentSnapshot document = (QueryDocumentSnapshot) task.getResult().getDocuments().get(0);
                                 document.getReference().delete();
                             } else {
-                                // Manejar error al obtener los documentos de Firestore o si no hay documentos encontrados
+                                Toast.makeText(context, "Error al borrar la imagen", Toast.LENGTH_SHORT).show();
                             }
                         });
 

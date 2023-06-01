@@ -30,13 +30,11 @@ public class PerfilTatuadorDesdeCliente extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.perfil_tatuador_desde_cliente);
 
-        // Obtener los datos pasados por el intent
         String tatuadorNombre = getIntent().getStringExtra("nombre");
         String tatuadoUbicacion = getIntent().getStringExtra("ubicacion");
         String tatuadorEmail = getIntent().getStringExtra("email");
         String tatuadorTelefono = getIntent().getStringExtra("telefono");
 
-        // Enlazar las vistas
         ImageView imageViewPhoto = findViewById(R.id.imageView7);
         TextView textViewName = findViewById(R.id.textViewName);
         TextView textViewEmail = findViewById(R.id.textViewEmail);
@@ -58,13 +56,11 @@ public class PerfilTatuadorDesdeCliente extends AppCompatActivity {
 
         // Inicializar el geocoder
         geocoder = new Geocoder(this);
-
-        // Enlazar el mapa
         mapView = findViewById(R.id.mapView);
         mapView.setTileSource(TileSourceFactory.MAPNIK);
         mapView.setMultiTouchControls(true);
 
-        // Mostrar la ubicación de la provincia en el mapa
+        //Se muestra la ubicación del tatuador en el mapa
         GeoPoint provinceLocation = obtenerUbicacionProvincia(tatuadoUbicacion);
         mapView.getController().setCenter(provinceLocation);
         mapView.getController().setZoom(15.0);

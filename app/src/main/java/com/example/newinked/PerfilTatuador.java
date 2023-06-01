@@ -27,7 +27,9 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 public class PerfilTatuador extends AppCompatActivity {
@@ -40,7 +42,6 @@ public class PerfilTatuador extends AppCompatActivity {
     private Button saveButton;
     private GridView gridView;
     private Spinner spinner;
-
     private DatabaseReference mDatabase;
 
     @Override
@@ -53,6 +54,7 @@ public class PerfilTatuador extends AppCompatActivity {
 
         // Obtener el usuario actual
         FirebaseUser user = mAuth.getCurrentUser();
+
 
         // Crear la consulta para buscar el tatuador por email
         assert user != null;
@@ -68,7 +70,7 @@ public class PerfilTatuador extends AppCompatActivity {
                         nombreEditText = findViewById(R.id.user_name_label);
                         bioEditText = findViewById(R.id.user_bio_label);
                         telefonoEditText = findViewById(R.id.userTelefono);
-                        Spinner spinner = findViewById(R.id.categoria);
+                        spinner = findViewById(R.id.categoria);
 
                         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(PerfilTatuador.this, R.array.categoriaopciones, R.layout.spinner_item_preview);
                         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -148,24 +150,38 @@ public class PerfilTatuador extends AppCompatActivity {
                     DataSnapshot tatuadorSnapshot = dataSnapshot.getChildren().iterator().next();
                     DatabaseReference tatuadorRef = tatuadorSnapshot.getRef();
 
-                    // Obtener la referencia a las imágenes del tatuador
+                    // Obtener la referencia dentro de "imagenes" a la key "imageUrl"
                     DatabaseReference imagenesRef = tatuadorRef.child("imagenes");
 
-                    // Escuchar los cambios en las imágenes del tatuador
                     imagenesRef.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             List<String> imageUrls = new ArrayList<>();
 
                             // Obtener todas las URLs de las imágenes del tatuador
-                            for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                                String imageUrl = snapshot.getValue(String.class);
-                                imageUrls.add(imageUrl);
-                            }
+                            for (DataSnapshot childSnapshot : dataSnapshot.getChildren()) {
+                                String key = childSnapshot.getKey();
+                                DatabaseReference imageUrlRef = imagenesRef.child(key).child("imageUrl");
+                                imageUrlRef.addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        String imageUrl = snapshot.getValue(String.class);
+                                        if (imageUrl != null) {
+                                            imageUrls.add(imageUrl);
+                                        }
 
-                            // Configurar el adaptador del GridView con las imágenes del tatuador
-                            GalleryAdapter adapter = new GalleryAdapter(PerfilTatuador.this, imageUrls);
-                            gridView.setAdapter(adapter);
+                                        // Configurar el adaptador del GridView con las imágenes del tatuador
+                                        GalleryAdapter adapter = new GalleryAdapter(PerfilTatuador.this, imageUrls);
+                                        gridView.setAdapter(adapter);
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+                                        // Error en la consulta de la base de datos
+                                        Toast.makeText(PerfilTatuador.this, "Error en la consulta de la base de datos", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                            }
                         }
 
                         @Override
@@ -184,6 +200,7 @@ public class PerfilTatuador extends AppCompatActivity {
             }
         });
     }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -231,8 +248,17 @@ public class PerfilTatuador extends AppCompatActivity {
 
                                             // Guardar la URL de descarga de la imagen en la base de datos
                                             String imageUrl = downloadUri.toString();
+                                            String estilo = spinner.getSelectedItem().toString();
+
                                             DatabaseReference imagenesRef = tatuadorRef.child("imagenes");
-                                            imagenesRef.push().setValue(imageUrl);
+                                            String key = imagenesRef.push().getKey();
+
+                                            Map<String, Object> imageData = new HashMap<>();
+                                            imageData.put("imageUrl", imageUrl);
+                                            imageData.put("estilo", estilo);
+
+                                            assert key != null;
+                                            imagenesRef.child(key).setValue(imageData);
 
                                             // Actualizar la interfaz de usuario con la nueva imagen en el GridView
                                             setupGalleryGridView();

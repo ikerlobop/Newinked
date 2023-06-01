@@ -2,6 +2,8 @@ package com.example.newinked;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.Spinner;
@@ -19,7 +21,6 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
-
 public class Buscador extends AppCompatActivity {
 
     private GridView photoGridView;
@@ -39,13 +40,26 @@ public class Buscador extends AppCompatActivity {
         adapter.setDropDownViewResource(R.layout.spinner_item);
         categorySpinner.setAdapter(adapter);
 
+        // Agregar el listener al Spinner
+        categorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                updateGridView(); // Llamar al método para actualizar la vista cuando se seleccione una opción en el Spinner
+            }
 
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference reference = database.getReference("tatuadores");
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+    }
+
+    private void updateGridView() {
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("tatuadores");
 
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Spinner categorySpinner = findViewById(R.id.categorySpinner);
                 List<String> imageUrls = new ArrayList<>();
                 List<String> tatuadorNombres = new ArrayList<>();
                 List<String> tatuadorUbicacions = new ArrayList<>();
@@ -57,9 +71,23 @@ public class Buscador extends AppCompatActivity {
                     String tatuadorEmail = tatuadorSnapshot.child("email").getValue(String.class);
                     String tatuadorUbicacion = tatuadorSnapshot.child("ubicacion").getValue(String.class);
                     String tatuadorTelefono = tatuadorSnapshot.child("telefono").getValue(String.class);
+
+                    // Buscamos por estilo de tatuaje dentro de imagenes en el estilo con hashmap key
                     for (DataSnapshot imageSnapshot : tatuadorSnapshot.child("imagenes").getChildren()) {
-                        String imageUrl = imageSnapshot.getValue(String.class);
-                        imageUrls.add(imageUrl);
+                        String imageUrl = imageSnapshot.child("imageUrl").getValue(String.class);
+                        // Si el estilo es igual al seleccionado en el Spinner, se añaden las imágenes
+                        if (categorySpinner.getSelectedItem().toString().equals("Todos")) {
+                            // Agregar todas las imágenes sin filtrar
+                            imageUrls.add(imageUrl);
+                        } else {
+                            // Filtrar por estilo seleccionado en el Spinner
+                            String estiloSeleccionado = categorySpinner.getSelectedItem().toString();
+                            String estilo = imageSnapshot.child("estilo").getValue(String.class);
+                            if (estiloSeleccionado.equals(estilo)) {
+                                imageUrls.add(imageUrl);
+                            }
+                        }
+
                         tatuadorNombres.add(tatuadorNombre);
                         tatuadorUbicacions.add(tatuadorUbicacion);
                         tatuadorEmails.add(tatuadorEmail);
@@ -71,15 +99,15 @@ public class Buscador extends AppCompatActivity {
                 imageAdapter = new ImageAdapter(Buscador.this, imageUrls);
                 photoGridView.setAdapter(imageAdapter);
 
-                // Configuramos el listener para cuando se haga click en una imagen
+                // Configuramos el listener para cuando se haga clic en una imagen
                 photoGridView.setOnItemClickListener((parent, view, position, id) -> {
                     String ubicacion = tatuadorUbicacions.get(position);
                     String tatuadorNombre = tatuadorNombres.get(position);
                     String email = tatuadorEmails.get(position);
                     String telefono = tatuadorTelefonos.get(position);
 
-                    //lanzamos intent con los datos para pasar a la siguiente activity
-                    Intent intent = new Intent(Buscador.this,PerfilTatuadorDesdeCliente.class);
+                    // Lanzamos intent con los datos para pasar a la siguiente activity
+                    Intent intent = new Intent(Buscador.this, PerfilTatuadorDesdeCliente.class);
                     intent.putExtra("nombre", tatuadorNombre);
                     intent.putExtra("email", email);
                     intent.putExtra("ubicacion", ubicacion);
@@ -88,7 +116,6 @@ public class Buscador extends AppCompatActivity {
                 });
             }
 
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 Toast.makeText(Buscador.this, "Error al cargar las imágenes", Toast.LENGTH_SHORT).show();
@@ -96,6 +123,12 @@ public class Buscador extends AppCompatActivity {
         });
     }
 }
+
+
+
+
+
+
 
 
 

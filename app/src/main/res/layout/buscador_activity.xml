@@ -40,25 +40,29 @@
         app:layout_constraintVertical_bias="0.176" />
 
     <GridView
+
         android:id="@+id/photoGridView"
-        android:layout_width="280dp"
-        android:layout_height="392dp"
+        android:layout_width="336dp"
+        android:layout_height="405dp"
         android:background="@drawable/about_textview_background"
         android:numColumns="3"
+        android:columnWidth="100dp"
+        android:horizontalSpacing="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.485"
+        app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/categorySpinner"
-        app:layout_constraintVertical_bias="0.656" />
+        app:layout_constraintVertical_bias="1.0"
 
+        />
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/roboto_medium"
-        android:text="@string/click_en_la_foto_para_ver_el_perfil_del_tatuador"
         android:padding="16dp"
+        android:text="@string/click_en_la_foto_para_ver_el_perfil_del_tatuador"
         android:textColor="@color/button_default_color"
         app:layout_constraintBottom_toTopOf="@+id/photoGridView"
         app:layout_constraintEnd_toEndOf="parent"

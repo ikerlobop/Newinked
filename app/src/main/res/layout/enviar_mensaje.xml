@@ -9,8 +9,8 @@
 
     <TextView
         android:id="@+id/textViewRecipient2"
-        android:layout_width="94dp"
-        android:layout_height="38dp"
+        android:layout_width="91dp"
+        android:layout_height="27dp"
         android:layout_marginStart="16dp"
         android:background="@drawable/about_container_background"
         android:fontFamily="@font/dm_sans_medium"
@@ -30,16 +30,17 @@
         android:textColor="@color/button_default_color"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.114"
         app:layout_constraintStart_toEndOf="@+id/textViewRecipient2"
         app:layout_constraintTop_toBottomOf="@+id/textViewRecipientName" />
 
     <TextView
         android:id="@+id/textViewRecipient"
-        android:layout_width="153dp"
-        android:layout_height="49dp"
+        android:layout_width="150dp"
+        android:layout_height="28dp"
         android:background="@drawable/about_textview_background"
         android:fontFamily="@font/dm_sans_medium"
+        android:gravity="top"
         android:text="Enviar mensaje a: "
         android:textColor="@color/button_default_color"
         android:textSize="18sp"
@@ -73,8 +74,10 @@
         android:hint="Escribe tu mensaje..."
         android:inputType="textMultiLine"
         android:maxLines="5"
+        android:textAlignment="viewStart"
         android:textColor="@color/button_default_color"
         android:textColorHint="@color/button_default_color"
+        android:gravity="top"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.482"

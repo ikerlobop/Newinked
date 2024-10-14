@@ -1,6 +1,6 @@
 {
   "project_info": {
-    "project_number": "954661881407",
+    "project_number": "",
     "firebase_url": "https://inkfinder-cbfd4-default-rtdb.europe-west1.firebasedatabase.app",
     "project_id": "inkfinder-cbfd4",
     "storage_bucket": "inkfinder-cbfd4.appspot.com"
@@ -8,27 +8,27 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:954661881407:android:b78562a49f2266cdb9da8a",
+        "mobilesdk_app_id": "",
         "android_client_info": {
           "package_name": "com.example.newinked"
         }
       },
       "oauth_client": [
         {
-          "client_id": "954661881407-7mseaior7jb37alsa27mqrp29f9ut6in.apps.googleusercontent.com",
+          "client_id": "",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyC4Aw4O-3XUiV5iqgVydUaZdHSrHeb94Po"
+          "current_key": ""
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "954661881407-7mseaior7jb37alsa27mqrp29f9ut6in.apps.googleusercontent.com",
+              "client_id": "",
               "client_type": 3
             }
           ]
